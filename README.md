@@ -1,7 +1,6 @@
 # freeCarts
 Free cart management for discords where 'free carts' are available. Stops multiple people accessing a cart. 
 
-Before you start using **Discordia**, you will need to make a new Discord bot application. If you already have one, you can skip to [[Installing Discordia]].
 
 ## Creating Discord Applications 
 ### Step 1: Navigate to /developers/applications
