@@ -1,5 +1,6 @@
 # freeCarts
 Free cart management for discords where 'free carts' are available. Stops multiple people accessing a cart. 
+![demo](https://i.imgur.com/aBJzKzx.png)
 
 
 ## Creating Discord Applications 
