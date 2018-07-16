@@ -1,5 +1,13 @@
 # freeCarts
 Free cart management for discords where 'free carts' are available. Stops multiple people accessing a cart. 
+- [x] Splashforce
+- [x] yCopp account links
+- [ ] yCopp cookies
+- [ ] LatchKey
+- [ ] adisplash
+- [ ] NoMercy
+- [ ] Gen5
+
 ![demo](https://i.imgur.com/aBJzKzx.png)
 
 
