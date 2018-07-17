@@ -86,12 +86,62 @@ bot.on("message", message => {
                 writeCart(cartNum, email, pass, loginURL, img, size, sku)
 
             }
+            else if (e.footer.text === "LatchKeyIO Adidas Bot") {
+                size = (e.fields)[2]['value']
+                email = (e.fields)[4]['value']
+                pass = (e.fields)[5]['value']
+
+                /* emailPass = e.description */
+                loginURL = e.url
+                img = e.thumbnail.url
+                sku = (e.fields)[1]['value']
+                console.log("Size: " + size)
+                console.log("Email:Pass : " + email + ":" + pass)
+                console.log("Login link: " + loginURL)
+                console.log("Image: " + img)
+                const embed = new Discord.RichEmbed()
+                    .setColor(0x00FF00)
+                    .setTimestamp()
+                    .setDescription(`Size: ${size} \nSKU: ${sku}`)
+                    .setFooter(`Cart: # ${cartNum}`)
+                    .setThumbnail(img)
+                guild.channels.get(publicChannel).send({
+                    embed
+                });
+                writeCart(cartNum, email, pass, loginURL, img, size, sku)
+
+            }
+            else if (e.footer.text === "Copyright BackdoorIO 2018, All Rights Reserved.") {
+                size = (e.fields)[1]['value']
+                userPass = (e.fields)[2]['value']
+                email = (userPass).split(" ")[1].split("\n")[0]
+                pass = (userPass).split(": ")[2]
+
+                /* emailPass = e.description */
+                loginURL = (e.fields)[5]['value']
+                img = ""
+                sku = (e.fields)[0]['value']
+                console.log("Size: " + size)
+                console.log("Email:Pass : " + email + ":" + pass)
+                console.log("Login link: " + loginURL)
+                console.log("Image: " + img)
+                const embed = new Discord.RichEmbed()
+                    .setColor(0x00FF00)
+                    .setTimestamp()
+                    .setDescription(`Size: ${size} \nSKU: ${sku}`)
+                    .setFooter(`Cart: # ${cartNum}`)
+
+                guild.channels.get(publicChannel).send({
+                    embed
+                });
+                writeCart(cartNum, email, pass, loginURL, img, size, sku)
+
+            }
         })
     }
     if (message.channel.id == publicChannel) {
         message.react("🛒")
     }
-
 })
 bot.on('messageReactionAdd', (reaction, user) => {
     console.log('Reaction added; current count:', reaction.count);
@@ -115,8 +165,13 @@ bot.on('messageReactionAdd', (reaction, user) => {
                             .setTitle(`Size: ${jsonContent[i]['size']}`)
                             .setURL(jsonContent[i]['login'])
                             .setDescription(`Email: ${jsonContent[i]['email']} \nPassword: ${jsonContent[i]['pass']}`)
-                            .setThumbnail(jsonContent[i]['image'])
                             .setFooter(`Cart: # ${cartNum}`)
+                            if(jsonContent[i]['image'] != ""){
+                                embed.setThumbnail(jsonContent[i]['image'])
+                            }
+                            if(jsonContent[i]['sku'] != ""){
+                                embed.setDescription(`Email: ${jsonContent[i]['email']} \nPassword: ${jsonContent[i]['pass']} \nSku: ${jsonContent[i]['sku']}`)
+                            }
                         guild.members.get(element['id']).send({
                             embed
                         });
@@ -128,7 +183,7 @@ bot.on('messageReactionAdd', (reaction, user) => {
     }
 });
 
-function writeCart(cartNum, email, pass, loginURL, img, size) {
+function writeCart(cartNum, email, pass, loginURL, img, size, sku) {
     // Get content from file
     var contents = fs.readFileSync("carts.json");
     // Define to JSON type
@@ -139,7 +194,8 @@ function writeCart(cartNum, email, pass, loginURL, img, size) {
         'pass': pass,
         'login': loginURL,
         'image': img,
-        'size': size
+        'size': size,
+        'sku': sku
     })
     fs.writeFile("./carts.json", JSON.stringify(jsonContent, null, 4), (err) => {
         if (err) {
