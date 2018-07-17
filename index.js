@@ -55,7 +55,7 @@ bot.on("message", message => {
                     .setColor(0x00FF00)
                     .setTimestamp()
                     .setDescription(`Size: ${size}`)
-                    .setFooter(`Cart: # ${cartNum}`)
+                    .setFooter(`Cart: # ${cartNum} • Jalfrazi`, "https://pbs.twimg.com/profile_images/999669687112749056/WK1RT5lY_400x400.jpg")
                     .setThumbnail(img)
                 guild.channels.get(publicChannel).send({
                     embed
@@ -77,7 +77,7 @@ bot.on("message", message => {
                     .setColor(0x00FF00)
                     .setTimestamp()
                     .setDescription(`Size: ${size} \nSKU: ${sku}`)
-                    .setFooter(`Cart: # ${cartNum}`)
+                    .setFooter(`Cart: # ${cartNum} • Jalfrazi`, "https://pbs.twimg.com/profile_images/999669687112749056/WK1RT5lY_400x400.jpg")
 
                 guild.channels.get(publicChannel).send({
                     embed
@@ -101,7 +101,7 @@ bot.on("message", message => {
                     .setColor(0x00FF00)
                     .setTimestamp()
                     .setDescription(`Size: ${size} \nSKU: ${sku}`)
-                    .setFooter(`Cart: # ${cartNum}`)
+                    .setFooter(`Cart: # ${cartNum} • Jalfrazi`, "https://pbs.twimg.com/profile_images/999669687112749056/WK1RT5lY_400x400.jpg")
                     .setThumbnail(img)
                 guild.channels.get(publicChannel).send({
                     embed
@@ -115,7 +115,7 @@ bot.on("message", message => {
                 email = (userPass).split(" ")[1].split("\n")[0]
                 pass = (userPass).split(": ")[2]
 
-                loginURL = (e.fields)[5]['value']
+                loginURL = ((e.fields)[5]['value']).substring(10).slice(0,-1)
                 img = ""
                 sku = (e.fields)[0]['value']
                 console.log("Size: " + size)
@@ -126,7 +126,7 @@ bot.on("message", message => {
                     .setColor(0x00FF00)
                     .setTimestamp()
                     .setDescription(`Size: ${size} \nSKU: ${sku}`)
-                    .setFooter(`Cart: # ${cartNum}`)
+                    .setFooter(`Cart: # ${cartNum} • Jalfrazi`, "https://pbs.twimg.com/profile_images/999669687112749056/WK1RT5lY_400x400.jpg")
 
                 guild.channels.get(publicChannel).send({
                     embed
@@ -150,7 +150,7 @@ bot.on("message", message => {
                     .setColor(0x00FF00)
                     .setTimestamp()
                     .setDescription(`Size: ${size} \nSKU: ${sku}`)
-                    .setFooter(`Cart: # ${cartNum}`)
+                    .setFooter(`Cart: # ${cartNum} • Jalfrazi`, "https://pbs.twimg.com/profile_images/999669687112749056/WK1RT5lY_400x400.jpg")
                     .setThumbnail(img)
                 guild.channels.get(publicChannel).send({
                     embed
@@ -171,7 +171,7 @@ bot.on("message", message => {
                     .setColor(0x00FF00)
                     .setTimestamp()
                     .setDescription(`Size: ${size} \nSKU: ${sku}`)
-                    .setFooter(`Cart: # ${cartNum}`)
+                    .setFooter(`Cart: # ${cartNum} • Jalfrazi`, "https://pbs.twimg.com/profile_images/999669687112749056/WK1RT5lY_400x400.jpg")
 
                 guild.channels.get(publicChannel).send({
                     embed
@@ -194,7 +194,7 @@ bot.on('messageReactionAdd', (reaction, user) => {
             console.log(Object.keys(element)) */
             console.log(element['username'])
             console.log("user ID: " + element['id'])
-            cartID = (reaction.message.embeds[0].footer.text).split("# ")[1]
+            cartID = (reaction.message.embeds[0].footer.text).split("# ")[1].split(" • J")[0]
 
             var contents = fs.readFileSync("carts.json");
             var jsonContent = JSON.parse(contents);
@@ -207,12 +207,12 @@ bot.on('messageReactionAdd', (reaction, user) => {
                             .setTitle(`Size: ${jsonContent[i]['size']}`)
                             .setURL(jsonContent[i]['login'])
                             .setDescription(`Email: ${jsonContent[i]['email']} \nPassword: ${jsonContent[i]['pass']}`)
-                            .setFooter(`Cart: # ${cartNum}`)
+                            .setFooter(`Cart: # ${cartNum} • Jalfrazi`, "https://pbs.twimg.com/profile_images/999669687112749056/WK1RT5lY_400x400.jpg")
                             if(jsonContent[i]['image'] != ""){
                                 embed.setThumbnail(jsonContent[i]['image'])
                             }
                             if(jsonContent[i]['sku'] != ""){
-                                embed.setDescription(`Email: ${jsonContent[i]['email']} \nPassword: ${jsonContent[i]['pass']} \nSku: ${jsonContent[i]['sku']}`)
+                                embed.setDescription(`Email: ${jsonContent[i]['email']} \nPassword: ${jsonContent[i]['pass']} \nSKU: ${jsonContent[i]['sku']}`)
                             }
                         guild.members.get(element['id']).send({
                             embed
