@@ -3,7 +3,7 @@ Free cart management for discords where 'free carts' are available. Stops multip
 - [x] Splashforce
 - [x] yCopp account links
 - [ ] yCopp cookies
-- [x] LatchKey (need testing)
+- [x] LatchKey
 - [x] adisplash (need testing)
 - [ ] NoMercy
 - [ ] Gen5
