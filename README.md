@@ -44,7 +44,7 @@ You will see `Token: click to reveal` in your Bot Information Section, your Toke
 If your token does get into somebody's hands who shouldn't have it click the: **Regenerate new token** button, this will invalidate all prior tokens.
 
 ### Using your Token
-Open index.js and replace insert botToken, replacing `TOKEN` with the token received above.
+Open config.json and replace insert botToken, replacing `Bot login token` with the token received above.
 
 ## Adding Bots To Servers
 ### Generating OAuth Link
