@@ -7,6 +7,9 @@ Free cart management for discords where 'free carts' are available. Stops multip
 3. Fill in the `config.json ` file. (more instructions below)
 4. In command prompt/terminal type `node index.js`
 
+### Tips
+Make the channel that the carts are output and reacted to, one where users cannot type (no error handling)
+
 ### Compatibility
 - [x] Splashforce
 - [x] yCopp account links
