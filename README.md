@@ -7,6 +7,7 @@ Free cart management for discords where 'free carts' are available. Stops multip
 3. Fill in the `config.json ` file. (more instructions below)
 4. In command prompt/terminal type `node index.js`
 
+### Compatibility
 - [x] Splashforce
 - [x] yCopp account links
 - [ ] yCopp cookies
