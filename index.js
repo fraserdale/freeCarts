@@ -55,7 +55,7 @@ bot.on('message', message => {
                     .setColor(0x00FF00)
                     .setTimestamp()
                     .setDescription(`Size: ${size}`)
-                    .setFooter(`Cart: # ${cartNum} • Jalfrazi`, 'https://pbs.twimg.com/profile_images/999669687112749056/WK1RT5lY_400x400.jpg')
+                    .setFooter(`Cart: # ${cartNum} • Made by Jalfrazi`, 'https://pbs.twimg.com/profile_images/999669687112749056/WK1RT5lY_400x400.jpg')
                     .setThumbnail(img)
                 guild.channels.get(publicChannel).send({
                     embed
@@ -77,7 +77,7 @@ bot.on('message', message => {
                     .setColor(0x00FF00)
                     .setTimestamp()
                     .setDescription(`Size: ${size} \nSKU: ${sku}`)
-                    .setFooter(`Cart: # ${cartNum} • Jalfrazi`, 'https://pbs.twimg.com/profile_images/999669687112749056/WK1RT5lY_400x400.jpg')
+                    .setFooter(`Cart: # ${cartNum} • Made by Jalfrazi`, 'https://pbs.twimg.com/profile_images/999669687112749056/WK1RT5lY_400x400.jpg')
 
                 guild.channels.get(publicChannel).send({
                     embed
@@ -101,7 +101,7 @@ bot.on('message', message => {
                     .setColor(0x00FF00)
                     .setTimestamp()
                     .setDescription(`Size: ${size} \nSKU: ${sku}`)
-                    .setFooter(`Cart: # ${cartNum} • Jalfrazi`, 'https://pbs.twimg.com/profile_images/999669687112749056/WK1RT5lY_400x400.jpg')
+                    .setFooter(`Cart: # ${cartNum} • Made by Jalfrazi`, 'https://pbs.twimg.com/profile_images/999669687112749056/WK1RT5lY_400x400.jpg')
                     .setThumbnail(img)
                 guild.channels.get(publicChannel).send({
                     embed
@@ -126,7 +126,7 @@ bot.on('message', message => {
                     .setColor(0x00FF00)
                     .setTimestamp()
                     .setDescription(`Size: ${size} \nSKU: ${sku}`)
-                    .setFooter(`Cart: # ${cartNum} • Jalfrazi`, 'https://pbs.twimg.com/profile_images/999669687112749056/WK1RT5lY_400x400.jpg')
+                    .setFooter(`Cart: # ${cartNum} • Made by Jalfrazi`, 'https://pbs.twimg.com/profile_images/999669687112749056/WK1RT5lY_400x400.jpg')
 
                 guild.channels.get(publicChannel).send({
                     embed
@@ -150,7 +150,7 @@ bot.on('message', message => {
                     .setColor(0x00FF00)
                     .setTimestamp()
                     .setDescription(`Size: ${size} \nSKU: ${sku}`)
-                    .setFooter(`Cart: # ${cartNum} • Jalfrazi`, 'https://pbs.twimg.com/profile_images/999669687112749056/WK1RT5lY_400x400.jpg')
+                    .setFooter(`Cart: # ${cartNum} • Made by Jalfrazi`, 'https://pbs.twimg.com/profile_images/999669687112749056/WK1RT5lY_400x400.jpg')
                     .setThumbnail(img)
                 guild.channels.get(publicChannel).send({
                     embed
@@ -171,7 +171,7 @@ bot.on('message', message => {
                     .setColor(0x00FF00)
                     .setTimestamp()
                     .setDescription(`Size: ${size} \nSKU: ${sku}`)
-                    .setFooter(`Cart: # ${cartNum} • Jalfrazi`, 'https://pbs.twimg.com/profile_images/999669687112749056/WK1RT5lY_400x400.jpg')
+                    .setFooter(`Cart: # ${cartNum} • Made by Jalfrazi`, 'https://pbs.twimg.com/profile_images/999669687112749056/WK1RT5lY_400x400.jpg')
 
                 guild.channels.get(publicChannel).send({
                     embed
@@ -207,7 +207,7 @@ bot.on('messageReactionAdd', (reaction, user) => {
                             .setTitle(`Size: ${jsonContent[i]['size']}`)
                             .setURL(jsonContent[i]['login'])
                             .setDescription(`Email: ${jsonContent[i]['email']} \nPassword: ${jsonContent[i]['pass']}`)
-                            .setFooter(`Cart: # ${cartNum} • Jalfrazi`, 'https://pbs.twimg.com/profile_images/999669687112749056/WK1RT5lY_400x400.jpg')
+                            .setFooter(`Cart: # ${cartNum} • Made by Jalfrazi`, 'https://pbs.twimg.com/profile_images/999669687112749056/WK1RT5lY_400x400.jpg')
                             if(jsonContent[i]['image'] != ''){
                                 embed.setThumbnail(jsonContent[i]['image'])
                             }
