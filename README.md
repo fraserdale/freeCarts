@@ -4,7 +4,7 @@ Free cart management for discords where 'free carts' are available. Stops multip
 - [x] yCopp account links
 - [ ] yCopp cookies
 - [x] LatchKey
-- [x] adisplash (need testing)
+- [x] adisplash
 - [x] NoMercy (need testing)
 - [x] Gen5 (need testing)
 
