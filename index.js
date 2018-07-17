@@ -1,7 +1,7 @@
 var config = require('./config.json');
-const Discord = require("discord.js");
+const Discord = require('discord.js');
 const bot = new Discord.Client();
-const fs = require("fs");
+const fs = require('fs');
 var guild;
 cartNum = 0
 
@@ -16,21 +16,21 @@ botToken = config.botToken
 
 bot.login(botToken);
 
-bot.on("ready", () => {
+bot.on('ready', () => {
     console.log(`Logged in as ${bot.user.username}!`);
     guild = bot.guilds.get(server);
 });
 
 
 
-bot.on("message", message => {
+bot.on('message', message => {
     /* if (message.author.bot) return; */
-    if (message.channel.type == "dm") return;
-    if (message.content === "listroles") {
+    if (message.channel.type == 'dm') return;
+    if (message.content === 'listroles') {
         findGuildMember(message, guild).then(member => {
-            let str = "";
+            let str = '';
             for (let role of member.guild.roles.values()) {
-                str += role.name + " : " + role.id + "\n";
+                str += role.name + ' : ' + role.id + '\n';
             }
             message.author.send(str);
         });
@@ -38,46 +38,46 @@ bot.on("message", message => {
     if (message.channel.id == privateChannel) {
         cartNum += 1
         message.embeds.forEach((e) => {
-            if (e.footer.text === "Splashforce") {
+            if (e.footer.text === 'Splashforce') {
                 size = ((e.title).slice(20))
-                email = (e.description).split(" ")[1].split("\n")[0]
-                pass = (e.description).split(": ")[2]
-                console.log("TESTING: " + pass)
+                email = (e.description).split(' ')[1].split('\n')[0]
+                pass = (e.description).split(': ')[2]
+                console.log('TESTING: ' + pass)
                 loginURL = e.url
                 img = e.thumbnail.url
                 /* Look into getting sku from link /shrug */
-                sku = ""
-                console.log("Size: " + size)
-                console.log("Email:Pass : " + email + ":" + pass)
-                console.log("Login link: " + loginURL)
-                console.log("Image: " + img)
+                sku = ''
+                console.log('Size: ' + size)
+                console.log('Email:Pass : ' + email + ':' + pass)
+                console.log('Login link: ' + loginURL)
+                console.log('Image: ' + img)
                 const embed = new Discord.RichEmbed()
                     .setColor(0x00FF00)
                     .setTimestamp()
                     .setDescription(`Size: ${size}`)
-                    .setFooter(`Cart: # ${cartNum} • Jalfrazi`, "https://pbs.twimg.com/profile_images/999669687112749056/WK1RT5lY_400x400.jpg")
+                    .setFooter(`Cart: # ${cartNum} • Jalfrazi`, 'https://pbs.twimg.com/profile_images/999669687112749056/WK1RT5lY_400x400.jpg')
                     .setThumbnail(img)
                 guild.channels.get(publicChannel).send({
                     embed
                 });
                 writeCart(cartNum, email, pass, loginURL, img, size, sku)
-            } else if (e.footer.text === "yCopp Ultimate Adidas Bot") {
-                size = ((e.title).split(" ")[2].split(",")[0])
+            } else if (e.footer.text === 'yCopp Ultimate Adidas Bot') {
+                size = ((e.title).split(' ')[2].split(',')[0])
                 email = (e.fields)[0]['value']
                 pass = (e.fields)[1]['value']
 
                 loginURL = e.url
-                img = ""
-                sku = ((e.title).split(",")[0])
-                console.log("Size: " + size)
-                console.log("Email:Pass : " + email + ":" + pass)
-                console.log("Login link: " + loginURL)
-                console.log("Image: " + img)
+                img = ''
+                sku = ((e.title).split(',')[0])
+                console.log('Size: ' + size)
+                console.log('Email:Pass : ' + email + ':' + pass)
+                console.log('Login link: ' + loginURL)
+                console.log('Image: ' + img)
                 const embed = new Discord.RichEmbed()
                     .setColor(0x00FF00)
                     .setTimestamp()
                     .setDescription(`Size: ${size} \nSKU: ${sku}`)
-                    .setFooter(`Cart: # ${cartNum} • Jalfrazi`, "https://pbs.twimg.com/profile_images/999669687112749056/WK1RT5lY_400x400.jpg")
+                    .setFooter(`Cart: # ${cartNum} • Jalfrazi`, 'https://pbs.twimg.com/profile_images/999669687112749056/WK1RT5lY_400x400.jpg')
 
                 guild.channels.get(publicChannel).send({
                     embed
@@ -85,7 +85,7 @@ bot.on("message", message => {
                 writeCart(cartNum, email, pass, loginURL, img, size, sku)
 
             }
-            else if (e.footer.text === "LatchKeyIO Adidas Bot") {
+            else if (e.footer.text === 'LatchKeyIO Adidas Bot') {
                 size = (e.fields)[2]['value']
                 email = (e.fields)[4]['value']
                 pass = (e.fields)[5]['value']
@@ -93,15 +93,15 @@ bot.on("message", message => {
                 loginURL = e.url
                 img = e.thumbnail.url
                 sku = (e.fields)[1]['value']
-                console.log("Size: " + size)
-                console.log("Email:Pass : " + email + ":" + pass)
-                console.log("Login link: " + loginURL)
-                console.log("Image: " + img)
+                console.log('Size: ' + size)
+                console.log('Email:Pass : ' + email + ':' + pass)
+                console.log('Login link: ' + loginURL)
+                console.log('Image: ' + img)
                 const embed = new Discord.RichEmbed()
                     .setColor(0x00FF00)
                     .setTimestamp()
                     .setDescription(`Size: ${size} \nSKU: ${sku}`)
-                    .setFooter(`Cart: # ${cartNum} • Jalfrazi`, "https://pbs.twimg.com/profile_images/999669687112749056/WK1RT5lY_400x400.jpg")
+                    .setFooter(`Cart: # ${cartNum} • Jalfrazi`, 'https://pbs.twimg.com/profile_images/999669687112749056/WK1RT5lY_400x400.jpg')
                     .setThumbnail(img)
                 guild.channels.get(publicChannel).send({
                     embed
@@ -109,24 +109,24 @@ bot.on("message", message => {
                 writeCart(cartNum, email, pass, loginURL, img, size, sku)
 
             }
-            else if (e.footer.text === "Copyright BackdoorIO 2018, All Rights Reserved.") {
+            else if (e.footer.text === 'Copyright BackdoorIO 2018, All Rights Reserved.') {
                 size = (e.fields)[1]['value']
                 userPass = (e.fields)[2]['value']
-                email = (userPass).split(" ")[1].split("\n")[0]
-                pass = (userPass).split(": ")[2]
+                email = (userPass).split(' ')[1].split('\n')[0]
+                pass = (userPass).split(': ')[2]
 
                 loginURL = ((e.fields)[5]['value']).substring(10).slice(0,-1)
-                img = ""
+                img = ''
                 sku = (e.fields)[0]['value']
-                console.log("Size: " + size)
-                console.log("Email:Pass : " + email + ":" + pass)
-                console.log("Login link: " + loginURL)
-                console.log("Image: " + img)
+                console.log('Size: ' + size)
+                console.log('Email:Pass : ' + email + ':' + pass)
+                console.log('Login link: ' + loginURL)
+                console.log('Image: ' + img)
                 const embed = new Discord.RichEmbed()
                     .setColor(0x00FF00)
                     .setTimestamp()
                     .setDescription(`Size: ${size} \nSKU: ${sku}`)
-                    .setFooter(`Cart: # ${cartNum} • Jalfrazi`, "https://pbs.twimg.com/profile_images/999669687112749056/WK1RT5lY_400x400.jpg")
+                    .setFooter(`Cart: # ${cartNum} • Jalfrazi`, 'https://pbs.twimg.com/profile_images/999669687112749056/WK1RT5lY_400x400.jpg')
 
                 guild.channels.get(publicChannel).send({
                     embed
@@ -134,7 +134,7 @@ bot.on("message", message => {
                 writeCart(cartNum, email, pass, loginURL, img, size, sku)
 
             }
-            else if ((e.footer.text).startsWith("NoMercy")){
+            else if ((e.footer.text).startsWith('NoMercy')){
                 size = (e.fields)[1]['value']
                 email = (e.fields)[3]['value']
                 pass = (e.fields)[4]['value']
@@ -142,36 +142,36 @@ bot.on("message", message => {
                 loginURL = e.url
                 img = e.thumbnail.url
                 sku = (e.fields)[0]['value']
-                console.log("Size: " + size)
-                console.log("Email:Pass : " + email + ":" + pass)
-                console.log("Login link: " + loginURL)
-                console.log("Image: " + img)
+                console.log('Size: ' + size)
+                console.log('Email:Pass : ' + email + ':' + pass)
+                console.log('Login link: ' + loginURL)
+                console.log('Image: ' + img)
                 const embed = new Discord.RichEmbed()
                     .setColor(0x00FF00)
                     .setTimestamp()
                     .setDescription(`Size: ${size} \nSKU: ${sku}`)
-                    .setFooter(`Cart: # ${cartNum} • Jalfrazi`, "https://pbs.twimg.com/profile_images/999669687112749056/WK1RT5lY_400x400.jpg")
+                    .setFooter(`Cart: # ${cartNum} • Jalfrazi`, 'https://pbs.twimg.com/profile_images/999669687112749056/WK1RT5lY_400x400.jpg')
                     .setThumbnail(img)
                 guild.channels.get(publicChannel).send({
                     embed
                 });
                 writeCart(cartNum, email, pass, loginURL, img, size, sku)
-            }else if (e.footer.text === "Gen5 Adidas") {
+            }else if (e.footer.text === 'Gen5 Adidas') {
                 size = (e.fields)[1]['value']
                 email = (e.fields)[3]['value']
                 pass = (e.fields)[4]['value']
                 loginURL = e.url
                 img = e.thumbnail.url
                 sku = (e.fields)[0]['value']
-                console.log("Size: " + size)
-                console.log("Email:Pass : " + email + ":" + pass)
-                console.log("Login link: " + loginURL)
-                console.log("Image: " + img)
+                console.log('Size: ' + size)
+                console.log('Email:Pass : ' + email + ':' + pass)
+                console.log('Login link: ' + loginURL)
+                console.log('Image: ' + img)
                 const embed = new Discord.RichEmbed()
                     .setColor(0x00FF00)
                     .setTimestamp()
                     .setDescription(`Size: ${size} \nSKU: ${sku}`)
-                    .setFooter(`Cart: # ${cartNum} • Jalfrazi`, "https://pbs.twimg.com/profile_images/999669687112749056/WK1RT5lY_400x400.jpg")
+                    .setFooter(`Cart: # ${cartNum} • Jalfrazi`, 'https://pbs.twimg.com/profile_images/999669687112749056/WK1RT5lY_400x400.jpg')
 
                 guild.channels.get(publicChannel).send({
                     embed
@@ -182,7 +182,7 @@ bot.on("message", message => {
         })
     }
     if (message.channel.id == publicChannel) {
-        message.react("🛒")
+        message.react('🛒')
     }
 })
 bot.on('messageReactionAdd', (reaction, user) => {
@@ -193,10 +193,10 @@ bot.on('messageReactionAdd', (reaction, user) => {
             /* console.log(element)
             console.log(Object.keys(element)) */
             console.log(element['username'])
-            console.log("user ID: " + element['id'])
-            cartID = (reaction.message.embeds[0].footer.text).split("# ")[1].split(" • J")[0]
+            console.log('user ID: ' + element['id'])
+            cartID = (reaction.message.embeds[0].footer.text).split('# ')[1].split(' • J')[0]
 
-            var contents = fs.readFileSync("carts.json");
+            var contents = fs.readFileSync('carts.json');
             var jsonContent = JSON.parse(contents);
             for (i = 0; i < jsonContent.length; i++) {
                 if (jsonContent[i]['id'] == cartID) {
@@ -207,11 +207,11 @@ bot.on('messageReactionAdd', (reaction, user) => {
                             .setTitle(`Size: ${jsonContent[i]['size']}`)
                             .setURL(jsonContent[i]['login'])
                             .setDescription(`Email: ${jsonContent[i]['email']} \nPassword: ${jsonContent[i]['pass']}`)
-                            .setFooter(`Cart: # ${cartNum} • Jalfrazi`, "https://pbs.twimg.com/profile_images/999669687112749056/WK1RT5lY_400x400.jpg")
-                            if(jsonContent[i]['image'] != ""){
+                            .setFooter(`Cart: # ${cartNum} • Jalfrazi`, 'https://pbs.twimg.com/profile_images/999669687112749056/WK1RT5lY_400x400.jpg')
+                            if(jsonContent[i]['image'] != ''){
                                 embed.setThumbnail(jsonContent[i]['image'])
                             }
-                            if(jsonContent[i]['sku'] != ""){
+                            if(jsonContent[i]['sku'] != ''){
                                 embed.setDescription(`Email: ${jsonContent[i]['email']} \nPassword: ${jsonContent[i]['pass']} \nSKU: ${jsonContent[i]['sku']}`)
                             }
                         guild.members.get(element['id']).send({
@@ -227,7 +227,7 @@ bot.on('messageReactionAdd', (reaction, user) => {
 
 function writeCart(cartNum, email, pass, loginURL, img, size, sku) {
     // Get content from file
-    var contents = fs.readFileSync("carts.json");
+    var contents = fs.readFileSync('carts.json');
     // Define to JSON type
     var jsonContent = JSON.parse(contents);
     jsonContent.push({
@@ -239,11 +239,11 @@ function writeCart(cartNum, email, pass, loginURL, img, size, sku) {
         'size': size,
         'sku': sku
     })
-    fs.writeFile("./carts.json", JSON.stringify(jsonContent, null, 4), (err) => {
+    fs.writeFile('./carts.json', JSON.stringify(jsonContent, null, 4), (err) => {
         if (err) {
             console.error(err);
             return;
         };
-        console.log("File has been created");
+        console.log('File has been created');
     });
 }
