@@ -1,5 +1,12 @@
 # freeCarts
 Free cart management for discords where 'free carts' are available. Stops multiple people accessing a cart. 
+
+# Instructions
+1. Install [Node.js](https://nodejs.org/en/download/)
+2. In command prompt/terminal type `npm i discord.js`
+3. Fill in the `config.json ` file. (more instructions below)
+4. In command prompt/terminal type `node index.js`
+
 - [x] Splashforce
 - [x] yCopp account links
 - [ ] yCopp cookies
@@ -9,12 +16,6 @@ Free cart management for discords where 'free carts' are available. Stops multip
 - [x] Gen5 (need testing)
 
 ![demo](https://i.imgur.com/YSlcJAG.png)
-
-# Instructions
-1. Install [Node.js](https://nodejs.org/en/download/)
-2. In command prompt/terminal type `npm i discord.js`
-3. Fill in the `config.json ` file. (more instructions below)
-4. In command prompt/terminal type `node index.js`
 
 ## Creating Discord Applications 
 ### Step 1: Navigate to /developers/applications
