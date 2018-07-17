@@ -8,7 +8,7 @@ Free cart management for discords where 'free carts' are available. Stops multip
 - [ ] NoMercy
 - [ ] Gen5
 
-![demo](https://i.imgur.com/aBJzKzx.png)
+![demo](https://i.imgur.com/YSlcJAG.png)
 
 
 ## Creating Discord Applications 
