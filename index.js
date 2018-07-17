@@ -66,7 +66,6 @@ bot.on("message", message => {
                 email = (e.fields)[0]['value']
                 pass = (e.fields)[1]['value']
 
-                /* emailPass = e.description */
                 loginURL = e.url
                 img = ""
                 sku = ((e.title).split(",")[0])
@@ -91,7 +90,6 @@ bot.on("message", message => {
                 email = (e.fields)[4]['value']
                 pass = (e.fields)[5]['value']
 
-                /* emailPass = e.description */
                 loginURL = e.url
                 img = e.thumbnail.url
                 sku = (e.fields)[1]['value']
@@ -117,9 +115,53 @@ bot.on("message", message => {
                 email = (userPass).split(" ")[1].split("\n")[0]
                 pass = (userPass).split(": ")[2]
 
-                /* emailPass = e.description */
                 loginURL = (e.fields)[5]['value']
                 img = ""
+                sku = (e.fields)[0]['value']
+                console.log("Size: " + size)
+                console.log("Email:Pass : " + email + ":" + pass)
+                console.log("Login link: " + loginURL)
+                console.log("Image: " + img)
+                const embed = new Discord.RichEmbed()
+                    .setColor(0x00FF00)
+                    .setTimestamp()
+                    .setDescription(`Size: ${size} \nSKU: ${sku}`)
+                    .setFooter(`Cart: # ${cartNum}`)
+
+                guild.channels.get(publicChannel).send({
+                    embed
+                });
+                writeCart(cartNum, email, pass, loginURL, img, size, sku)
+
+            }
+            else if ((e.footer.text).startsWith("NoMercy")){
+                size = (e.fields)[1]['value']
+                email = (e.fields)[3]['value']
+                pass = (e.fields)[4]['value']
+
+                loginURL = e.url
+                img = e.thumbnail.url
+                sku = (e.fields)[0]['value']
+                console.log("Size: " + size)
+                console.log("Email:Pass : " + email + ":" + pass)
+                console.log("Login link: " + loginURL)
+                console.log("Image: " + img)
+                const embed = new Discord.RichEmbed()
+                    .setColor(0x00FF00)
+                    .setTimestamp()
+                    .setDescription(`Size: ${size} \nSKU: ${sku}`)
+                    .setFooter(`Cart: # ${cartNum}`)
+                    .setThumbnail(img)
+                guild.channels.get(publicChannel).send({
+                    embed
+                });
+                writeCart(cartNum, email, pass, loginURL, img, size, sku)
+            }else if (e.footer.text === "Gen5 Adidas") {
+                size = (e.fields)[1]['value']
+                email = (e.fields)[3]['value']
+                pass = (e.fields)[4]['value']
+                loginURL = e.url
+                img = e.thumbnail.url
                 sku = (e.fields)[0]['value']
                 console.log("Size: " + size)
                 console.log("Email:Pass : " + email + ":" + pass)
