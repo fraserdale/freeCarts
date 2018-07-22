@@ -205,7 +205,7 @@ bot.on('messageReactionAdd', (reaction, user) => {
             console.log(Object.keys(element)) */
             console.log(element['username'])
             console.log('user ID: ' + element['id'])
-            cartID = (reaction.message.embeds[0].footer.text).split('# ')[1].split(' • J')[0]
+            cartID = (reaction.message.embeds[0].footer.text).split('# ')[1].split(' • M')[0]
 
             var contents = fs.readFileSync('carts.json');
             var jsonContent = JSON.parse(contents);
