@@ -95,8 +95,7 @@ bot.on('message', message => {
                 });
                 writeCart(cartNum, email, pass, loginURL, img, size, sku)
 
-            }
-            else if (e.footer.text === 'LatchKeyIO Adidas Bot') {
+            } else if (e.footer.text === 'LatchKeyIO Adidas Bot') {
                 size = (e.fields)[2]['value']
                 email = (e.fields)[4]['value']
                 pass = (e.fields)[5]['value']
@@ -119,14 +118,13 @@ bot.on('message', message => {
                 });
                 writeCart(cartNum, email, pass, loginURL, img, size, sku)
 
-            }
-            else if (e.footer.text === 'Copyright BackdoorIO 2018, All Rights Reserved.') {
+            } else if (e.footer.text === 'Copyright BackdoorIO 2018, All Rights Reserved.') {
                 size = (e.fields)[1]['value']
                 userPass = (e.fields)[2]['value']
                 email = (userPass).split(' ')[1].split('\n')[0]
                 pass = (userPass).split(': ')[2]
 
-                loginURL = ((e.fields)[5]['value']).substring(10).slice(0,-1)
+                loginURL = ((e.fields)[5]['value']).substring(10).slice(0, -1)
                 img = ''
                 sku = (e.fields)[0]['value']
                 console.log('Size: ' + size)
@@ -144,8 +142,7 @@ bot.on('message', message => {
                 });
                 writeCart(cartNum, email, pass, loginURL, img, size, sku)
 
-            }
-            else if ((e.footer.text).startsWith('NoMercy')){
+            } else if ((e.footer.text).startsWith('NoMercy')) {
                 size = (e.fields)[1]['value']
                 email = (e.fields)[3]['value']
                 pass = (e.fields)[4]['value']
@@ -167,7 +164,7 @@ bot.on('message', message => {
                     embed
                 });
                 writeCart(cartNum, email, pass, loginURL, img, size, sku)
-            }else if (e.footer.text === 'Gen5 Adidas') {
+            } else if (e.footer.text === 'Gen5 Adidas') {
                 size = (e.fields)[1]['value']
                 email = (e.fields)[3]['value']
                 pass = (e.fields)[4]['value']
@@ -199,40 +196,42 @@ bot.on('message', message => {
 bot.on('messageReactionAdd', (reaction, user) => {
     console.log('Reaction added; current count:', reaction.count);
     /* console.log(reaction.message.id); */
-    if (reaction.count == 2) { /* could do > 1 ? */
-        (reaction.users).forEach(element => {
-            /* console.log(element)
-            console.log(Object.keys(element)) */
-            console.log(element['username'])
-            console.log('user ID: ' + element['id'])
-            cartID = (reaction.message.embeds[0].footer.text).split('# ')[1].split(' • M')[0]
+    if (reaction.message.channel.id == publicChannel) {
+        if (reaction.count == 2) { /* could do > 1 ? */
+            (reaction.users).forEach(element => {
+                /* console.log(element)
+                console.log(Object.keys(element)) */
+                console.log(element['username'])
+                console.log('user ID: ' + element['id'])
+                cartID = (reaction.message.embeds[0].footer.text).split('# ')[1].split(' • M')[0]
 
-            var contents = fs.readFileSync('carts.json');
-            var jsonContent = JSON.parse(contents);
-            for (i = 0; i < jsonContent.length; i++) {
-                if (jsonContent[i]['id'] == cartID) {
-                    if (element['bot'] != true) {
-                        const embed = new Discord.RichEmbed()
-                            .setColor(0x00FF00)
-                            .setTimestamp()
-                            .setTitle(`Size: ${jsonContent[i]['size']}`)
-                            .setURL(jsonContent[i]['login'])
-                            .setDescription(`Email: ${jsonContent[i]['email']} \nPassword: ${jsonContent[i]['pass']}`)
-                            .setFooter(`Cart: # ${cartNum} • Made by Jalfrazi`, 'https://pbs.twimg.com/profile_images/999669687112749056/WK1RT5lY_400x400.jpg')
-                            if(jsonContent[i]['image'] != ''){
+                var contents = fs.readFileSync('carts.json');
+                var jsonContent = JSON.parse(contents);
+                for (i = 0; i < jsonContent.length; i++) {
+                    if (jsonContent[i]['id'] == cartID) {
+                        if (element['bot'] != true) {
+                            const embed = new Discord.RichEmbed()
+                                .setColor(0x00FF00)
+                                .setTimestamp()
+                                .setTitle(`Size: ${jsonContent[i]['size']}`)
+                                .setURL(jsonContent[i]['login'])
+                                .setDescription(`Email: ${jsonContent[i]['email']} \nPassword: ${jsonContent[i]['pass']}`)
+                                .setFooter(`Cart: # ${cartNum} • Made by Jalfrazi`, 'https://pbs.twimg.com/profile_images/999669687112749056/WK1RT5lY_400x400.jpg')
+                            if (jsonContent[i]['image'] != '') {
                                 embed.setThumbnail(jsonContent[i]['image'])
                             }
-                            if(jsonContent[i]['sku'] != ''){
+                            if (jsonContent[i]['sku'] != '') {
                                 embed.setDescription(`Email: ${jsonContent[i]['email']} \nPassword: ${jsonContent[i]['pass']} \nSKU: ${jsonContent[i]['sku']}`)
                             }
-                        guild.members.get(element['id']).send({
-                            embed
-                        });
+                            guild.members.get(element['id']).send({
+                                embed
+                            });
+                        }
                     }
                 }
-            }
-        });
-        reaction.message.delete()
+            });
+            reaction.message.delete()
+        }
     }
 });
 
