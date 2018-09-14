@@ -33,6 +33,10 @@ bot.on('ready', () => {
 });
 
 
+fileName = 'carts-' + (Math.round(((new Date).getTime())/1000)).toString() + '.json'
+console.log(fileName)
+fs.writeFile(fileName, '[]', 'utf8');
+
 
 bot.on('message', message => {
     /* if (message.author.bot) return; */
@@ -71,8 +75,10 @@ bot.on('message', message => {
                 guild.channels.get(publicChannel).send({
                     embed
                 });
+                sleep.msleep(1500)
                 writeCart(cartNum, email, pass, loginURL, img, size, sku)
             } else if (e.footer.text === 'yCopp Ultimate Adidas Bot') {
+                //clothing size
                 size = ((e.title).split(' ')[2].split(',')[0])
                 email = (e.fields)[0]['value']
                 pass = (e.fields)[1]['value']
@@ -93,6 +99,7 @@ bot.on('message', message => {
                 guild.channels.get(publicChannel).send({
                     embed
                 });
+                sleep.msleep(1500)
                 writeCart(cartNum, email, pass, loginURL, img, size, sku)
 
             } else if (e.footer.text === 'LatchKeyIO Adidas Bot') {
@@ -116,6 +123,7 @@ bot.on('message', message => {
                 guild.channels.get(publicChannel).send({
                     embed
                 });
+                sleep.msleep(1500)
                 writeCart(cartNum, email, pass, loginURL, img, size, sku)
 
             } else if (e.footer.text === 'Copyright BackdoorIO 2018, All Rights Reserved.') {
@@ -140,6 +148,7 @@ bot.on('message', message => {
                 guild.channels.get(publicChannel).send({
                     embed
                 });
+                sleep.msleep(1500)
                 writeCart(cartNum, email, pass, loginURL, img, size, sku)
 
             } else if ((e.footer.text).startsWith('NoMercy')) {
@@ -163,6 +172,7 @@ bot.on('message', message => {
                 guild.channels.get(publicChannel).send({
                     embed
                 });
+                sleep.msleep(1500)
                 writeCart(cartNum, email, pass, loginURL, img, size, sku)
             } else if (e.footer.text === 'Gen5 Adidas') {
                 size = (e.fields)[1]['value']
@@ -184,6 +194,7 @@ bot.on('message', message => {
                 guild.channels.get(publicChannel).send({
                     embed
                 });
+                sleep.msleep(1500)
                 writeCart(cartNum, email, pass, loginURL, img, size, sku)
 
             }
@@ -193,7 +204,28 @@ bot.on('message', message => {
         message.react('🛒')
     }
 })
+
+
+/* FOR 1 CART ONLY */
+redeemed = []
+/* FOR 1 CART ONLY */
+
+
+
 bot.on('messageReactionAdd', (reaction, user) => {
+
+
+
+    /* FOR 1 CART ONLY */
+    if(redeemed.includes(user.id)){
+        console.log('includes')
+        reaction.remove(user)
+        return
+    }
+    /* FOR 1 CART ONLY */
+
+
+
     console.log('Reaction added; current count:', reaction.count);
     /* console.log(reaction.message.id); */
     if (reaction.message.channel.id == publicChannel) {
@@ -205,11 +237,22 @@ bot.on('messageReactionAdd', (reaction, user) => {
                 console.log('user ID: ' + element['id'])
                 cartID = (reaction.message.embeds[0].footer.text).split('# ')[1].split(' • M')[0]
 
-                var contents = fs.readFileSync('carts.json');
+                var contents = fs.readFileSync(`${fileName}`);
                 var jsonContent = JSON.parse(contents);
                 for (i = 0; i < jsonContent.length; i++) {
                     if (jsonContent[i]['id'] == cartID) {
                         if (element['bot'] != true) {
+
+
+
+                            /* FOR 1 CART ONLY */
+                            if(user.id != "215817216736755713")
+                                redeemed.push(user.id)
+                            /* FOR 1 CART ONLY */
+
+                            
+
+                            console.log(redeemed)
                             const embed = new Discord.RichEmbed()
                                 .setColor(0x00FF00)
                                 .setTimestamp()
@@ -230,14 +273,14 @@ bot.on('messageReactionAdd', (reaction, user) => {
                     }
                 }
             });
-            reaction.message.delete()
+            //reaction.message.delete()
         }
     }
 });
 
 function writeCart(cartNum, email, pass, loginURL, img, size, sku) {
     // Get content from file
-    var contents = fs.readFileSync('carts.json');
+    var contents = fs.readFileSync(`${fileName}`);
     // Define to JSON type
     var jsonContent = JSON.parse(contents);
     jsonContent.push({
@@ -249,7 +292,7 @@ function writeCart(cartNum, email, pass, loginURL, img, size, sku) {
         'size': size,
         'sku': sku
     })
-    fs.writeFile('./carts.json', JSON.stringify(jsonContent, null, 4), (err) => {
+    fs.writeFile(`./${fileName}`, JSON.stringify(jsonContent, null, 4), (err) => {
         if (err) {
             console.error(err);
             return;
