@@ -8,7 +8,7 @@
          __/ |                                      
         |___/                                       
  */
-
+var sleep = require('sleep');
 var config = require('./config.json');
 const Discord = require('discord.js');
 const bot = new Discord.Client();
