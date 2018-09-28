@@ -79,7 +79,7 @@ bot.on('message', message => {
                 writeCart(cartNum, email, pass, loginURL, img, size, sku)
             } else if (e.footer.text === 'yCopp Ultimate Adidas Bot') {
                 //clothing size
-                size = ((e.title).split(' ')[2].split(',')[0])
+                size = (e.title).split(',')[1]
                 email = (e.fields)[0]['value']
                 pass = (e.fields)[1]['value']
 
@@ -246,7 +246,7 @@ bot.on('messageReactionAdd', (reaction, user) => {
 
 
                             /* FOR 1 CART ONLY */
-                            if(user.id != "215817216736755713")
+                            if(user.id != "476117051040333824")
                                 redeemed.push(user.id)
                             /* FOR 1 CART ONLY */
 
