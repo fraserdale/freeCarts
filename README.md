@@ -3,7 +3,7 @@ Free cart management for discords where 'free carts' are available. Stops multip
 
 # Instructions
 1. Install [Node.js](https://nodejs.org/en/download/)
-2. In command prompt/terminal type `npm i discord.js`
+2. In command prompt/terminal type `npm i`
 3. Fill in the `config.json ` file. (more instructions below)
 4. In command prompt/terminal type `npm start`
 
