@@ -16,7 +16,7 @@ let mainWindow;
 app.on('ready', function () {
     //create new window
     mainWindow = new BrowserWindow({});
-    //mainWindow.setMenu(null)
+    mainWindow.setMenu(null)
     mainWindow.setTitle('Cart Distribution - Jalfrazi#0001')
     //load html into window
     mainWindow.loadURL(url.format({
