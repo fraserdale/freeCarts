@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/fraserdale/freeCarts#readme",
   "dependencies": {
+    "discord.js": "^11.4.2",
     "electron": "^3.0.3"
   },
   "devDependencies": {
