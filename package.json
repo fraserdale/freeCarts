@@ -1,0 +1,25 @@
+{
+  "name": "cart-distribution",
+  "version": "2.0.0",
+  "description": "Free cart management for discords where 'free carts' are available. Stops multiple people accessing a cart.",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fraserdale/freeCarts.git"
+  },
+  "author": "jalfrazi aka https://github.com/fraserdale/freeCarts",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fraserdale/freeCarts/issues"
+  },
+  "homepage": "https://github.com/fraserdale/freeCarts#readme",
+  "dependencies": {
+    "electron": "^3.0.3"
+  },
+  "devDependencies": {
+    "electron-rebuild": "^1.8.2"
+  }
+}
