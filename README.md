@@ -5,7 +5,7 @@ Free cart management for discords where 'free carts' are available. Stops multip
 1. Install [Node.js](https://nodejs.org/en/download/)
 2. In command prompt/terminal type `npm i discord.js`
 3. Fill in the `config.json ` file. (more instructions below)
-4. In command prompt/terminal type `node index.js`
+4. In command prompt/terminal type `npm start`
 
 ### Tips
 Make the channel that the carts are output in a channel where users cannot type (no error handling)
