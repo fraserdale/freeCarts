@@ -21,7 +21,7 @@
             display:inline-block;
             cursor: hand
         }
-        input{
+        input[text]{
             width: 250px;
         }        
     </style>
@@ -46,6 +46,10 @@
             <div>
                 <label>Bot Token</label>
                 <input type="text" id="bot">
+            </div>
+            <div>
+                <label>One cart per person</label>
+                <input type="checkbox" id='oneCart' value='test'><br>
             </div>
             <p onclick="save()" class="button">save</p>
         </form>
@@ -80,17 +84,18 @@
     document.getElementById('private').value = config.privateChannel
     document.getElementById('public').value = config.publicChannel
     document.getElementById('bot').value = config.botToken
+    if(config.one){
+        document.getElementById('oneCart').checked = true
+    }
     })();
     const electron = require('electron');
     const {ipcRenderer} = electron;
-
     function stop(){
         document.getElementById('server').disabled = false
         document.getElementById('private').disabled = false
         document.getElementById('public').disabled = false
         document.getElementById('bot').disabled = false
     }
-
     ipcRenderer.on('message',function(start,i){
         console.log('x')        
     }) 
@@ -107,12 +112,10 @@
         //alert(i)
         document.getElementById('redeemed').innerHTML = redeemedNum
     })
-
     ipcRenderer.on('serverImg',function(serverImg,img){
         //alert(i)
         document.getElementById("icon").src = img
     })
-
     ipcRenderer.on('serverName',function(serverName,name){
         //alert(i)
         document.getElementById('name').innerHTML = name
@@ -130,25 +133,26 @@
         alert('Login details incorrect')
         stop()
     })
-
     function save(){
         const server = document.querySelector('#server').value;
         const private = document.querySelector('#private').value;
         const public = document.querySelector('#public').value;
         const bot = document.querySelector('#bot').value;
-        config = `{"server":"${server}","privateChannel":"${private}","publicChannel":"${public}","botToken":"${bot}"}`
+        const oneCart = document.getElementById('oneCart').checked;
+        console.log(oneCart)
+        config = `{"server":"${server}","privateChannel":"${private}","publicChannel":"${public}","botToken":"${bot}","one":${oneCart}}`
         console.log(config)
         ipcRenderer.send('configSave', config);
     }
-
     function start(){
+        save()
         document.getElementById('server').disabled = true
         document.getElementById('private').disabled = true
         document.getElementById('public').disabled = true
         document.getElementById('bot').disabled = true
+        document.getElementById('oneCart').disabled = true
         ipcRenderer.send('start');
     }
-
     
 </script>
 </html>

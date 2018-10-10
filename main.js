@@ -66,6 +66,8 @@ ipcMain.on('start', function (start) {
     publicChannel = config.publicChannel
     /* Bot login token */
     botToken = config.botToken
+    //check if user wants one cart per person
+    onePP = config.one
 
     /* try{
         bot.login(botToken);
@@ -313,14 +315,11 @@ ipcMain.on('start', function (start) {
                             if (jsonContent[i]['id'] == cartID) {
                                 if (element['bot'] != true) {
 
-
-
                                     /* FOR 1 CART ONLY */
-                                    if (user.id != "476117051040333824")
+                                    if(onePP){                                        
                                         redeemed.push(user.id)
+                                    }
                                     /* FOR 1 CART ONLY */
-
-
 
                                     console.log(redeemed)
                                     const embed = new Discord.RichEmbed()
