@@ -95,6 +95,11 @@
         document.getElementById('private').disabled = false
         document.getElementById('public').disabled = false
         document.getElementById('bot').disabled = false
+        document.getElementById('oneCart').disabled = false
+        document.getElementById('botsname').innerHTML = ''
+        document.getElementById('name').innerHTML = ''
+        document.getElementById("icon").src = 'https://pbs.twimg.com/profile_images/999669687112749056/WK1RT5lY_400x400.jpg'
+
     }
     ipcRenderer.on('message',function(start,i){
         console.log('x')        
@@ -145,8 +150,8 @@
         ipcRenderer.send('configSave', config);
     }
     function start(){
-        save()
-        document.getElementById('server').disabled = true
+        //save()
+        document.getElementById('server').disabled  = true
         document.getElementById('private').disabled = true
         document.getElementById('public').disabled = true
         document.getElementById('bot').disabled = true

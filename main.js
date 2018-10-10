@@ -27,6 +27,7 @@ app.on('ready', function () {
     mainWindow = new BrowserWindow({});
     mainWindow.setMenu(null)
     mainWindow.setTitle('Cart Distribution - Jalfrazi#0001')
+    mainWindow.setIcon('./kermitsupreme.jpg');
     //load html into window
     mainWindow.loadURL(url.format({
         pathname: path.join(__dirname, 'cart.html'),
