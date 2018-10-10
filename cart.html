@@ -84,6 +84,13 @@
     const electron = require('electron');
     const {ipcRenderer} = electron;
 
+    function stop(){
+        document.getElementById('server').disabled = false
+        document.getElementById('private').disabled = false
+        document.getElementById('public').disabled = false
+        document.getElementById('bot').disabled = false
+    }
+
     ipcRenderer.on('message',function(start,i){
         console.log('x')        
     }) 
@@ -121,11 +128,7 @@
     ipcRenderer.on('loginError',function(loginError,x){
         //alert(i)
         alert('Login details incorrect')
-        document.getElementById('server').disabled = false
-        document.getElementById('private').disabled = false
-        document.getElementById('public').disabled = false
-        document.getElementById('bot').disabled = false
-        //stop()
+        stop()
     })
 
     function save(){
@@ -146,11 +149,6 @@
         ipcRenderer.send('start');
     }
 
-    function stop(){
-        document.getElementById('server').disabled = false
-        document.getElementById('private').disabled = false
-        document.getElementById('public').disabled = false
-        document.getElementById('bot').disabled = false
-    }
+    
 </script>
 </html>
