@@ -84,7 +84,7 @@
     document.getElementById('private').value = config.privateChannel
     document.getElementById('public').value = config.publicChannel
     document.getElementById('bot').value = config.botToken
-    if(config.one){
+    if(config.oneCart){
         document.getElementById('oneCart').checked = true
     }
     })();
@@ -140,7 +140,7 @@
         const bot = document.querySelector('#bot').value;
         const oneCart = document.getElementById('oneCart').checked;
         console.log(oneCart)
-        config = `{"server":"${server}","privateChannel":"${private}","publicChannel":"${public}","botToken":"${bot}","one":${oneCart}}`
+        config = `{"server":"${server}","privateChannel":"${private}","publicChannel":"${public}","botToken":"${bot}","oneCart":${oneCart}}`
         console.log(config)
         ipcRenderer.send('configSave', config);
     }

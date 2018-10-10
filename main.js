@@ -67,7 +67,7 @@ ipcMain.on('start', function (start) {
     /* Bot login token */
     botToken = config.botToken
     //check if user wants one cart per person
-    onePP = config.one
+    onePP = config.oneCart
 
     /* try{
         bot.login(botToken);
