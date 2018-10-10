@@ -1,5 +1,14 @@
 <html>
-
+<!--
+  ____                _       _  __               _ 
+ |  _ \              | |     | |/ _|             (_)
+ | |_) |_   _        | | __ _| | |_ _ __ __ _ _____ 
+ |  _ <| | | |   _   | |/ _` | |  _| '__/ _` |_  / |
+ | |_) | |_| |  | |__| | (_| | | | | | | (_| |/ /| |
+ |____/ \__, |   \____/ \__,_|_|_| |_|  \__,_/___|_|
+         __/ |                                      
+        |___/                                       
+-->
 <head>
     <style>
         * {
@@ -108,6 +117,15 @@
     ipcRenderer.on('botName',function(botName,bname){
         //alert(i)
         document.getElementById('botsname').innerHTML = bname
+    })
+    ipcRenderer.on('loginError',function(loginError,x){
+        //alert(i)
+        alert('Login details incorrect')
+        document.getElementById('server').disabled = false
+        document.getElementById('private').disabled = false
+        document.getElementById('public').disabled = false
+        document.getElementById('bot').disabled = false
+        //stop()
     })
 
     function save(){

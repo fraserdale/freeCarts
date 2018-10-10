@@ -1,8 +1,17 @@
+/* 
+  ____                _       _  __               _ 
+ |  _ \              | |     | |/ _|             (_)
+ | |_) |_   _        | | __ _| | |_ _ __ __ _ _____ 
+ |  _ <| | | |   _   | |/ _` | |  _| '__/ _` |_  / |
+ | |_) | |_| |  | |__| | (_| | | | | | | (_| |/ /| |
+ |____/ \__, |   \____/ \__,_|_|_| |_|  \__,_/___|_|
+         __/ |                                      
+        |___/                                       
+ */
 const electron = require('electron');
 const url = require('url');
 const path = require('path');
 const fs = require('fs')
-
 const {
     app,
     BrowserWindow,
@@ -40,16 +49,6 @@ ipcMain.on('configSave', function (e, config) {
 
 ipcMain.on('start', function (start) {
     mainWindow.webContents.send('message','x');
-    /* 
-  ____                _       _  __               _ 
- |  _ \              | |     | |/ _|             (_)
- | |_) |_   _        | | __ _| | |_ _ __ __ _ _____ 
- |  _ <| | | |   _   | |/ _` | |  _| '__/ _` |_  / |
- | |_) | |_| |  | |__| | (_| | | | | | | (_| |/ /| |
- |____/ \__, |   \____/ \__,_|_|_| |_|  \__,_/___|_|
-         __/ |                                      
-        |___/                                       
- */
     const config = require('./config.json');
     const Discord = require('discord.js');
     const bot = new Discord.Client();
@@ -68,7 +67,17 @@ ipcMain.on('start', function (start) {
     /* Bot login token */
     botToken = config.botToken
 
-    bot.login(botToken);
+    try{
+        bot.login(botToken);
+        if (err) {
+        throw (err);
+        }
+    }catch{
+        console.log('broke login')
+        mainWindow.webContents.send('loginError','loginError')
+        //process.exit()
+    }
+    
 
     bot.on('ready', () => {
         console.log(`Logged in as ${bot.user.username}!`);
