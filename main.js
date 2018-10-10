@@ -67,16 +67,19 @@ ipcMain.on('start', function (start) {
     /* Bot login token */
     botToken = config.botToken
 
-    try{
+    /* try{
         bot.login(botToken);
         if (err) {
         throw (err);
         }
-    }catch{
+    }catch(err){
         console.log('broke login')
+        console.log(err)
         mainWindow.webContents.send('loginError','loginError')
         //process.exit()
-    }
+    } */
+
+    bot.login(botToken);
     
 
     bot.on('ready', () => {
@@ -96,7 +99,7 @@ ipcMain.on('start', function (start) {
         // throws an error, you could also catch it here
         if (err) throw err;
         // success case, the file was saved
-        console.log('saved config');
+        console.log('saved carts file');
     });
     console.log(config)
 
