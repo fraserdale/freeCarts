@@ -11,7 +11,10 @@
 const electron = require('electron');
 const url = require('url');
 const path = require('path');
-const fs = require('fs')
+const fs = require('fs');
+const config = require('./config.json');
+const Discord = require('discord.js');
+const bot = new Discord.Client();
 const {
     app,
     BrowserWindow,
@@ -50,10 +53,6 @@ ipcMain.on('configSave', function (e, config) {
 
 ipcMain.on('start', function (start) {
     mainWindow.webContents.send('message', 'x');
-    const config = require('./config.json');
-    const Discord = require('discord.js');
-    const bot = new Discord.Client();
-    const fs = require('fs');
     var guild;
     cartNum = 0
     redeemedTotal = 0
