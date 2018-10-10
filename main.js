@@ -81,10 +81,11 @@ ipcMain.on('start', function (start) {
         mainWindow.webContents.send('loginError','loginError')
         //process.exit()
     } */
-
+    
     bot.login(botToken);
+    
 
-
+    
     bot.on('ready', () => {
         console.log(`Logged in as ${bot.user.username}!`);
         guild = bot.guilds.get(server);
@@ -93,7 +94,8 @@ ipcMain.on('start', function (start) {
         mainWindow.webContents.send('serverImg', serverImg);
         mainWindow.webContents.send('serverName', serverName);
         mainWindow.webContents.send('botName', bot.user.username)
-    });
+    })
+    
 
 
     fileName = 'carts-' + (Math.round(((new Date).getTime()) / 1000)).toString() + '.json'
