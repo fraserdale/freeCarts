@@ -48,15 +48,15 @@ ipcMain.on('configSave', function (e, config) {
 })
 
 ipcMain.on('start', function (start) {
-    mainWindow.webContents.send('message','x');
+    mainWindow.webContents.send('message', 'x');
     const config = require('./config.json');
     const Discord = require('discord.js');
     const bot = new Discord.Client();
     const fs = require('fs');
     var guild;
     cartNum = 0
-    redeemedTotal = 0 
-    liveTotal = 0 
+    redeemedTotal = 0
+    liveTotal = 0
 
     /* Server/guild ID */
     server = config.server
@@ -80,22 +80,22 @@ ipcMain.on('start', function (start) {
     } */
 
     bot.login(botToken);
-    
+
 
     bot.on('ready', () => {
         console.log(`Logged in as ${bot.user.username}!`);
         guild = bot.guilds.get(server);
         serverName = guild.name
         serverImg = 'https://cdn.discordapp.com/icons/' + guild.id + '/' + guild.icon + '.png'
-        mainWindow.webContents.send('serverImg',serverImg);
-        mainWindow.webContents.send('serverName',serverName);
-        mainWindow.webContents.send('botName',bot.user.username)
+        mainWindow.webContents.send('serverImg', serverImg);
+        mainWindow.webContents.send('serverName', serverName);
+        mainWindow.webContents.send('botName', bot.user.username)
     });
 
 
     fileName = 'carts-' + (Math.round(((new Date).getTime()) / 1000)).toString() + '.json'
     console.log(fileName)
-    fs.writeFile('cartFiles/'+fileName, '[]', (err) => {
+    fs.writeFile('cartFiles/' + fileName, '[]', (err) => {
         // throws an error, you could also catch it here
         if (err) throw err;
         // success case, the file was saved
@@ -138,9 +138,11 @@ ipcMain.on('start', function (start) {
                         .setDescription(`Size: ${size}`)
                         .setFooter(`Cart: # ${cartNum} • Made by Jalfrazi`, 'https://pbs.twimg.com/profile_images/999669687112749056/WK1RT5lY_400x400.jpg')
                         .setThumbnail(img)
-                    setTimeout(function(){
-                        guild.channels.get(publicChannel).send({embed});                            
-                    },1000)
+                    setTimeout(function () {
+                        guild.channels.get(publicChannel).send({
+                            embed
+                        });
+                    }, 1000)
                     writeCart(cartNum, email, pass, loginURL, img, size, sku)
                 } else if (e.footer.text === 'yCopp Ultimate Adidas Bot') {
                     //clothing size
@@ -148,7 +150,7 @@ ipcMain.on('start', function (start) {
                     email = (e.fields)[0]['value']
                     pass = (e.fields)[1]['value']
 
-                    loginURL = e.url                    
+                    loginURL = e.url
                     sku = ((e.title).split(',')[0])
                     img = ''
                     console.log('Size: ' + size)
@@ -157,13 +159,15 @@ ipcMain.on('start', function (start) {
                     console.log('Image: ' + img)
                     const embed = new Discord.RichEmbed()
                         .setColor(0x00FF00)
-                        .setTimestamp()                        
+                        .setTimestamp()
                         .setDescription(`Size: ${size} \nSKU: ${sku}`)
                         .setFooter(`Cart: # ${cartNum} • Made by Jalfrazi`, 'https://pbs.twimg.com/profile_images/999669687112749056/WK1RT5lY_400x400.jpg')
                         .setThumbnail(img)
-                    setTimeout(function(){
-                        guild.channels.get(publicChannel).send({embed});                            
-                    },1000)
+                    setTimeout(function () {
+                        guild.channels.get(publicChannel).send({
+                            embed
+                        });
+                    }, 1000)
                     writeCart(cartNum, email, pass, loginURL, img, size, sku)
 
                 } else if (e.footer.text === 'LatchKeyIO Adidas Bot') {
@@ -184,9 +188,11 @@ ipcMain.on('start', function (start) {
                         .setDescription(`Size: ${size} \nSKU: ${sku}`)
                         .setFooter(`Cart: # ${cartNum} • Made by Jalfrazi`, 'https://pbs.twimg.com/profile_images/999669687112749056/WK1RT5lY_400x400.jpg')
                         .setThumbnail(img)
-                    setTimeout(function(){
-                        guild.channels.get(publicChannel).send({embed});                            
-                    },1000)
+                    setTimeout(function () {
+                        guild.channels.get(publicChannel).send({
+                            embed
+                        });
+                    }, 1000)
                     writeCart(cartNum, email, pass, loginURL, img, size, sku)
 
                 } else if (e.footer.text === 'Copyright BackdoorIO 2018, All Rights Reserved.') {
@@ -208,9 +214,11 @@ ipcMain.on('start', function (start) {
                         .setDescription(`Size: ${size} \nSKU: ${sku}`)
                         .setFooter(`Cart: # ${cartNum} • Made by Jalfrazi`, 'https://pbs.twimg.com/profile_images/999669687112749056/WK1RT5lY_400x400.jpg')
 
-                    setTimeout(function(){
-                        guild.channels.get(publicChannel).send({embed});                            
-                    },1000)
+                    setTimeout(function () {
+                        guild.channels.get(publicChannel).send({
+                            embed
+                        });
+                    }, 1000)
                     writeCart(cartNum, email, pass, loginURL, img, size, sku)
 
                 } else if ((e.footer.text).startsWith('NoMercy')) {
@@ -231,9 +239,11 @@ ipcMain.on('start', function (start) {
                         .setDescription(`Size: ${size} \nSKU: ${sku}`)
                         .setFooter(`Cart: # ${cartNum} • Made by Jalfrazi`, 'https://pbs.twimg.com/profile_images/999669687112749056/WK1RT5lY_400x400.jpg')
                         .setThumbnail(img)
-                    setTimeout(function(){
-                        guild.channels.get(publicChannel).send({embed});                            
-                    },1000)
+                    setTimeout(function () {
+                        guild.channels.get(publicChannel).send({
+                            embed
+                        });
+                    }, 1000)
                     writeCart(cartNum, email, pass, loginURL, img, size, sku)
                 } else if (e.footer.text === 'Gen5 Adidas') {
                     size = (e.fields)[1]['value']
@@ -252,9 +262,11 @@ ipcMain.on('start', function (start) {
                         .setDescription(`Size: ${size} \nSKU: ${sku}`)
                         .setFooter(`Cart: # ${cartNum} • Made by Jalfrazi`, 'https://pbs.twimg.com/profile_images/999669687112749056/WK1RT5lY_400x400.jpg')
 
-                    setTimeout(function(){
-                        guild.channels.get(publicChannel).send({embed});                            
-                    },1000)
+                    setTimeout(function () {
+                        guild.channels.get(publicChannel).send({
+                            embed
+                        });
+                    }, 1000)
                     writeCart(cartNum, email, pass, loginURL, img, size, sku)
 
                 }
@@ -273,82 +285,81 @@ ipcMain.on('start', function (start) {
 
 
     bot.on('messageReactionAdd', (reaction, user) => {
+        if (reaction.message.author.bot) {
+            /* FOR 1 CART ONLY */
+            if (redeemed.includes(user.id)) {
+                console.log('includes')
+                reaction.remove(user)
+                return
+            }
+            /* FOR 1 CART ONLY */
 
 
 
-        /* FOR 1 CART ONLY */
-        if (redeemed.includes(user.id)) {
-            console.log('includes')
-            reaction.remove(user)
-            return
-        }
-        /* FOR 1 CART ONLY */
+            console.log('Reaction added; current count:', reaction.count);
+            /* console.log(reaction.message.id); */
+            if (reaction.message.channel.id == publicChannel) {
+                if (reaction.count == 2) { /* could do > 1 ? */
+                    (reaction.users).forEach(element => {
+                        /* console.log(element)
+                        console.log(Object.keys(element)) */
+                        console.log(element['username'])
+                        console.log('user ID: ' + element['id'])
+                        cartID = (reaction.message.embeds[0].footer.text).split('# ')[1].split(' • M')[0]
+
+                        var contents = fs.readFileSync(`${'cartFiles/'+fileName}`);
+                        var jsonContent = JSON.parse(contents);
+                        for (i = 0; i < jsonContent.length; i++) {
+                            if (jsonContent[i]['id'] == cartID) {
+                                if (element['bot'] != true) {
 
 
 
-        console.log('Reaction added; current count:', reaction.count);
-        /* console.log(reaction.message.id); */
-        if (reaction.message.channel.id == publicChannel) {
-            if (reaction.count == 2) { /* could do > 1 ? */
-                (reaction.users).forEach(element => {
-                    /* console.log(element)
-                    console.log(Object.keys(element)) */
-                    console.log(element['username'])
-                    console.log('user ID: ' + element['id'])
-                    cartID = (reaction.message.embeds[0].footer.text).split('# ')[1].split(' • M')[0]
-
-                    var contents = fs.readFileSync(`${'cartFiles/'+fileName}`);
-                    var jsonContent = JSON.parse(contents);
-                    for (i = 0; i < jsonContent.length; i++) {
-                        if (jsonContent[i]['id'] == cartID) {
-                            if (element['bot'] != true) {
+                                    /* FOR 1 CART ONLY */
+                                    if (user.id != "476117051040333824")
+                                        redeemed.push(user.id)
+                                    /* FOR 1 CART ONLY */
 
 
 
-                                /* FOR 1 CART ONLY */
-                                if (user.id != "476117051040333824")
-                                    redeemed.push(user.id)
-                                /* FOR 1 CART ONLY */
+                                    console.log(redeemed)
+                                    const embed = new Discord.RichEmbed()
+                                        .setColor(0x00FF00)
+                                        .setTimestamp()
+                                        .setTitle(`Size: ${jsonContent[i]['size']}`)
+                                        .setURL(jsonContent[i]['login'])
+                                        .setDescription(`Email: ${jsonContent[i]['email']} \nPassword: ${jsonContent[i]['pass']}`)
+                                        .setFooter(`Cart: # ${cartNum} • Made by Jalfrazi`, 'https://pbs.twimg.com/profile_images/999669687112749056/WK1RT5lY_400x400.jpg')
+                                    if (jsonContent[i]['image'] != '') {
+                                        embed.setThumbnail(jsonContent[i]['image'])
+                                    }
+                                    if (jsonContent[i]['sku'] != '') {
+                                        embed.setDescription(`Email: ${jsonContent[i]['email']} \nPassword: ${jsonContent[i]['pass']} \nSKU: ${jsonContent[i]['sku']}`)
+                                    }
+                                    guild.members.get(element['id']).send({
+                                        embed
+                                    });
+                                    redeemedTotal++
 
-
-
-                                console.log(redeemed)
-                                const embed = new Discord.RichEmbed()
-                                    .setColor(0x00FF00)
-                                    .setTimestamp()
-                                    .setTitle(`Size: ${jsonContent[i]['size']}`)
-                                    .setURL(jsonContent[i]['login'])
-                                    .setDescription(`Email: ${jsonContent[i]['email']} \nPassword: ${jsonContent[i]['pass']}`)
-                                    .setFooter(`Cart: # ${cartNum} • Made by Jalfrazi`, 'https://pbs.twimg.com/profile_images/999669687112749056/WK1RT5lY_400x400.jpg')
-                                if (jsonContent[i]['image'] != '') {
-                                    embed.setThumbnail(jsonContent[i]['image'])
+                                    liveTotal = cartNum - redeemedTotal
+                                    console.log(`live: ${liveTotal}`)
+                                    mainWindow.webContents.send('liveTotal', liveTotal);
+                                    mainWindow.webContents.send('redeemedTotal', redeemedTotal)
                                 }
-                                if (jsonContent[i]['sku'] != '') {
-                                    embed.setDescription(`Email: ${jsonContent[i]['email']} \nPassword: ${jsonContent[i]['pass']} \nSKU: ${jsonContent[i]['sku']}`)
-                                }
-                                guild.members.get(element['id']).send({
-                                    embed
-                                });
-                                redeemedTotal++
-
-                                liveTotal = cartNum - redeemedTotal
-                                console.log(`live: ${liveTotal}`)
-                                mainWindow.webContents.send('liveTotal',liveTotal);
-                                mainWindow.webContents.send('redeemedTotal',redeemedTotal)
                             }
                         }
-                    }
-                });
-                //reaction.message.delete()
+                    });
+                    //reaction.message.delete()
+                }
             }
         }
     });
 
     function writeCart(cartNum, email, pass, loginURL, img, size, sku) {
         liveTotal = cartNum - redeemedTotal
-        mainWindow.webContents.send('liveTotal',liveTotal);
-        mainWindow.webContents.send('redeemedTotal',redeemedTotal)
-        mainWindow.webContents.send('cartsTotal',cartNum);
+        mainWindow.webContents.send('liveTotal', liveTotal);
+        mainWindow.webContents.send('redeemedTotal', redeemedTotal)
+        mainWindow.webContents.send('cartsTotal', cartNum);
         // Get content from file
         var contents = fs.readFileSync(`${'cartFiles/'+fileName}`);
         // Define to JSON type
