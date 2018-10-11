@@ -49,7 +49,11 @@
             </div>
             <div>
                 <label>One cart per person</label>
-                <input type="checkbox" id='oneCart' value='test'><br>
+                <input type="checkbox" id='oneCart'><br>
+            </div>
+            <div>
+                <label>Delete cart message after reaction</label>
+                <input type="checkbox" id="deleteAfterReact"><br>
             </div>
             <p onclick="save()" class="button">save</p>
         </form>
@@ -79,13 +83,16 @@
 
 <script>
     (function() {
-    let config = require('./config.json')
+    const config = require('./config.json')
     document.getElementById('server').value =  config.server
     document.getElementById('private').value = config.privateChannel
     document.getElementById('public').value = config.publicChannel
     document.getElementById('bot').value = config.botToken
     if(config.oneCart){
         document.getElementById('oneCart').checked = true
+    }
+    if(config.deleteAfterReact){
+        document.getElementById('deleteAfterReact').checked = true
     }
     })();
     const electron = require('electron');
@@ -144,18 +151,20 @@
         const public = document.querySelector('#public').value;
         const bot = document.querySelector('#bot').value;
         const oneCart = document.getElementById('oneCart').checked;
+        const deleteAfterReact = document.getElementById('deleteAfterReact').checked
         console.log(oneCart)
-        config = `{"server":"${server}","privateChannel":"${private}","publicChannel":"${public}","botToken":"${bot}","oneCart":${oneCart}}`
+        config = `{"server":"${server}","privateChannel":"${private}","publicChannel":"${public}","botToken":"${bot}","oneCart":${oneCart},"deleteAfterReact":${deleteAfterReact}}`
         console.log(config)
         ipcRenderer.send('configSave', config);
     }
     function start(){
-        save()
+        //save()
         document.getElementById('server').disabled  = true
         document.getElementById('private').disabled = true
         document.getElementById('public').disabled = true
         document.getElementById('bot').disabled = true
         document.getElementById('oneCart').disabled = true
+        document.getElementById('deleteAfterReact').disabled = true
         ipcRenderer.send('start');
     }
     

@@ -11,10 +11,7 @@
 const electron = require('electron');
 const url = require('url');
 const path = require('path');
-const fs = require('fs');
-const config = require('./config.json');
-const Discord = require('discord.js');
-const bot = new Discord.Client();
+const fs = require('fs')
 const {
     app,
     BrowserWindow,
@@ -53,10 +50,15 @@ ipcMain.on('configSave', function (e, config) {
 
 ipcMain.on('start', function (start) {
     mainWindow.webContents.send('message', 'x');
+    const config = require('./config.json');
+    const Discord = require('discord.js');
+    const bot = new Discord.Client();
+    const fs = require('fs');
     var guild;
     cartNum = 0
     redeemedTotal = 0
     liveTotal = 0
+    carts = []
 
     /* Server/guild ID */
     server = config.server
@@ -68,20 +70,11 @@ ipcMain.on('start', function (start) {
     botToken = config.botToken
     //check if user wants one cart per person
     onePP = config.oneCart
-
-    /* try{
-        bot.login(botToken);
-        if (err) {
-        throw (err);
-        }
-    }catch(err){
-        console.log('broke login')
-        console.log(err)
-        mainWindow.webContents.send('loginError','loginError')
-        //process.exit()
-    } */
+    //checks if user wants messages to stay in channel
+    deleteAfterReact = config.deleteAfterReact
     
-    bot.login(botToken);
+    bot.login(botToken).catch(err => mainWindow.webContents.send('loginError', 'loginError'))
+    
     
 
     
@@ -111,15 +104,6 @@ ipcMain.on('start', function (start) {
     bot.on('message', message => {
         /* if (message.author.bot) return; */
         if (message.channel.type == 'dm') return;
-        if (message.content === 'listroles') {
-            findGuildMember(message, guild).then(member => {
-                let str = '';
-                for (let role of member.guild.roles.values()) {
-                    str += role.name + ' : ' + role.id + '\n';
-                }
-                message.author.send(str);
-            });
-        }
         if (message.channel.id == privateChannel) {
             cartNum += 1
             message.embeds.forEach((e) => {
@@ -142,11 +126,7 @@ ipcMain.on('start', function (start) {
                         .setDescription(`Size: ${size}`)
                         .setFooter(`Cart: # ${cartNum} • Made by Jalfrazi`, 'https://pbs.twimg.com/profile_images/999669687112749056/WK1RT5lY_400x400.jpg')
                         .setThumbnail(img)
-                    setTimeout(function () {
-                        guild.channels.get(publicChannel).send({
-                            embed
-                        });
-                    }, 1000)
+                    carts.push({embed})
                     writeCart(cartNum, email, pass, loginURL, img, size, sku)
                 } else if (e.footer.text === 'yCopp Ultimate Adidas Bot') {
                     //clothing size
@@ -167,11 +147,7 @@ ipcMain.on('start', function (start) {
                         .setDescription(`Size: ${size} \nSKU: ${sku}`)
                         .setFooter(`Cart: # ${cartNum} • Made by Jalfrazi`, 'https://pbs.twimg.com/profile_images/999669687112749056/WK1RT5lY_400x400.jpg')
                         .setThumbnail(img)
-                    setTimeout(function () {
-                        guild.channels.get(publicChannel).send({
-                            embed
-                        });
-                    }, 1000)
+                    carts.push({embed})
                     writeCart(cartNum, email, pass, loginURL, img, size, sku)
 
                 } else if (e.footer.text === 'LatchKeyIO Adidas Bot') {
@@ -192,11 +168,7 @@ ipcMain.on('start', function (start) {
                         .setDescription(`Size: ${size} \nSKU: ${sku}`)
                         .setFooter(`Cart: # ${cartNum} • Made by Jalfrazi`, 'https://pbs.twimg.com/profile_images/999669687112749056/WK1RT5lY_400x400.jpg')
                         .setThumbnail(img)
-                    setTimeout(function () {
-                        guild.channels.get(publicChannel).send({
-                            embed
-                        });
-                    }, 1000)
+                    carts.push({embed})
                     writeCart(cartNum, email, pass, loginURL, img, size, sku)
 
                 } else if (e.footer.text === 'Copyright BackdoorIO 2018, All Rights Reserved.') {
@@ -218,11 +190,7 @@ ipcMain.on('start', function (start) {
                         .setDescription(`Size: ${size} \nSKU: ${sku}`)
                         .setFooter(`Cart: # ${cartNum} • Made by Jalfrazi`, 'https://pbs.twimg.com/profile_images/999669687112749056/WK1RT5lY_400x400.jpg')
 
-                    setTimeout(function () {
-                        guild.channels.get(publicChannel).send({
-                            embed
-                        });
-                    }, 1000)
+                    carts.push({embed})
                     writeCart(cartNum, email, pass, loginURL, img, size, sku)
 
                 } else if ((e.footer.text).startsWith('NoMercy')) {
@@ -243,11 +211,7 @@ ipcMain.on('start', function (start) {
                         .setDescription(`Size: ${size} \nSKU: ${sku}`)
                         .setFooter(`Cart: # ${cartNum} • Made by Jalfrazi`, 'https://pbs.twimg.com/profile_images/999669687112749056/WK1RT5lY_400x400.jpg')
                         .setThumbnail(img)
-                    setTimeout(function () {
-                        guild.channels.get(publicChannel).send({
-                            embed
-                        });
-                    }, 1000)
+                    carts.push({embed})
                     writeCart(cartNum, email, pass, loginURL, img, size, sku)
                 } else if (e.footer.text === 'Gen5 Adidas') {
                     size = (e.fields)[1]['value']
@@ -266,11 +230,7 @@ ipcMain.on('start', function (start) {
                         .setDescription(`Size: ${size} \nSKU: ${sku}`)
                         .setFooter(`Cart: # ${cartNum} • Made by Jalfrazi`, 'https://pbs.twimg.com/profile_images/999669687112749056/WK1RT5lY_400x400.jpg')
 
-                    setTimeout(function () {
-                        guild.channels.get(publicChannel).send({
-                            embed
-                        });
-                    }, 1000)
+                    carts.push({embed})
                     writeCart(cartNum, email, pass, loginURL, img, size, sku)
 
                 }
@@ -280,7 +240,16 @@ ipcMain.on('start', function (start) {
             message.react('🛒')
         }
     })
-
+    function sendCarts(){
+        if(carts.length > 0 ){
+            console.log('sending cart...')
+            guild.channels.get(publicChannel).send(
+                carts[0]
+            );
+            carts.shift()
+        }
+    }
+    setInterval(sendCarts,1000)
 
     /* FOR 1 CART ONLY */
     redeemed = []
@@ -350,7 +319,10 @@ ipcMain.on('start', function (start) {
                             }
                         }
                     });
-                    //reaction.message.delete()
+                    if(deleteAfterReact){
+                        reaction.message.delete()
+                    }
+                    
                 }
             }
         }
