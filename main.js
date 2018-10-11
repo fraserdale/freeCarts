@@ -137,7 +137,7 @@ ipcMain.on('start', function (start) {
                         mainWindow.webContents.send('liveTotal', liveTotal);
                         mainWindow.webContents.send('redeemedTotal', redeemedTotal)
                         mainWindow.webContents.send('cartsTotal', cartNum);
-                        //writeCart(cartNum, email, pass, loginURL, img, size, sku)
+                        writeCart(cartNum, email, pass, loginURL, img, size, sku)
                     } else if (e.footer.text === 'yCopp Ultimate Adidas Bot') {
                         //clothing size
                         size = (e.title).split(',')[1]
@@ -162,7 +162,7 @@ ipcMain.on('start', function (start) {
                         mainWindow.webContents.send('liveTotal', liveTotal);
                         mainWindow.webContents.send('redeemedTotal', redeemedTotal)
                         mainWindow.webContents.send('cartsTotal', cartNum);
-                        //writeCart(cartNum, email, pass, loginURL, img, size, sku)
+                        writeCart(cartNum, email, pass, loginURL, img, size, sku)
 
                     } else if (e.footer.text === 'LatchKeyIO Adidas Bot') {
                         size = (e.fields)[2]['value']
@@ -187,7 +187,7 @@ ipcMain.on('start', function (start) {
                         mainWindow.webContents.send('liveTotal', liveTotal);
                         mainWindow.webContents.send('redeemedTotal', redeemedTotal)
                         mainWindow.webContents.send('cartsTotal', cartNum);
-                        //writeCart(cartNum, email, pass, loginURL, img, size, sku)
+                        writeCart(cartNum, email, pass, loginURL, img, size, sku)
 
                     } else if (e.footer.text === 'Copyright BackdoorIO 2018, All Rights Reserved.') {
                         size = (e.fields)[1]['value']
@@ -213,7 +213,7 @@ ipcMain.on('start', function (start) {
                         mainWindow.webContents.send('liveTotal', liveTotal);
                         mainWindow.webContents.send('redeemedTotal', redeemedTotal)
                         mainWindow.webContents.send('cartsTotal', cartNum);
-                        //writeCart(cartNum, email, pass, loginURL, img, size, sku)
+                        writeCart(cartNum, email, pass, loginURL, img, size, sku)
 
                     } else if ((e.footer.text).startsWith('NoMercy')) {
                         size = (e.fields)[1]['value']
@@ -234,7 +234,7 @@ ipcMain.on('start', function (start) {
                             .setFooter(`Cart: # ${cartNum} • Made by Jalfrazi`, 'https://pbs.twimg.com/profile_images/999669687112749056/WK1RT5lY_400x400.jpg')
                             .setThumbnail(img)
                         carts.push({embed})
-                        //writeCart(cartNum, email, pass, loginURL, img, size, sku)
+                        writeCart(cartNum, email, pass, loginURL, img, size, sku)
                     } else if (e.footer.text === 'Gen5 Adidas') {
                         size = (e.fields)[1]['value']
                         email = (e.fields)[3]['value']
@@ -258,7 +258,7 @@ ipcMain.on('start', function (start) {
                         mainWindow.webContents.send('liveTotal', liveTotal);
                         mainWindow.webContents.send('redeemedTotal', redeemedTotal)
                         mainWindow.webContents.send('cartsTotal', cartNum);
-                        //writeCart(cartNum, email, pass, loginURL, img, size, sku)
+                        writeCart(cartNum, email, pass, loginURL, img, size, sku)
 
                     }
                 }
@@ -356,7 +356,7 @@ ipcMain.on('start', function (start) {
         }
     });
 
-    /* function writeCart(cartNum, email, pass, loginURL, img, size, sku) {
+    function writeCart(cartNum, email, pass, loginURL, img, size, sku) {
         liveTotal = cartNum - redeemedTotal
         mainWindow.webContents.send('liveTotal', liveTotal);
         mainWindow.webContents.send('redeemedTotal', redeemedTotal)
@@ -381,5 +381,5 @@ ipcMain.on('start', function (start) {
             };
             console.log('File has been created');
         });
-    } */
+    }
 })
