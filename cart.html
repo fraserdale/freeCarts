@@ -79,7 +79,7 @@
 
 <script>
     (function() {
-    const config = require('./config.json')
+    let config = require('./config.json')
     document.getElementById('server').value =  config.server
     document.getElementById('private').value = config.privateChannel
     document.getElementById('public').value = config.publicChannel
