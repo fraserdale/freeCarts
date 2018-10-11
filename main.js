@@ -24,7 +24,12 @@ let mainWindow;
 // Listen for app to be ready
 app.on('ready', function () {
     //create new window
-    mainWindow = new BrowserWindow({});
+    mainWindow = new BrowserWindow({
+        width: 800,
+		height: 660,
+		minWidth: 800,
+		minHeight: 660,
+    });
     mainWindow.setMenu(null)
     mainWindow.setTitle('Cart Distribution - Jalfrazi#0001')
     mainWindow.setIcon('./kermitsupreme.jpg');
@@ -127,7 +132,11 @@ ipcMain.on('start', function (start) {
                         .setFooter(`Cart: # ${cartNum} • Made by Jalfrazi`, 'https://pbs.twimg.com/profile_images/999669687112749056/WK1RT5lY_400x400.jpg')
                         .setThumbnail(img)
                     carts.push({embed})
-                    writeCart(cartNum, email, pass, loginURL, img, size, sku)
+                    liveTotal = cartNum - redeemedTotal
+                    mainWindow.webContents.send('liveTotal', liveTotal);
+                    mainWindow.webContents.send('redeemedTotal', redeemedTotal)
+                    mainWindow.webContents.send('cartsTotal', cartNum);
+                    //writeCart(cartNum, email, pass, loginURL, img, size, sku)
                 } else if (e.footer.text === 'yCopp Ultimate Adidas Bot') {
                     //clothing size
                     size = (e.title).split(',')[1]
@@ -148,7 +157,11 @@ ipcMain.on('start', function (start) {
                         .setFooter(`Cart: # ${cartNum} • Made by Jalfrazi`, 'https://pbs.twimg.com/profile_images/999669687112749056/WK1RT5lY_400x400.jpg')
                         .setThumbnail(img)
                     carts.push({embed})
-                    writeCart(cartNum, email, pass, loginURL, img, size, sku)
+                    liveTotal = cartNum - redeemedTotal
+                    mainWindow.webContents.send('liveTotal', liveTotal);
+                    mainWindow.webContents.send('redeemedTotal', redeemedTotal)
+                    mainWindow.webContents.send('cartsTotal', cartNum);
+                    //writeCart(cartNum, email, pass, loginURL, img, size, sku)
 
                 } else if (e.footer.text === 'LatchKeyIO Adidas Bot') {
                     size = (e.fields)[2]['value']
@@ -169,7 +182,11 @@ ipcMain.on('start', function (start) {
                         .setFooter(`Cart: # ${cartNum} • Made by Jalfrazi`, 'https://pbs.twimg.com/profile_images/999669687112749056/WK1RT5lY_400x400.jpg')
                         .setThumbnail(img)
                     carts.push({embed})
-                    writeCart(cartNum, email, pass, loginURL, img, size, sku)
+                    liveTotal = cartNum - redeemedTotal
+                    mainWindow.webContents.send('liveTotal', liveTotal);
+                    mainWindow.webContents.send('redeemedTotal', redeemedTotal)
+                    mainWindow.webContents.send('cartsTotal', cartNum);
+                    //writeCart(cartNum, email, pass, loginURL, img, size, sku)
 
                 } else if (e.footer.text === 'Copyright BackdoorIO 2018, All Rights Reserved.') {
                     size = (e.fields)[1]['value']
@@ -191,7 +208,11 @@ ipcMain.on('start', function (start) {
                         .setFooter(`Cart: # ${cartNum} • Made by Jalfrazi`, 'https://pbs.twimg.com/profile_images/999669687112749056/WK1RT5lY_400x400.jpg')
 
                     carts.push({embed})
-                    writeCart(cartNum, email, pass, loginURL, img, size, sku)
+                    liveTotal = cartNum - redeemedTotal
+                    mainWindow.webContents.send('liveTotal', liveTotal);
+                    mainWindow.webContents.send('redeemedTotal', redeemedTotal)
+                    mainWindow.webContents.send('cartsTotal', cartNum);
+                    //writeCart(cartNum, email, pass, loginURL, img, size, sku)
 
                 } else if ((e.footer.text).startsWith('NoMercy')) {
                     size = (e.fields)[1]['value']
@@ -212,7 +233,7 @@ ipcMain.on('start', function (start) {
                         .setFooter(`Cart: # ${cartNum} • Made by Jalfrazi`, 'https://pbs.twimg.com/profile_images/999669687112749056/WK1RT5lY_400x400.jpg')
                         .setThumbnail(img)
                     carts.push({embed})
-                    writeCart(cartNum, email, pass, loginURL, img, size, sku)
+                    //writeCart(cartNum, email, pass, loginURL, img, size, sku)
                 } else if (e.footer.text === 'Gen5 Adidas') {
                     size = (e.fields)[1]['value']
                     email = (e.fields)[3]['value']
@@ -231,7 +252,12 @@ ipcMain.on('start', function (start) {
                         .setFooter(`Cart: # ${cartNum} • Made by Jalfrazi`, 'https://pbs.twimg.com/profile_images/999669687112749056/WK1RT5lY_400x400.jpg')
 
                     carts.push({embed})
-                    writeCart(cartNum, email, pass, loginURL, img, size, sku)
+                    
+                    liveTotal = cartNum - redeemedTotal
+                    mainWindow.webContents.send('liveTotal', liveTotal);
+                    mainWindow.webContents.send('redeemedTotal', redeemedTotal)
+                    mainWindow.webContents.send('cartsTotal', cartNum);
+                    //writeCart(cartNum, email, pass, loginURL, img, size, sku)
 
                 }
             })
@@ -244,12 +270,12 @@ ipcMain.on('start', function (start) {
         if(carts.length > 0 ){
             console.log('sending cart...')
             guild.channels.get(publicChannel).send(
-                carts[0]
+                carts.shift()
             );
-            carts.shift()
+            
         }
     }
-    setInterval(sendCarts,1000)
+    setInterval(sendCarts,3000)
 
     /* FOR 1 CART ONLY */
     redeemed = []
@@ -328,7 +354,7 @@ ipcMain.on('start', function (start) {
         }
     });
 
-    function writeCart(cartNum, email, pass, loginURL, img, size, sku) {
+    /* function writeCart(cartNum, email, pass, loginURL, img, size, sku) {
         liveTotal = cartNum - redeemedTotal
         mainWindow.webContents.send('liveTotal', liveTotal);
         mainWindow.webContents.send('redeemedTotal', redeemedTotal)
@@ -353,5 +379,5 @@ ipcMain.on('start', function (start) {
             };
             console.log('File has been created');
         });
-    }
+    } */
 })
