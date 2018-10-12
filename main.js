@@ -65,6 +65,8 @@ ipcMain.on('start', function (start) {
     liveTotal = 0
     carts = []
 
+    cartsStore = []
+
     /* Server/guild ID */
     server = config.server
     /* This is a hidden channel, normal members should not be able to see this */
@@ -308,10 +310,10 @@ ipcMain.on('start', function (start) {
                         console.log('user ID: ' + element['id'])
                         cartID = (reaction.message.embeds[0].footer.text).split('# ')[1].split(' • M')[0]
 
-                        var contents = fs.readFileSync(`${'cartFiles/'+fileName}`);
-                        var jsonContent = JSON.parse(contents);
-                        for (i = 0; i < jsonContent.length; i++) {
-                            if (jsonContent[i]['id'] == cartID) {
+                        //var contents = fs.readFileSync(`${'cartFiles/'+fileName}`);
+                        //var jsonContent = JSON.parse(contents);
+                        for (i = 0; i < cartsStore.length; i++) {
+                            if (cartsStore[i]['id'] == cartID) {
                                 if (element['bot'] != true) {
 
                                     /* FOR 1 CART ONLY */
@@ -324,15 +326,15 @@ ipcMain.on('start', function (start) {
                                     const embed = new Discord.RichEmbed()
                                         .setColor(0x00FF00)
                                         .setTimestamp()
-                                        .setTitle(`Size: ${jsonContent[i]['size']}`)
-                                        .setURL(jsonContent[i]['login'])
-                                        .setDescription(`Email: ${jsonContent[i]['email']} \nPassword: ${jsonContent[i]['pass']}`)
+                                        .setTitle(`Size: ${cartsStore[i]['size']}`)
+                                        .setURL(cartsStore[i]['login'])
+                                        .setDescription(`Email: ${cartsStore[i]['email']} \nPassword: ${cartsStore[i]['pass']}`)
                                         .setFooter(`Cart: # ${cartNum} • Made by Jalfrazi`, 'https://pbs.twimg.com/profile_images/999669687112749056/WK1RT5lY_400x400.jpg')
-                                    if (jsonContent[i]['image'] != '') {
-                                        embed.setThumbnail(jsonContent[i]['image'])
+                                    if (cartsStore[i]['image'] != '') {
+                                        embed.setThumbnail(cartsStore[i]['image'])
                                     }
-                                    if (jsonContent[i]['sku'] != '') {
-                                        embed.setDescription(`Email: ${jsonContent[i]['email']} \nPassword: ${jsonContent[i]['pass']} \nSKU: ${jsonContent[i]['sku']}`)
+                                    if (cartsStore[i]['sku'] != '') {
+                                        embed.setDescription(`Email: ${cartsStore[i]['email']} \nPassword: ${cartsStore[i]['pass']} \nSKU: ${cartsStore[i]['sku']}`)
                                     }
                                     guild.members.get(element['id']).send({
                                         embed
@@ -361,7 +363,18 @@ ipcMain.on('start', function (start) {
         mainWindow.webContents.send('liveTotal', liveTotal);
         mainWindow.webContents.send('redeemedTotal', redeemedTotal)
         mainWindow.webContents.send('cartsTotal', cartNum);
-        // Get content from file
+
+        cartsStore.push({
+            'id': (cartNum).toString(),
+            'email': email,
+            'pass': pass,
+            'login': loginURL,
+            'image': img,
+            'size': size,
+            'sku': sku
+        })
+
+        /* // Get content from file
         var contents = fs.readFileSync(`${'cartFiles/'+fileName}`);
         // Define to JSON type
         var jsonContent = JSON.parse(contents);
@@ -380,6 +393,6 @@ ipcMain.on('start', function (start) {
                 return;
             };
             console.log('File has been created');
-        });
+        }); */
     }
 })
