@@ -90,7 +90,7 @@ ipcMain.on('start', function (start) {
         guild = bot.guilds.get(server);
         serverName = guild.name
         serverImg = 'https://cdn.discordapp.com/icons/' + guild.id + '/' + guild.icon + '.png'
-        mainWindow.webContents.send('serverImg', serverImg);
+        //mainWindow.webContents.send('serverImg', serverImg);
         mainWindow.webContents.send('serverName', serverName);
         mainWindow.webContents.send('botName', bot.user.username)
     })
