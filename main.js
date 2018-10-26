@@ -32,7 +32,7 @@ app.on('ready', function () {
     });
     mainWindow.setMenu(null)
     mainWindow.setTitle('Cart Distribution - Jalfrazi#0001')
-    mainWindow.setIcon('./kermitsupreme.jpg');
+    if(process.platform === "win32"){mainWindow.setIcon('./kermitsupreme.jpg')}
     //load html into window
     mainWindow.loadURL(url.format({
         pathname: path.join(__dirname, 'cart.html'),
@@ -90,7 +90,7 @@ ipcMain.on('start', function (start) {
         guild = bot.guilds.get(server);
         serverName = guild.name
         serverImg = 'https://cdn.discordapp.com/icons/' + guild.id + '/' + guild.icon + '.png'
-        //mainWindow.webContents.send('serverImg', serverImg);
+        mainWindow.webContents.send('serverImg', serverImg);
         mainWindow.webContents.send('serverName', serverName);
         mainWindow.webContents.send('botName', bot.user.username)
     })
