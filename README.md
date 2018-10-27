@@ -33,7 +33,7 @@ Go to: discordapp.com/developers/applications/me or [click here](https://discord
 Redirect URI, Description, and App Icon can be ignored for now and editted later. Redirect URI and Description can be ignored entirely as it is for Discord OAuth
 App Icon will be the avatar for your bot, whilst App Name will be the original username for your bot.  
 
-Then hit the Big Blurple **Create App** Button at the bottom.  
+Then hit the big purple **Create App** Button at the bottom.  
 This will build your application and bring you to its page.  
 
 ## Setting Up Bot Accounts
