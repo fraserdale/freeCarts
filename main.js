@@ -60,25 +60,25 @@ ipcMain.on('start', function (start) {
     const bot = new Discord.Client();
     const fs = require('fs');
     var guild;
-    cartNum = 0
-    redeemedTotal = 0
-    liveTotal = 0
-    carts = []
+    let cartNum = 0
+    let redeemedTotal = 0
+    let liveTotal = 0
+    let carts = []
 
-    cartsStore = []
+    let cartsStore = []
 
     /* Server/guild ID */
-    server = config.server
+    let server = config.server
     /* This is a hidden channel, normal members should not be able to see this */
-    privateChannel = config.privateChannel
+    let privateChannel = config.privateChannel
     /* This is a public channel, 'everyone' should be able to see this */
-    publicChannel = config.publicChannel
+    let publicChannel = config.publicChannel
     /* Bot login token */
-    botToken = config.botToken
+    let botToken = config.botToken
     //check if user wants one cart per person
-    onePP = config.oneCart
+    let quantity = config.quantity
     //checks if user wants messages to stay in channel
-    deleteAfterReact = config.deleteAfterReact
+    let deleteAfterReact = config.deleteAfterReact
     
     bot.login(botToken).catch(err => mainWindow.webContents.send('loginError', 'loginError'))
     
@@ -298,11 +298,21 @@ ipcMain.on('start', function (start) {
                         for (i = 0; i < cartsStore.length; i++) {
                             if (cartsStore[i]['id'] == cartID) {
                                 if (element['bot'] != true) {
-
                                     /* FOR 1 CART ONLY */
-                                    if(onePP){                                        
-                                        redeemed.push(user.id)
+                                    let redeemingUser;
+                                    if (quantity > 0) {
+                                      if ((redeemingUser = redeemed.find(element => element.userid == user.id))) {
+                                        if (redeemingUser.quantity <= quantity) {
+                                          redeemingUser.quantity++
+                                        } else {
+                                          redeemed.push({
+                                            userid: user.id,
+                                            quantity: 1
+                                          })
+                                        }
+                                      }
                                     }
+
                                     /* FOR 1 CART ONLY */
 
                                     const embed = new Discord.RichEmbed()
