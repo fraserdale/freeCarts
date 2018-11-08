@@ -4,9 +4,7 @@
   document.getElementById('private').value = config.privateChannel
   document.getElementById('public').value = config.publicChannel
   document.getElementById('bot').value = config.botToken
-  if(config.oneCart){
-    document.getElementById('oneCart').checked = true
-  }
+  document.getElementById('quantityCart'.value = config.quantityCart)
   if(config.deleteAfterReact){
     document.getElementById('deleteAfterReact').checked = true
   }
@@ -18,7 +16,7 @@ function stop(){
   document.getElementById('private').disabled = false
   document.getElementById('public').disabled = false
   document.getElementById('bot').disabled = false
-  document.getElementById('oneCart').disabled = false
+  document.getElementById('quantityCart').disabled = false
   document.getElementById('deleteAfterReact').disabled = false
   document.getElementById('botsname').innerHTML = ''
   document.getElementById('name').innerHTML = ''
@@ -67,10 +65,9 @@ function save(){
   const private = document.querySelector('#private').value;
   const public = document.querySelector('#public').value;
   const bot = document.querySelector('#bot').value;
-  const oneCart = document.getElementById('oneCart').checked;
+  const quantityCart = document.getElementById('quantityCart').value;
   const deleteAfterReact = document.getElementById('deleteAfterReact').checked
-  console.log(oneCart)
-  config = `{"server":"${server}","privateChannel":"${private}","publicChannel":"${public}","botToken":"${bot}","oneCart":${oneCart},"deleteAfterReact":${deleteAfterReact}}`
+  config = `{"server":"${server}","privateChannel":"${private}","publicChannel":"${public}","botToken":"${bot}","quantityCart":${quantityCart},"deleteAfterReact":${deleteAfterReact}}`
   console.log(config)
   ipcRenderer.send('configSave', config);
 }
@@ -80,7 +77,7 @@ function start(){
   document.getElementById('private').disabled = true
   document.getElementById('public').disabled = true
   document.getElementById('bot').disabled = true
-  document.getElementById('oneCart').disabled = true
+  document.getElementById('quantityCart').disabled = true
   document.getElementById('deleteAfterReact').disabled = true
   ipcRenderer.send('start');
 }

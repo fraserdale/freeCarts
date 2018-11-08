@@ -26,16 +26,18 @@ app.on('ready', function () {
     //create new window
     mainWindow = new BrowserWindow({
         width: 800,
-		height: 660,
-		minWidth: 800,
-		minHeight: 660,
+        height: 660,
+        minWidth: 800,
+        minHeight: 660,
     });
-    mainWindow.setMenu(null)
+    //mainWindow.setMenu(null)
     mainWindow.setTitle('Cart Distribution - Jalfrazi#0001')
-    if(process.platform === "win32"){mainWindow.setIcon('./kermitsupreme.jpg')}
+    if (process.platform === "win32") {
+        mainWindow.setIcon('./kermitsupreme.jpg')
+    }
     //load html into window
     mainWindow.loadURL(url.format({
-        pathname: path.join(__dirname, 'cart.html'),
+        pathname: path.join(__dirname, 'static/cart.html'),
         protocol: 'file:',
         slashes: true
     }))
@@ -76,15 +78,15 @@ ipcMain.on('start', function (start) {
     /* Bot login token */
     let botToken = config.botToken
     //check if user wants one cart per person
-    let quantity = config.quantity
+    let quantityCart = config.quantityCart
     //checks if user wants messages to stay in channel
     let deleteAfterReact = config.deleteAfterReact
-    
-    bot.login(botToken).catch(err => mainWindow.webContents.send('loginError', 'loginError'))
-    
-    
 
-    
+    bot.login(botToken).catch(err => mainWindow.webContents.send('loginError', 'loginError'))
+
+
+
+
     bot.on('ready', () => {
         console.log(`Logged in as ${bot.user.username}!`);
         guild = bot.guilds.get(server);
@@ -101,7 +103,7 @@ ipcMain.on('start', function (start) {
         if (message.channel.id == privateChannel) {
             cartNum += 1
             message.embeds.forEach((e) => {
-                if(e.footer){
+                if (e.footer) {
                     if (e.footer.text === 'Splashforce') {
                         size = ((e.title).slice(20))
                         email = (e.description).split(' ')[1].split('\n')[0]
@@ -121,7 +123,9 @@ ipcMain.on('start', function (start) {
                             .setDescription(`Size: ${size}`)
                             .setFooter(`Cart: # ${cartNum} • Made by Jalfrazi`, 'https://pbs.twimg.com/profile_images/999669687112749056/WK1RT5lY_400x400.jpg')
                             .setThumbnail(img)
-                        carts.push({embed})
+                        carts.push({
+                            embed
+                        })
                         liveTotal = cartNum - redeemedTotal
                         mainWindow.webContents.send('liveTotal', liveTotal);
                         mainWindow.webContents.send('redeemedTotal', redeemedTotal)
@@ -146,7 +150,9 @@ ipcMain.on('start', function (start) {
                             .setDescription(`Size: ${size} \nSKU: ${sku}`)
                             .setFooter(`Cart: # ${cartNum} • Made by Jalfrazi`, 'https://pbs.twimg.com/profile_images/999669687112749056/WK1RT5lY_400x400.jpg')
                             .setThumbnail(img)
-                        carts.push({embed})
+                        carts.push({
+                            embed
+                        })
                         liveTotal = cartNum - redeemedTotal
                         mainWindow.webContents.send('liveTotal', liveTotal);
                         mainWindow.webContents.send('redeemedTotal', redeemedTotal)
@@ -171,7 +177,9 @@ ipcMain.on('start', function (start) {
                             .setDescription(`Size: ${size} \nSKU: ${sku}`)
                             .setFooter(`Cart: # ${cartNum} • Made by Jalfrazi`, 'https://pbs.twimg.com/profile_images/999669687112749056/WK1RT5lY_400x400.jpg')
                             .setThumbnail(img)
-                        carts.push({embed})
+                        carts.push({
+                            embed
+                        })
                         liveTotal = cartNum - redeemedTotal
                         mainWindow.webContents.send('liveTotal', liveTotal);
                         mainWindow.webContents.send('redeemedTotal', redeemedTotal)
@@ -197,7 +205,9 @@ ipcMain.on('start', function (start) {
                             .setDescription(`Size: ${size} \nSKU: ${sku}`)
                             .setFooter(`Cart: # ${cartNum} • Made by Jalfrazi`, 'https://pbs.twimg.com/profile_images/999669687112749056/WK1RT5lY_400x400.jpg')
 
-                        carts.push({embed})
+                        carts.push({
+                            embed
+                        })
                         liveTotal = cartNum - redeemedTotal
                         mainWindow.webContents.send('liveTotal', liveTotal);
                         mainWindow.webContents.send('redeemedTotal', redeemedTotal)
@@ -222,7 +232,9 @@ ipcMain.on('start', function (start) {
                             .setDescription(`Size: ${size} \nSKU: ${sku}`)
                             .setFooter(`Cart: # ${cartNum} • Made by Jalfrazi`, 'https://pbs.twimg.com/profile_images/999669687112749056/WK1RT5lY_400x400.jpg')
                             .setThumbnail(img)
-                        carts.push({embed})
+                        carts.push({
+                            embed
+                        })
                         writeCart(cartNum, email, pass, loginURL, img, size, sku)
                     } else if (e.footer.text === 'Gen5 Adidas') {
                         size = (e.fields)[1]['value']
@@ -241,8 +253,10 @@ ipcMain.on('start', function (start) {
                             .setDescription(`Size: ${size} \nSKU: ${sku}`)
                             .setFooter(`Cart: # ${cartNum} • Made by Jalfrazi`, 'https://pbs.twimg.com/profile_images/999669687112749056/WK1RT5lY_400x400.jpg')
 
-                        carts.push({embed})
-                        
+                        carts.push({
+                            embed
+                        })
+
                         liveTotal = cartNum - redeemedTotal
                         mainWindow.webContents.send('liveTotal', liveTotal);
                         mainWindow.webContents.send('redeemedTotal', redeemedTotal)
@@ -257,16 +271,17 @@ ipcMain.on('start', function (start) {
             message.react('🛒')
         }
     })
-    function sendCarts(){
-        if(carts.length > 0 ){
+
+    function sendCarts() {
+        if (carts.length > 0) {
             console.log('sending cart...')
             guild.channels.get(publicChannel).send(
                 carts.shift()
             );
-            
+
         }
     }
-    setInterval(sendCarts,3000)
+    setInterval(sendCarts, 3000)
 
     /* FOR 1 CART ONLY */
     redeemed = []
@@ -277,19 +292,22 @@ ipcMain.on('start', function (start) {
     bot.on('messageReactionAdd', (reaction, user) => {
         if (reaction.message.author.bot) {
             /* FOR 1 CART ONLY */
-            if (redeemed.includes(user.id)) {
-                console.log('includes')
-                reaction.remove(user)
-                return
+            let redeemingUser;
+            if ((redeemingUser = redeemed.find(element => element.userid == user.id))) {
+                if (redeemingUser.quantityCart == quantityCart) {
+                    console.log('user at max carts')
+                    reaction.remove(user)
+                    return
+                }
             }
             /* FOR 1 CART ONLY */
 
 
 
-            console.log('Reaction added; current count:', reaction.count);
             /* console.log(reaction.message.id); */
             if (reaction.message.channel.id == publicChannel) {
-                if (reaction.count > 2) {
+                console.log('Reaction added; current count:', reaction.count);
+                if (reaction.count == 2) {
                     (reaction.users).forEach(element => {
                         console.log(element['username'])
                         console.log('user ID: ' + element['id'])
@@ -299,18 +317,18 @@ ipcMain.on('start', function (start) {
                             if (cartsStore[i]['id'] == cartID) {
                                 if (element['bot'] != true) {
                                     /* FOR 1 CART ONLY */
-                                    let redeemingUser;
-                                    if (quantity > 0) {
-                                      if ((redeemingUser = redeemed.find(element => element.userid == user.id))) {
-                                        if (redeemingUser.quantity <= quantity) {
-                                          redeemingUser.quantity++
+                                    console.log(redeemed)
+                                    if (quantityCart > 0) {
+                                        if ((redeemingUser = redeemed.find(element => element.userid == user.id))) {
+                                            if (redeemingUser.quantityCart < quantityCart) {
+                                                redeemingUser.quantityCart++
+                                            }
                                         } else {
-                                          redeemed.push({
-                                            userid: user.id,
-                                            quantity: 1
-                                          })
+                                            redeemed.push({
+                                                userid: user.id,
+                                                quantityCart: 1
+                                            })
                                         }
-                                      }
                                     }
 
                                     /* FOR 1 CART ONLY */
@@ -341,10 +359,10 @@ ipcMain.on('start', function (start) {
                             }
                         }
                     });
-                    if(deleteAfterReact){
+                    if (deleteAfterReact) {
                         reaction.message.delete()
                     }
-                    
+
                 }
             }
         }
