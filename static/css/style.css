@@ -1,0 +1,13 @@
+* {
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center
+}
+.button{
+    border: 1px solid black;
+    padding: 5px;
+    display:inline-block;
+    cursor: hand
+}
+input[text]{
+    width: 250px;
+}

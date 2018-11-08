@@ -94,19 +94,6 @@ ipcMain.on('start', function (start) {
         mainWindow.webContents.send('serverName', serverName);
         mainWindow.webContents.send('botName', bot.user.username)
     })
-    
-
-
-    /* fileName = 'carts-' + (Math.round(((new Date).getTime()) / 1000)).toString() + '.json'
-    console.log(fileName)
-    fs.writeFile('cartFiles/' + fileName, '[]', (err) => {
-        // throws an error, you could also catch it here
-        if (err) throw err;
-        // success case, the file was saved
-        console.log('saved carts file');
-    }); */
-    console.log(config)
-
 
     bot.on('message', message => {
         /* if (message.author.bot) return; */
@@ -302,16 +289,12 @@ ipcMain.on('start', function (start) {
             console.log('Reaction added; current count:', reaction.count);
             /* console.log(reaction.message.id); */
             if (reaction.message.channel.id == publicChannel) {
-                if (reaction.count == 2) { /* could do > 1 ? */
+                if (reaction.count > 2) {
                     (reaction.users).forEach(element => {
-                        /* console.log(element)
-                        console.log(Object.keys(element)) */
                         console.log(element['username'])
                         console.log('user ID: ' + element['id'])
                         cartID = (reaction.message.embeds[0].footer.text).split('# ')[1].split(' • M')[0]
 
-                        //var contents = fs.readFileSync(`${'cartFiles/'+fileName}`);
-                        //var jsonContent = JSON.parse(contents);
                         for (i = 0; i < cartsStore.length; i++) {
                             if (cartsStore[i]['id'] == cartID) {
                                 if (element['bot'] != true) {
@@ -322,7 +305,6 @@ ipcMain.on('start', function (start) {
                                     }
                                     /* FOR 1 CART ONLY */
 
-                                    console.log(redeemed)
                                     const embed = new Discord.RichEmbed()
                                         .setColor(0x00FF00)
                                         .setTimestamp()
@@ -373,26 +355,5 @@ ipcMain.on('start', function (start) {
             'size': size,
             'sku': sku
         })
-
-        /* // Get content from file
-        var contents = fs.readFileSync(`${'cartFiles/'+fileName}`);
-        // Define to JSON type
-        var jsonContent = JSON.parse(contents);
-        jsonContent.push({
-            'id': (cartNum).toString(),
-            'email': email,
-            'pass': pass,
-            'login': loginURL,
-            'image': img,
-            'size': size,
-            'sku': sku
-        })
-        fs.writeFile(`./${'cartFiles/'+fileName}`, JSON.stringify(jsonContent, null, 4), (err) => {
-            if (err) {
-                console.error(err);
-                return;
-            };
-            console.log('File has been created');
-        }); */
     }
 })
