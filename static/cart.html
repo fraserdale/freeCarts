@@ -9,63 +9,76 @@
          __/ |                                      
         |___/                                       
 -->
+
 <head>
     <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 
 <body>
     <div>
-        <h1>Settings<a href='https://github.com/fraserdale/freeCarts' style="color: black; text-decoration: none">?</a></h1>
-        <form>
-            <div>
-                <label>Server ID</label>
-                <input type="text" id="server">
-            </div>
-            <div>
-                <label>Private ID</label>
-                <input type="text" id="private">
-            </div>
-            <div>
-                <label>Public ID</label>
-                <input type="text" id="public">
-            </div>
-            <div>
-                <label>Bot token</label>
-                <input type="text" id="bot">
-            </div>
-            <div>
-                <label>Carts per user: </label>
-                <input type="number" id='quantityCart' value=0><br>
-            </div>
-            <div>
-                <label>Delete cart message after reaction</label>
-                <input type="checkbox" id="deleteAfterReact"><br>
-            </div>
-            <p onclick="save()" class="button">save</p>
-        </form>
-        <h1>Discord Carts</h1>
-        <p onclick="start()" class="button">start</p>
-        <p onclick="stop()" class="button">stop</p>
-        <br>
-        <div style="display: inline-block;">
-        <img id='icon' style='height: 40px' src='https://pbs.twimg.com/profile_images/999669687112749056/WK1RT5lY_400x400.jpg'>
-        <h3 style="float: right; padding-left: 5px; line-height: .3"> Server: <span id='name'></span></h3>
+        <div id='settings' style='display:none'>
+            <h1>Settings<a href='https://github.com/fraserdale/freeCarts' style="color: black; text-decoration: none">?</a></h1>
+            <form>
+                <div class="input-field">
+                    <label>Server ID</label>
+                    <input type="text" id="server">
+                </div>
+                <div class="input-field">
+                    <label>Private ID</label>
+                    <input type="text" id="private">
+                </div>
+                <div class="input-field">
+                    <label>Public ID</label>
+                    <input type="text" id="public">
+                </div>
+                <div class="input-field">
+                    <label>Bot token</label>
+                    <input type="text" id="bot">
+                </div>
+                <div class="input-field">
+                    <label>Carts per user </label>
+                    <input type="number" id='quantityCart'><br>
+                </div>
+                <div>
+                    <label>
+                        <input type="checkbox" id='deleteAfterReact' />
+                        <span>Delete cart message after reaction</span>
+                    </label>
+                </div>
+                <p onclick="save()" class="waves-effect waves-light btn">save</p>
+            </form>
         </div>
-        <h4>Bot Name: <span id='botsname'></span></h4>
-        <p>Total Carts: <span id='total'></span></p>
-        <p>Live Carts: <span id='live'></span></p>
-        <p>Redeemed Carts: <span id='redeemed'></span></p>
-        <!-- <hr>
-        <h4>Sizes</h4>
-        <h4>SKU: </h4>
-        <p>8uk: 2</p>
-        <p>9uk: 1</p>
-        <p>10uk: 6</p>
-        <p>11uk: 5</p>
-        <p>12uk: 12</p> -->
-    </div>
+        <div name='main'>
+            <h1>Discord Carts <i class="material-icons small" style="cursor: pointer;" onclick="showSettings()">settings</i></h1>
+            <p onclick="start()" class="waves-effect waves-light btn green">start</p>
+            <p onclick="stop()" class="waves-effect waves-red btn red">stop</p>
+            <br>
+            <div>
+                <img style="height: 40px;vertical-align:middle" src="https://pbs.twimg.com/profile_images/999669687112749056/WK1RT5lY_400x400.jpg">
+                <span><b>Server: </b><span id='name'></span></span>
+            </div>
+            <h4>Bot Name: <span id='botsname'></span></h4>
+            <p>Total Carts: <span id='total'></span></p>
+            <p>Live Carts: <span id='live'></span></p>
+            <p>Redeemed Carts: <span id='redeemed'></span></p>
+            <!-- <hr>
+            <h4>Sizes</h4>
+            <h4>SKU: </h4>
+            <p>8uk: 2</p>
+            <p>9uk: 1</p>
+            <p>10uk: 6</p>
+            <p>11uk: 5</p>
+            <p>12uk: 12</p> -->
+        </div>
     </div>
 </body>
 
 <script src="js/base.js"></script>
+<!-- Compiled and minified CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+<!-- Compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
 </html>
