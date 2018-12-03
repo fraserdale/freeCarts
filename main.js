@@ -186,14 +186,14 @@ ipcMain.on('start', function (start) {
                         mainWindow.webContents.send('cartsTotal', cartNum);
                         writeCart(cartNum, email, pass, loginURL, img, size, sku)
 
-                    } else if (e.footer.text === 'Copyright BackdoorIO 2018, All Rights Reserved.') {
+                    } else if (e.footer.text === 'Copyright Backdoor.IO 2018, All Rights Reserved.') {
                         size = (e.fields)[1]['value']
                         userPass = (e.fields)[2]['value']
                         email = (userPass).split(' ')[1].split('\n')[0]
                         pass = (userPass).split(': ')[2]
 
-                        loginURL = ((e.fields)[5]['value']).substring(10).slice(0, -1)
-                        img = ''
+                        loginURL = e.url
+                        img = e.thumbnail.url
                         sku = (e.fields)[0]['value']
                         console.log('Size: ' + size)
                         console.log('Email:Pass : ' + email + ':' + pass)
@@ -204,6 +204,7 @@ ipcMain.on('start', function (start) {
                             .setTimestamp()
                             .setDescription(`Size: ${size} \nSKU: ${sku}`)
                             .setFooter(`Cart: # ${cartNum} • Made by Jalfrazi`, 'https://pbs.twimg.com/profile_images/999669687112749056/WK1RT5lY_400x400.jpg')
+                            .setThumbnail(img)
 
                         carts.push({
                             embed
