@@ -22,6 +22,15 @@ Make the channel that the carts are output in a channel where users cannot type 
 
 ![demo](https://i.imgur.com/YSlcJAG.png)
 
+## Video Tutorial
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=ns6HeuZF3qU
+" target="_blank"><img src="https://i.ytimg.com/vi/ns6HeuZF3qU/hqdefault.jpg?sqp=-oaymwEZCPYBEIoBSFXyq4qpAwsIARUAAIhCGAFwAQ==&rs=AOn4CLBA8DA1pdx9Gp2EDDpNRS8PtEvbFg" 
+alt="IMAGE ALT TEXT HERE" width="240" height="180" border="10" /></a>
+
+### Bot permissions
+Bot status
+Manage reactions
+
 ## Creating Discord Applications 
 ### Step 1: Navigate to /developers/applications
 Go to: discordapp.com/developers/applications/me or [click here](https://discordapp.com/developers/applications/me)
