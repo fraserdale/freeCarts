@@ -4,7 +4,7 @@
   document.getElementById('private').value = config.privateChannel
   document.getElementById('public').value = config.publicChannel
   document.getElementById('bot').value = config.botToken
-  document.getElementById('quantityCart'.value = config.quantityCart)
+  document.getElementById('quantityCart').value = config.quantityCart
   if (config.deleteAfterReact) {
     document.getElementById('deleteAfterReact').checked = true
   }
@@ -23,7 +23,7 @@ function stop() {
   document.getElementById('deleteAfterReact').disabled = false
   document.getElementById('botsname').innerHTML = ''
   document.getElementById('name').innerHTML = ''
-  document.getElementById("icon").src = 'https://pbs.twimg.com/profile_images/999669687112749056/WK1RT5lY_400x400.jpg'
+  document.getElementById("icon").src = 'https://is3-ssl.mzstatic.com/image/thumb/Purple124/v4/62/f8/8f/62f88f95-982b-c903-2123-0bbaf4e72482/AppIcon-0-1x_U007emarketing-0-0-GLES2_U002c0-512MB-sRGB-0-0-0-85-220-0-0-0-7.png/246x0w.jpg'
 
 }
 ipcRenderer.on('message', function (start, i) {

@@ -92,6 +92,7 @@ ipcMain.on('start', function (start) {
         guild = bot.guilds.get(server);
         serverName = guild.name
         serverImg = 'https://cdn.discordapp.com/icons/' + guild.id + '/' + guild.icon + '.png'
+        console.log(serverImg)
         mainWindow.webContents.send('serverImg', serverImg);
         mainWindow.webContents.send('serverName', serverName);
         mainWindow.webContents.send('botName', bot.user.username)
@@ -121,7 +122,7 @@ ipcMain.on('start', function (start) {
                             .setColor(0x00FF00)
                             .setTimestamp()
                             .setDescription(`Size: ${size}`)
-                            .setFooter(`Cart: # ${cartNum} • Made by Jalfrazi`, 'https://pbs.twimg.com/profile_images/999669687112749056/WK1RT5lY_400x400.jpg')
+                            .setFooter(`Cart: # ${cartNum} • Made by Jalfrazi`, 'https://pbs.twimg.com/profile_images/1088110085912649729/usJQewZx_400x400.jpg')
                             .setThumbnail(img)
                         carts.push({
                             embed
@@ -148,11 +149,12 @@ ipcMain.on('start', function (start) {
                             .setColor(0x00FF00)
                             .setTimestamp()
                             .setDescription(`Size: ${size} \nSKU: ${sku}`)
-                            .setFooter(`Cart: # ${cartNum} • Made by Jalfrazi`, 'https://pbs.twimg.com/profile_images/999669687112749056/WK1RT5lY_400x400.jpg')
+                            .setFooter(`Cart: # ${cartNum} • Made by Jalfrazi`, 'https://pbs.twimg.com/profile_images/1088110085912649729/usJQewZx_400x400.jpg')
                             .setThumbnail(img)
                         carts.push({
                             embed
                         })
+                        console.log(carts)
                         liveTotal = cartNum - redeemedTotal
                         mainWindow.webContents.send('liveTotal', liveTotal);
                         mainWindow.webContents.send('redeemedTotal', redeemedTotal)
@@ -175,7 +177,7 @@ ipcMain.on('start', function (start) {
                             .setColor(0x00FF00)
                             .setTimestamp()
                             .setDescription(`Size: ${size} \nSKU: ${sku}`)
-                            .setFooter(`Cart: # ${cartNum} • Made by Jalfrazi`, 'https://pbs.twimg.com/profile_images/999669687112749056/WK1RT5lY_400x400.jpg')
+                            .setFooter(`Cart: # ${cartNum} • Made by Jalfrazi`, 'https://pbs.twimg.com/profile_images/1088110085912649729/usJQewZx_400x400.jpg')
                             .setThumbnail(img)
                         carts.push({
                             embed
@@ -203,7 +205,7 @@ ipcMain.on('start', function (start) {
                             .setColor(0x00FF00)
                             .setTimestamp()
                             .setDescription(`Size: ${size} \nSKU: ${sku}`)
-                            .setFooter(`Cart: # ${cartNum} • Made by Jalfrazi`, 'https://pbs.twimg.com/profile_images/999669687112749056/WK1RT5lY_400x400.jpg')
+                            .setFooter(`Cart: # ${cartNum} • Made by Jalfrazi`, 'https://pbs.twimg.com/profile_images/1088110085912649729/usJQewZx_400x400.jpg')
                             .setThumbnail(img)
 
                         carts.push({
@@ -231,7 +233,7 @@ ipcMain.on('start', function (start) {
                             .setColor(0x00FF00)
                             .setTimestamp()
                             .setDescription(`Size: ${size} \nSKU: ${sku}`)
-                            .setFooter(`Cart: # ${cartNum} • Made by Jalfrazi`, 'https://pbs.twimg.com/profile_images/999669687112749056/WK1RT5lY_400x400.jpg')
+                            .setFooter(`Cart: # ${cartNum} • Made by Jalfrazi`, 'https://pbs.twimg.com/profile_images/1088110085912649729/usJQewZx_400x400.jpg')
                             .setThumbnail(img)
                         carts.push({
                             embed
@@ -252,7 +254,7 @@ ipcMain.on('start', function (start) {
                             .setColor(0x00FF00)
                             .setTimestamp()
                             .setDescription(`Size: ${size} \nSKU: ${sku}`)
-                            .setFooter(`Cart: # ${cartNum} • Made by Jalfrazi`, 'https://pbs.twimg.com/profile_images/999669687112749056/WK1RT5lY_400x400.jpg')
+                            .setFooter(`Cart: # ${cartNum} • Made by Jalfrazi`, 'https://pbs.twimg.com/profile_images/1088110085912649729/usJQewZx_400x400.jpg')
 
                         carts.push({
                             embed
@@ -340,7 +342,7 @@ ipcMain.on('start', function (start) {
                                         .setTitle(`Size: ${cartsStore[i]['size']}`)
                                         .setURL(cartsStore[i]['login'])
                                         .setDescription(`Email: ${cartsStore[i]['email']} \nPassword: ${cartsStore[i]['pass']}`)
-                                        .setFooter(`Cart: # ${cartNum} • Made by Jalfrazi`, 'https://pbs.twimg.com/profile_images/999669687112749056/WK1RT5lY_400x400.jpg')
+                                        .setFooter(`Cart: # ${cartNum} • Made by Jalfrazi`, 'https://pbs.twimg.com/profile_images/1088110085912649729/usJQewZx_400x400.jpg')
                                     if (cartsStore[i]['image'] != '') {
                                         embed.setThumbnail(cartsStore[i]['image'])
                                     }

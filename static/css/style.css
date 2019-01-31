@@ -16,3 +16,15 @@ input[text]{
     width:250px;
     margin: 0 auto
 }
+
+#settings{
+    width: 40%;
+    margin-left:10%;
+    float: left
+}
+
+#main{
+    width: 40%;
+    margin-right:10%;
+    float: right
+}

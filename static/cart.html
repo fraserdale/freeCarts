@@ -17,7 +17,8 @@
 
 <body>
     <div>
-        <div id='settings' style='display:none'>
+        <!-- <div id='settings' style='display:none'> -->
+        <div id='settings'>
             <h1>Settings<a href='https://github.com/fraserdale/freeCarts' style="color: black; text-decoration: none">?</a></h1>
             <form>
                 <div class="input-field">
@@ -49,16 +50,16 @@
                 <p onclick="save()" class="waves-effect waves-light btn">save</p>
             </form>
         </div>
-        <div name='main'>
-            <h1>Discord Carts <i class="material-icons small" style="cursor: pointer;" onclick="showSettings()">settings</i></h1>
+        <div id='main'>
+            <h1>&#8203;</h1>
             <p onclick="start()" class="waves-effect waves-light btn green">start</p>
             <p onclick="stop()" class="waves-effect waves-red btn red">stop</p>
             <br>
             <div>
-                <img style="height: 40px;vertical-align:middle" src="https://pbs.twimg.com/profile_images/1088110085912649729/usJQewZx_400x400.jpg">
+                <img id='icon' style="height: 40px;vertical-align:middle" src="https://is3-ssl.mzstatic.com/image/thumb/Purple124/v4/62/f8/8f/62f88f95-982b-c903-2123-0bbaf4e72482/AppIcon-0-1x_U007emarketing-0-0-GLES2_U002c0-512MB-sRGB-0-0-0-85-220-0-0-0-7.png/246x0w.jpg">
                 <span><b>Server: </b><span id='name'></span></span>
             </div>
-            <h4>Bot Name: <span id='botsname'></span></h4>
+            <h5>Bot Name: <span id='botsname'></span></h5>
             <p>Total Carts: <span id='total'></span></p>
             <p>Live Carts: <span id='live'></span></p>
             <p>Redeemed Carts: <span id='redeemed'></span></p>
