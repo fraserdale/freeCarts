@@ -63,7 +63,7 @@ ipcMain.on('start', function (start) {
     const fs = require('fs');
     var guild;
     let cartNum = 0
-    let redeemedTotal = 0
+    let redeemedTotal = []
     let liveTotal = 0
     let carts = []
 
@@ -127,9 +127,9 @@ ipcMain.on('start', function (start) {
                         carts.push({
                             embed
                         })
-                        liveTotal = cartNum - redeemedTotal
+                        liveTotal = cartNum - redeemedTotal.length
                         mainWindow.webContents.send('liveTotal', liveTotal);
-                        mainWindow.webContents.send('redeemedTotal', redeemedTotal)
+                        mainWindow.webContents.send('redeemedTotal', redeemedTotal.length)
                         mainWindow.webContents.send('cartsTotal', cartNum);
                         writeCart(cartNum, email, pass, loginURL, img, size, sku)
                     } else if (e.footer.text === 'yCopp Ultimate Adidas Bot') {
@@ -140,7 +140,7 @@ ipcMain.on('start', function (start) {
 
                         loginURL = e.url
                         sku = ((e.title).split(',')[0])
-                        img = ''
+                        img = `http://demandware.edgesuite.net/sits_pod20-adidas/dw/image/v2/aaqx_prd/on/demandware.static/-/Sites-adidas-products/en_US/dw8b928257/zoom/${sku}_01_standard.jpg`
                         console.log('Size: ' + size)
                         console.log('Email:Pass : ' + email + ':' + pass)
                         console.log('Login link: ' + loginURL)
@@ -155,9 +155,9 @@ ipcMain.on('start', function (start) {
                             embed
                         })
                         console.log(carts)
-                        liveTotal = cartNum - redeemedTotal
+                        liveTotal = cartNum - redeemedTotal.length
                         mainWindow.webContents.send('liveTotal', liveTotal);
-                        mainWindow.webContents.send('redeemedTotal', redeemedTotal)
+                        mainWindow.webContents.send('redeemedTotal', redeemedTotal.length)
                         mainWindow.webContents.send('cartsTotal', cartNum);
                         writeCart(cartNum, email, pass, loginURL, img, size, sku)
 
@@ -182,9 +182,9 @@ ipcMain.on('start', function (start) {
                         carts.push({
                             embed
                         })
-                        liveTotal = cartNum - redeemedTotal
+                        liveTotal = cartNum - redeemedTotal.length
                         mainWindow.webContents.send('liveTotal', liveTotal);
-                        mainWindow.webContents.send('redeemedTotal', redeemedTotal)
+                        mainWindow.webContents.send('redeemedTotal', redeemedTotal.length)
                         mainWindow.webContents.send('cartsTotal', cartNum);
                         writeCart(cartNum, email, pass, loginURL, img, size, sku)
 
@@ -211,9 +211,9 @@ ipcMain.on('start', function (start) {
                         carts.push({
                             embed
                         })
-                        liveTotal = cartNum - redeemedTotal
+                        liveTotal = cartNum - redeemedTotal.length
                         mainWindow.webContents.send('liveTotal', liveTotal);
-                        mainWindow.webContents.send('redeemedTotal', redeemedTotal)
+                        mainWindow.webContents.send('redeemedTotal', redeemedTotal.length)
                         mainWindow.webContents.send('cartsTotal', cartNum);
                         writeCart(cartNum, email, pass, loginURL, img, size, sku)
 
@@ -260,9 +260,9 @@ ipcMain.on('start', function (start) {
                             embed
                         })
 
-                        liveTotal = cartNum - redeemedTotal
+                        liveTotal = cartNum - redeemedTotal.length
                         mainWindow.webContents.send('liveTotal', liveTotal);
-                        mainWindow.webContents.send('redeemedTotal', redeemedTotal)
+                        mainWindow.webContents.send('redeemedTotal', redeemedTotal.length)
                         mainWindow.webContents.send('cartsTotal', cartNum);
                         writeCart(cartNum, email, pass, loginURL, img, size, sku)
 
@@ -294,6 +294,10 @@ ipcMain.on('start', function (start) {
 
     bot.on('messageReactionAdd', (reaction, user) => {
         if (reaction.message.author.bot) {
+            if (redeemedTotal.includes(reaction.message.id)){
+                return
+            }
+            
             /* FOR 1 CART ONLY */
             let redeemingUser;
             if ((redeemingUser = redeemed.find(element => element.userid == user.id))) {
@@ -329,12 +333,13 @@ ipcMain.on('start', function (start) {
                                         } else {
                                             redeemed.push({
                                                 userid: user.id,
+                                                name: user.username + '#' + user.discriminator,
                                                 quantityCart: 1
                                             })
                                         }
                                     }
 
-                                    /* FOR 1 CART ONLY */
+                                    /* FOR N CART(s) */
 
                                     const embed = new Discord.RichEmbed()
                                         .setColor(0x00FF00)
@@ -352,12 +357,15 @@ ipcMain.on('start', function (start) {
                                     guild.members.get(element['id']).send({
                                         embed
                                     });
-                                    redeemedTotal++
 
-                                    liveTotal = cartNum - redeemedTotal
+                                    redeemedTotal.push(reaction.message.id)
+
+                                    liveTotal = cartNum - redeemedTotal.length
                                     console.log(`live: ${liveTotal}`)
                                     mainWindow.webContents.send('liveTotal', liveTotal);
-                                    mainWindow.webContents.send('redeemedTotal', redeemedTotal)
+                                    mainWindow.webContents.send('redeemedTotal', redeemedTotal.length)
+                                    mainWindow.webContents.send('redeemedOutput',redeemed)
+                                    console.log(`redeemed: ${redeemedTotal.length}`)
                                 }
                             }
                         }
@@ -372,9 +380,9 @@ ipcMain.on('start', function (start) {
     });
 
     function writeCart(cartNum, email, pass, loginURL, img, size, sku) {
-        liveTotal = cartNum - redeemedTotal
+        liveTotal = cartNum - redeemedTotal.length
         mainWindow.webContents.send('liveTotal', liveTotal);
-        mainWindow.webContents.send('redeemedTotal', redeemedTotal)
+        mainWindow.webContents.send('redeemedTotal', redeemedTotal.length)
         mainWindow.webContents.send('cartsTotal', cartNum);
 
         cartsStore.push({
