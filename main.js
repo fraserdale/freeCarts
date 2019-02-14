@@ -358,7 +358,12 @@ ipcMain.on('start', function (start) {
                                         embed
                                     });
 
-                                    redeemedTotal.push(reaction.message.id)
+                                    redeemedTotal.push(reaction.message.id)     
+                                    
+                                    if(deleteAfterReact ==false){
+                                        reaction.message.edit({embed:{color:0xFF0000,title:'REDEEMED',timestamp:new Date(),url:reaction.message.embeds[0].url,description:reaction.message.embeds[0].description,thumbnail:{url:reaction.message.embeds[0].thumbnail.url},footer:{text: reaction.message.embeds[0].footer.text, icon_url: reaction.message.embeds[0].footer.iconURL}}})
+                                    }
+
 
                                     liveTotal = cartNum - redeemedTotal.length
                                     console.log(`live: ${liveTotal}`)
