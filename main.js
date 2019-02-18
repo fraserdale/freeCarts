@@ -188,7 +188,7 @@ ipcMain.on('start', function (start) {
                         mainWindow.webContents.send('cartsTotal', cartNum);
                         writeCart(cartNum, email, pass, loginURL, img, size, sku)
 
-                    } else if (e.footer.text === 'Copyright Backdoor.IO 2018, All Rights Reserved.') {
+                    } else if (e.footer.text === 'AdiSplash by Backdoor, All Rights Reserved.') {
                         size = (e.fields)[1]['value']
                         userPass = (e.fields)[2]['value']
                         email = (userPass).split(' ')[1].split('\n')[0]
