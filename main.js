@@ -52,7 +52,6 @@ ipcMain.on('checkVersion',function () {
         console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
         console.log('body:', body); // Print the HTML for the Google homepage.
         let jsonBody = JSON.parse(body);
-        console.log(jsonBody["version"]);
         let currentVersion = require('./package.json');
         if(currentVersion.version !== jsonBody["version"]){
             console.log('You are NOT on the correct version');
