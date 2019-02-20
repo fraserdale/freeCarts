@@ -176,7 +176,7 @@ function start() {
                         writeCart(cartNum, email, pass, loginURL, img, size, sku)
 
                     } else if ((e.footer.text).startsWith('NoMercy')) {
-                        size = (e.fields)[1]['value']
+                        size = (e.fields)[1]['value'];
                         email = (e.fields)[3]['value']
                         pass = (e.fields)[4]['value']
 
