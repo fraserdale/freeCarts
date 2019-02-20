@@ -1,6 +1,7 @@
 {
   "name": "cart-distribution",
-  "version": "2.0.0",
+  "version": "2.0.1",
+  "update":"visual glitches and region specification",
   "description": "Free cart management for discords where 'free carts' are available. Stops multiple people accessing a cart.",
   "main": "main.js",
   "scripts": {

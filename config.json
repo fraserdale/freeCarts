@@ -1,8 +1,1 @@
-{
-    "server": "Server ID / guild ID",
-    "privateChannel": "This is the ID of a hidden channel, normal members should NOT be able to see this",
-    "publicChannel": "This is the ID of a  public channel, 'everyone' SHOULD be able to see this",
-    "botToken": "Bot login token",
-    "quantity": 1,
-    "deleteAfterReact":false
-}
+{}
