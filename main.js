@@ -214,7 +214,7 @@ ipcMain.on('start', function (start) {
                     } else if (e.footer.text === 'AdiSplash by Backdoor, All Rights Reserved.') {
                         size = (e.fields)[1]['value']
                         userPass = (e.fields)[2]['value']
-                        email = (userPass).split(' ')[1].split('\n')[0]
+                        email = (userPass).split(': ')[1].split('\n')[0]
                         pass = (userPass).split(': ')[2]
 
                         loginURL = e.url
