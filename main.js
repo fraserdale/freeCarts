@@ -48,19 +48,15 @@ app.on('ready', function () {
 ipcMain.on('checkVersion',function () {
     let request = require('request');
     request('https://raw.githubusercontent.com/fraserdale/freeCarts/master/package.json', function (error, response, body) {
-        console.log('error:', error); // Print the error if one occurred
-        console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
-        console.log('body:', body); // Print the HTML for the Google homepage.
         let jsonBody = JSON.parse(body);
-        console.log(jsonBody["version"]);
         let currentVersion = require('./package.json');
         if(currentVersion.version !== jsonBody["version"]){
             console.log('You are NOT on the correct version');
+            mainWindow.webContents.send('wrongVersion', 'wrongVersion');
         }else{
-            console.log('On correct version.')
+            console.log('On latest version.')
         }
     });
-    mainWindow.webContents.send('wrongVersion', 'wrongVersion');
 });
 
 
