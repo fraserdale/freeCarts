@@ -64,8 +64,8 @@ ipcRenderer.on('loginError', function (loginError, x) {
   stop()
 });
 
-ipcRenderer.on('wrongVersion',function (wrongVersion,x) {
-    alert('You are not on the latest version. Please download the latest from https://github.com/fraserdale/freeCarts');
+ipcRenderer.on('wrongVersion',function (wrongVersion,updates) {
+    alert('You are not on the latest version. Please download the latest from https://github.com/fraserdale/freeCarts \nUpdates: '+updates);
     console.log('You are not on the latest update. Please go to https://github.com/fraserdale/freeCarts')
 });
 

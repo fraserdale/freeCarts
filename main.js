@@ -52,7 +52,7 @@ ipcMain.on('checkVersion',function () {
         let currentVersion = require('./package.json');
         if(currentVersion.version !== jsonBody["version"]){
             console.log('You are NOT on the correct version');
-            mainWindow.webContents.send('wrongVersion', 'wrongVersion');
+            mainWindow.webContents.send('wrongVersion', jsonBody['update']);
         }else{
             console.log('On latest version.')
         }
@@ -119,181 +119,215 @@ ipcMain.on('start', function (start) {
     });
 
     bot.on('message', message => {
-        /* if (message.author.bot) return; */
-        if (message.channel.type === 'dm') return;
-        if (message.channel.id === privateChannel) {
-            cartNum += 1;
-            message.embeds.forEach((e) => {
-                if (e.footer) {
-                    if (e.footer.text === 'Splashforce') {
-                        size = ((e.title).slice(20));
-                        email = (e.description).split(' ')[1].split('\n')[0];
-                        pass = (e.description).split(': ')[2];
-                        console.log('TESTING: ' + pass);
-                        loginURL = e.url;
-                        img = e.thumbnail.url;
-                        /* Look into getting sku from link /shrug */
-                        sku = '';
-                        console.log('Size: ' + size);
-                        console.log('Email:Pass : ' + email + ':' + pass);
-                        console.log('Login link: ' + loginURL);
-                        console.log('Image: ' + img);
-                        const embed = new Discord.RichEmbed()
-                            .setColor(0x00FF00)
-                            .setTimestamp()
-                            .setDescription(`Size: ${size}`)
-                            .setFooter(`Cart: # ${cartNum} • Made by Jalfrazi`, 'https://pbs.twimg.com/profile_images/1088110085912649729/usJQewZx_400x400.jpg')
-                            .setThumbnail(img);
-                        carts.push({
-                            embed
-                        });
-                        liveTotal = cartNum - redeemedTotal.length;
-                        mainWindow.webContents.send('liveTotal', liveTotal);
-                        mainWindow.webContents.send('redeemedTotal', redeemedTotal.length);
-                        mainWindow.webContents.send('cartsTotal', cartNum);
-                        writeCart(cartNum, email, pass, loginURL, img, size, sku)
-                    } else if (e.footer.text === 'yCopp Ultimate Adidas Bot') {
-                        //clothing size
-                        size = (e.title).split(',')[1];
-                        email = (e.fields)[0]['value'];
-                        pass = (e.fields)[1]['value'];
+        try{
+            /* if (message.author.bot) return; */
+            if (message.channel.type === 'dm') return;
+            if (message.channel.id === privateChannel) {
+                cartNum += 1;
+                message.embeds.forEach((e) => {
+                    if (e.footer) {
+                        if (e.footer.text === 'Splashforce') {
+                            size = ((e.title).slice(20));
+                            email = (e.description).split(' ')[1].split('\n')[0];
+                            pass = (e.description).split(': ')[2];
+                            console.log('TESTING: ' + pass);
+                            loginURL = e.url;
+                            img = e.thumbnail.url;
+                            /* Look into getting sku from link /shrug */
+                            sku = '';
+                            console.log('Size: ' + size);
+                            console.log('Email:Pass : ' + email + ':' + pass);
+                            console.log('Login link: ' + loginURL);
+                            console.log('Image: ' + img);
+                            const embed = new Discord.RichEmbed()
+                                .setColor(0x00FF00)
+                                .setTimestamp()
+                                .setDescription(`Size: ${size}`)
+                                .setFooter(`Cart: # ${cartNum} • Made by Jalfrazi`, 'https://pbs.twimg.com/profile_images/1088110085912649729/usJQewZx_400x400.jpg')
+                                .setThumbnail(img);
+                            carts.push({
+                                embed
+                            });
+                            liveTotal = cartNum - redeemedTotal.length;
+                            mainWindow.webContents.send('liveTotal', liveTotal);
+                            mainWindow.webContents.send('redeemedTotal', redeemedTotal.length);
+                            mainWindow.webContents.send('cartsTotal', cartNum);
+                            writeCart(cartNum, email, pass, loginURL, img, size, sku)
+                        } else if (e.footer.text === 'yCopp Ultimate Adidas Bot') {
+                            //clothing size
+                            size = (e.title).split(',')[1];
+                            email = (e.fields)[0]['value'];
+                            pass = (e.fields)[1]['value'];
 
-                        loginURL = e.url;
-                        sku = ((e.title).split(',')[0]);
-                        img = `http://demandware.edgesuite.net/sits_pod20-adidas/dw/image/v2/aaqx_prd/on/demandware.static/-/;Sites-adidas-products/en_US/dw8b928257/zoom/${sku}_01_standard.jpg`;
-                        console.log('Size: ' + size);
-                        console.log('Email:Pass : ' + email + ':' + pass);
-                        console.log('Login link: ' + loginURL);
-                        console.log('Image: ' + img);
-                        const embed = new Discord.RichEmbed()
-                            .setColor(0x00FF00)
-                            .setTimestamp()
-                            .setDescription(`Size: ${size} \nSKU: ${sku}`)
-                            .setFooter(`Cart: # ${cartNum} • Made by Jalfrazi`, 'https://pbs.twimg.com/profile_images/1088110085912649729/usJQewZx_400x400.jpg')
-                            .setThumbnail(img);
-                        carts.push({
-                            embed
-                        });
-                        console.log(carts);
-                        liveTotal = cartNum - redeemedTotal.length;
-                        mainWindow.webContents.send('liveTotal', liveTotal);
-                        mainWindow.webContents.send('redeemedTotal', redeemedTotal.length);
-                        mainWindow.webContents.send('cartsTotal', cartNum);
-                        writeCart(cartNum, email, pass, loginURL, img, size, sku)
+                            loginURL = e.url;
+                            sku = ((e.title).split(',')[0]);
+                            img = `http://demandware.edgesuite.net/sits_pod20-adidas/dw/image/v2/aaqx_prd/on/demandware.static/-/;Sites-adidas-products/en_US/dw8b928257/zoom/${sku}_01_standard.jpg`;
+                            console.log('Size: ' + size);
+                            console.log('Email:Pass : ' + email + ':' + pass);
+                            console.log('Login link: ' + loginURL);
+                            console.log('Image: ' + img);
+                            const embed = new Discord.RichEmbed()
+                                .setColor(0x00FF00)
+                                .setTimestamp()
+                                .setDescription(`Size: ${size} \nSKU: ${sku}`)
+                                .setFooter(`Cart: # ${cartNum} • Made by Jalfrazi`, 'https://pbs.twimg.com/profile_images/1088110085912649729/usJQewZx_400x400.jpg')
+                                .setThumbnail(img);
+                            carts.push({
+                                embed
+                            });
+                            console.log(carts);
+                            liveTotal = cartNum - redeemedTotal.length;
+                            mainWindow.webContents.send('liveTotal', liveTotal);
+                            mainWindow.webContents.send('redeemedTotal', redeemedTotal.length);
+                            mainWindow.webContents.send('cartsTotal', cartNum);
+                            writeCart(cartNum, email, pass, loginURL, img, size, sku)
 
-                    } else if (e.footer.text === 'LatchKeyIO Adidas Bot') {
-                        size = (e.fields)[2]['value'];
-                        email = (e.fields)[4]['value'];
-                        pass = (e.fields)[5]['value'];
-;
-                        loginURL = e.url;
-                        img = e.thumbnail.url;
-                        sku = (e.fields)[1]['value'];
-                        console.log('Size: ' + size);
-                        console.log('Email:Pass : ' + email + ':' + pass);
-                        console.log('Login link: ' + loginURL);
-                        console.log('Image: ' + img);
-                        const embed = new Discord.RichEmbed()
-                            .setColor(0x00FF00)
-                            .setTimestamp()
-                            .setDescription(`Size: ${size} \nSKU: ${sku}`)
-                            .setFooter(`Cart: # ${cartNum} • Made by Jalfrazi`, 'https://pbs.twimg.com/profile_images/1088110085912649729/usJQewZx_400x400.jpg')
-                            .setThumbnail(img);
-                        carts.push({
-                            embed
-                        });
-                        liveTotal = cartNum - redeemedTotal.length;
-                        mainWindow.webContents.send('liveTotal', liveTotal);;
-                        mainWindow.webContents.send('redeemedTotal', redeemedTotal.length);
-                        mainWindow.webContents.send('cartsTotal', cartNum);
-                        writeCart(cartNum, email, pass, loginURL, img, size, sku)
+                        } else if (e.footer.text === 'LatchKeyIO Adidas Bot') {
+                            size = (e.fields)[2]['value'];
+                            email = (e.fields)[4]['value'];
+                            pass = (e.fields)[5]['value'];
+    
+                            loginURL = e.url;
+                            img = e.thumbnail.url;
+                            sku = (e.fields)[1]['value'];
+                            console.log('Size: ' + size);
+                            console.log('Email:Pass : ' + email + ':' + pass);
+                            console.log('Login link: ' + loginURL);
+                            console.log('Image: ' + img);
+                            const embed = new Discord.RichEmbed()
+                                .setColor(0x00FF00)
+                                .setTimestamp()
+                                .setDescription(`Size: ${size} \nSKU: ${sku}`)
+                                .setFooter(`Cart: # ${cartNum} • Made by Jalfrazi`, 'https://pbs.twimg.com/profile_images/1088110085912649729/usJQewZx_400x400.jpg')
+                                .setThumbnail(img);
+                            carts.push({
+                                embed
+                            });
+                            liveTotal = cartNum - redeemedTotal.length;
+                            mainWindow.webContents.send('liveTotal', liveTotal);;
+                            mainWindow.webContents.send('redeemedTotal', redeemedTotal.length);
+                            mainWindow.webContents.send('cartsTotal', cartNum);
+                            writeCart(cartNum, email, pass, loginURL, img, size, sku)
 
-                    } else if (e.footer.text === 'AdiSplash by Backdoor, All Rights Reserved.') {
-                        size = (e.fields)[1]['value']
-                        userPass = (e.fields)[2]['value']
-                        email = (userPass).split(': ')[1].split('\n')[0]
-                        pass = (userPass).split(': ')[2]
+                        } else if (e.footer.text === 'AdiSplash by Backdoor, All Rights Reserved.') {
+                            size = (e.fields)[1]['value']
+                            userPass = (e.fields)[2]['value']
+                            email = (userPass).split(': ')[1].split('\n')[0]
+                            pass = (userPass).split(': ')[2]
 
-                        loginURL = e.url
-                        img = e.thumbnail.url
-                        sku = (e.fields)[0]['value']
-                        console.log('Size: ' + size)
-                        console.log('Email:Pass : ' + email + ':' + pass)
-                        console.log('Login link: ' + loginURL)
-                        console.log('Image: ' + img)
+                            loginURL = e.url
+                            sku = (e.fields)[0]['value']
+                            img = 'https://transform.dis.commercecloud.salesforce.com/transform/aagl_prd/on/demandware.static/-/Sites-adidas-products/default/zoom/'+sku+'_00_plp_standard.jpg?sw=276&sh=276&sm=fit&strip=false'
+                            console.log('Size: ' + size)
+                            console.log('Email:Pass : ' + email + ':' + pass)
+                            console.log('Login link: ' + loginURL)
+                            console.log('Image: ' + img)
 
-                        const embed = new Discord.RichEmbed()
-                            .setColor(0x00FF00)
-                            .setTimestamp()
-                            .setDescription(`Size: ${size} \nSKU: ${sku}`)
-                            .setFooter(`Cart: # ${cartNum} • Made by Jalfrazi`, 'https://pbs.twimg.com/profile_images/1088110085912649729/usJQewZx_400x400.jpg')
-                            .setThumbnail(img);
+                            const embed = new Discord.RichEmbed()
+                                .setColor(0x00FF00)
+                                .setTimestamp()
+                                .setDescription(`Size: ${size} \nSKU: ${sku}`)
+                                .setFooter(`Cart: # ${cartNum} • Made by Jalfrazi`, 'https://pbs.twimg.com/profile_images/1088110085912649729/usJQewZx_400x400.jpg')
+                                .setThumbnail(img);
 
-                        carts.push({
-                            embed
-                        });
-                        liveTotal = cartNum - redeemedTotal.length;
-                        mainWindow.webContents.send('liveTotal', liveTotal);
-                        mainWindow.webContents.send('redeemedTotal', redeemedTotal.length);
-                        mainWindow.webContents.send('cartsTotal', cartNum);
-                        writeCart(cartNum, email, pass, loginURL, img, size, sku)
+                            carts.push({
+                                embed
+                            });
+                            liveTotal = cartNum - redeemedTotal.length;
+                            mainWindow.webContents.send('liveTotal', liveTotal);
+                            mainWindow.webContents.send('redeemedTotal', redeemedTotal.length);
+                            mainWindow.webContents.send('cartsTotal', cartNum);
+                            writeCart(cartNum, email, pass, loginURL, img, size, sku)
+                        }
+                            else if (e.footer.text === 'Phantom') {
+                                size = (e.fields)[1]['value']
+                                userPass = (e.fields)[4]['value']
+                                email = (userPass).split(':')[0]
+                                pass = (userPass).split(':')[1]
+        
+                                loginURL = 'https://www.adidas.com/'
+                                img = ''
+                                sku = (e.fields)[0]['value']
+                                console.log('Size: ' + size)
+                                console.log('Email:Pass : ' + email + ':' + pass)
+                                console.log('Login link: ' + loginURL)
+                                console.log('Image: ' + img)
+        
+                                const embed = new Discord.RichEmbed()
+                                    .setColor(0x00FF00)
+                                    .setTimestamp()
+                                    .setDescription(`Size: ${size} \nSKU: ${sku}`)
+                                    .setFooter(`Cart: # ${cartNum} • Made by Jalfrazi`, 'https://pbs.twimg.com/profile_images/1088110085912649729/usJQewZx_400x400.jpg')
+                                    .setThumbnail(img);
+        
+                                carts.push({
+                                    embed
+                                });
+                                liveTotal = cartNum - redeemedTotal.length;
+                                mainWindow.webContents.send('liveTotal', liveTotal);
+                                mainWindow.webContents.send('redeemedTotal', redeemedTotal.length);
+                                mainWindow.webContents.send('cartsTotal', cartNum);
+                                writeCart(cartNum, email, pass, loginURL, img, size, sku)
 
-                    } else if ((e.footer.text).startsWith('NoMercy')) {
-                        size = (e.fields)[1]['value'];
-                        email = (e.fields)[3]['value'];
-                        pass = (e.fields)[4]['value'];
+                        } else if ((e.footer.text).startsWith('NoMercy')) {
+                            size = (e.fields)[1]['value'];
+                            email = (e.fields)[3]['value'];
+                            pass = (e.fields)[4]['value'];
 
-                        loginURL = e.url;
-                        img = e.thumbnail.url;
-                        sku = (e.fields)[0]['value'];
-                        console.log('Size: ' + size);
-                        console.log('Email:Pass : ' + email + ':' + pass);
-                        console.log('Login link: ' + loginURL);
-                        console.log('Image: ' + img);
-                        const embed = new Discord.RichEmbed()
-                            .setColor(0x00FF00)
-                            .setTimestamp()
-                            .setDescription(`Size: ${size} \nSKU: ${sku}`)
-                            .setFooter(`Cart: # ${cartNum} • Made by Jalfrazi`, 'https://pbs.twimg.com/profile_images/1088110085912649729/usJQewZx_400x400.jpg')
-                            .setThumbnail(img);
-                        carts.push({
-                            embed
-                        });
-                        writeCart(cartNum, email, pass, loginURL, img, size, sku)
-                    } else if (e.footer.text === 'Gen5 Adidas') {
-                        size = (e.fields)[1]['value'];
-                        email = (e.fields)[3]['value'];
-                        pass = (e.fields)[4]['value'];
-                        loginURL = e.url;
-                        img = e.thumbnail.url;
-                        sku = (e.fields)[0]['value'];
-                        console.log('Size: ' + size);
-                        console.log('Email:Pass : ' + email + ':' + pass);
-                        console.log('Login link: ' + loginURL);
-                        console.log('Image: ' + img);
-                        const embed = new Discord.RichEmbed()
-                            .setColor(0x00FF00)
-                            .setTimestamp()
-                            .setDescription(`Size: ${size} \nSKU: ${sku}`)
-                            .setFooter(`Cart: # ${cartNum} • Made by Jalfrazi`, 'https://pbs.twimg.com/profile_images/1088110085912649729/usJQewZx_400x400.jpg')
+                            loginURL = e.url;
+                            img = e.thumbnail.url;
+                            sku = (e.fields)[0]['value'];
+                            console.log('Size: ' + size);
+                            console.log('Email:Pass : ' + email + ':' + pass);
+                            console.log('Login link: ' + loginURL);
+                            console.log('Image: ' + img);
+                            const embed = new Discord.RichEmbed()
+                                .setColor(0x00FF00)
+                                .setTimestamp()
+                                .setDescription(`Size: ${size} \nSKU: ${sku}`)
+                                .setFooter(`Cart: # ${cartNum} • Made by Jalfrazi`, 'https://pbs.twimg.com/profile_images/1088110085912649729/usJQewZx_400x400.jpg')
+                                .setThumbnail(img);
+                            carts.push({
+                                embed
+                            });
+                            writeCart(cartNum, email, pass, loginURL, img, size, sku)
+                        } else if (e.footer.text === 'Gen5 Adidas') {
+                            size = (e.fields)[1]['value'];
+                            email = (e.fields)[3]['value'];
+                            pass = (e.fields)[4]['value'];
+                            loginURL = e.url;
+                            img = e.thumbnail.url;
+                            sku = (e.fields)[0]['value'];
+                            console.log('Size: ' + size);
+                            console.log('Email:Pass : ' + email + ':' + pass);
+                            console.log('Login link: ' + loginURL);
+                            console.log('Image: ' + img);
+                            const embed = new Discord.RichEmbed()
+                                .setColor(0x00FF00)
+                                .setTimestamp()
+                                .setDescription(`Size: ${size} \nSKU: ${sku}`)
+                                .setFooter(`Cart: # ${cartNum} • Made by Jalfrazi`, 'https://pbs.twimg.com/profile_images/1088110085912649729/usJQewZx_400x400.jpg')
 
-                        carts.push({
-                            embed
-                        })
+                            carts.push({
+                                embed
+                            })
 
-                        liveTotal = cartNum - redeemedTotal.length
-                        mainWindow.webContents.send('liveTotal', liveTotal);
-                        mainWindow.webContents.send('redeemedTotal', redeemedTotal.length)
-                        mainWindow.webContents.send('cartsTotal', cartNum);
-                        writeCart(cartNum, email, pass, loginURL, img, size, sku)
+                            liveTotal = cartNum - redeemedTotal.length
+                            mainWindow.webContents.send('liveTotal', liveTotal);
+                            mainWindow.webContents.send('redeemedTotal', redeemedTotal.length)
+                            mainWindow.webContents.send('cartsTotal', cartNum);
+                            writeCart(cartNum, email, pass, loginURL, img, size, sku)
 
+                        }
                     }
-                }
-            })
-        }
-        if (message.channel.id == publicChannel) {
-            message.react('🛒')
-        }
+                })
+            }
+            if (message.channel.id == publicChannel) {
+                message.react('🛒')
+            }
+    }catch(err){
+        console.log(err)
+    }
     })
 
     function sendCarts() {
@@ -374,15 +408,23 @@ ipcMain.on('start', function (start) {
                                     }
                                     if (cartsStore[i]['sku'] != '') {
                                         embed.setDescription(`Email: ${cartsStore[i]['email']} \nPassword: ${cartsStore[i]['pass']} \nSKU: ${cartsStore[i]['sku']}`)
+                                    }else if (cartsStore[i]['email'] != ''){
+                                        embed.setDescription(`Email: ${cartsStore[i]['email']} \nPassword: ${cartsStore[i]['pass']}`)
                                     }
+
                                     guild.members.get(element['id']).send({
                                         embed
                                     });
 
                                     redeemedTotal.push(reaction.message.id);
-                                    
-                                    if(deleteAfterReact ==false){
-                                        reaction.message.edit({embed:{color:0xFF0000,title:'REDEEMED',timestamp:new Date(),url:reaction.message.embeds[0].url,description:reaction.message.embeds[0].description,thumbnail:{url:reaction.message.embeds[0].thumbnail.url},footer:{text: reaction.message.embeds[0].footer.text, icon_url: reaction.message.embeds[0].footer.iconURL}}})
+
+                                    try{
+                                        if(deleteAfterReact ==false){
+                                            reaction.message.edit({embed:{color:0xFF0000,title:'REDEEMED',timestamp:new Date(),url:reaction.message.embeds[0].url,description:reaction.message.embeds[0].description,thumbnail:{url:reaction.message.embeds[0].thumbnail.url},footer:{text: reaction.message.embeds[0].footer.text, icon_url: reaction.message.embeds[0].footer.iconURL}}})
+                                        }
+                                    }                                    
+                                    catch(err){
+                                        console.log(err)
                                     }
 
 
