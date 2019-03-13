@@ -8,6 +8,9 @@
   if (config.deleteAfterReact) {
     document.getElementById('deleteAfterReact').checked = true
   }
+  if (config.after10){
+    document.getElementById('after10').checked =true
+  }
 })();
 const electron = require('electron');
 const {
@@ -22,6 +25,7 @@ function stop() {
   document.getElementById('bot').disabled = false;
   document.getElementById('quantityCart').disabled = false;
   document.getElementById('deleteAfterReact').disabled = false;
+  document.getElementById('after10').disabled = false
   document.getElementById('botsname').innerHTML = '';
   document.getElementById('name').innerHTML = '';
   document.getElementById("icon").src = 'https://is3-ssl.mzstatic.com/image/thumb/Purple124/v4/62/f8/8f/62f88f95-982b-c903-2123-0bbaf4e72482/AppIcon-0-1x_U007emarketing-0-0-GLES2_U002c0-512MB-sRGB-0-0-0-85-220-0-0-0-7.png/246x0w.jpg'
@@ -76,7 +80,8 @@ function save() {
   const bot = document.querySelector('#bot').value;
   const quantityCart = document.getElementById('quantityCart').value;
   const deleteAfterReact = document.getElementById('deleteAfterReact').checked
-  config = `{"server":"${server}","privateChannel":"${private}","publicChannel":"${public}","botToken":"${bot}","quantityCart":${quantityCart},"deleteAfterReact":${deleteAfterReact}}`
+  const after10 = document.getElementById('after10').checked
+  config = `{"server":"${server}","privateChannel":"${private}","publicChannel":"${public}","botToken":"${bot}","quantityCart":${quantityCart},"deleteAfterReact":${deleteAfterReact},"after10":${after10}}`
   console.log(config)
   ipcRenderer.send('configSave', config);
 }
@@ -89,6 +94,7 @@ function start() {
   document.getElementById('bot').disabled = true
   document.getElementById('quantityCart').disabled = true
   document.getElementById('deleteAfterReact').disabled = true
+  document.getElementById('after10').disabled = true
   ipcRenderer.send('start');
 }
 

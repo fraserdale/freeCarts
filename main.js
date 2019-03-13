@@ -101,6 +101,8 @@ ipcMain.on('start', function (start) {
     let quantityCart = config.quantityCart;
     //checks if user wants messages to stay in channel
     let deleteAfterReact = config.deleteAfterReact;
+    //checks if user wants 10 minute expiration
+    let after10 = config.after10
 
     bot.login(botToken).catch(err => mainWindow.webContents.send('loginError', 'loginError'));
 
@@ -376,64 +378,77 @@ ipcMain.on('start', function (start) {
                         cartID = (reaction.message.embeds[0].footer.text).split('# ')[1].split(' • M')[0]
 
                         for (i = 0; i < cartsStore.length; i++) {
-                            if (cartsStore[i]['id'] == cartID) {
+                            if (cartsStore[i]['id'] == cartID){
                                 if (element['bot'] != true) {
-                                    /* FOR 1 CART ONLY */
-                                    console.log(redeemed)
-                                    if (quantityCart > 0) {
-                                        if ((redeemingUser = redeemed.find(element => element.userid == user.id))) {
-                                            if (redeemingUser.quantityCart < quantityCart) {
-                                                redeemingUser.quantityCart++
+                                    if((Date.now() - cartsStore[i]['time'] )<600000){
+                                        /* FOR 1 CART ONLY */
+                                        console.log(redeemed)
+                                        if (quantityCart > 0) {
+                                            if ((redeemingUser = redeemed.find(element => element.userid == user.id))) {
+                                                if (redeemingUser.quantityCart < quantityCart) {
+                                                    redeemingUser.quantityCart++
+                                                }
+                                            } else {
+                                                redeemed.push({
+                                                    userid: user.id,
+                                                    name: user.username + '#' + user.discriminator,
+                                                    quantityCart: 1
+                                                })
                                             }
-                                        } else {
-                                            redeemed.push({
-                                                userid: user.id,
-                                                name: user.username + '#' + user.discriminator,
-                                                quantityCart: 1
-                                            })
+                                        }
+
+                                        /* FOR N CART(s) */
+
+                                        const embed = new Discord.RichEmbed()
+                                            .setColor(0x00FF00)
+                                            .setTimestamp()
+                                            .setTitle(`Size: ${cartsStore[i]['size']}`)
+                                            .setURL(cartsStore[i]['login'])
+                                            .setDescription(`Email: ${cartsStore[i]['email']} \nPassword: ${cartsStore[i]['pass']}`)
+                                            .setFooter(`Cart: # ${cartsStore[i]['id']} • Made by Jalfrazi`, 'https://pbs.twimg.com/profile_images/1088110085912649729/usJQewZx_400x400.jpg')
+                                        if (cartsStore[i]['image'] != '') {
+                                            embed.setThumbnail(cartsStore[i]['image'])
+                                        }
+                                        if (cartsStore[i]['sku'] != '') {
+                                            embed.setDescription(`Email: ${cartsStore[i]['email']} \nPassword: ${cartsStore[i]['pass']} \nSKU: ${cartsStore[i]['sku']}`)
+                                        }else if (cartsStore[i]['email'] != ''){
+                                            embed.setDescription(`Email: ${cartsStore[i]['email']} \nPassword: ${cartsStore[i]['pass']}`)
+                                        }
+
+                                        guild.members.get(element['id']).send({
+                                            embed
+                                        });
+
+                                        redeemedTotal.push(reaction.message.id);
+
+                                        try{
+                                            if(deleteAfterReact ==false){
+                                                reaction.message.edit({embed:{color:0xFF0000,title:'REDEEMED',timestamp:new Date(),url:reaction.message.embeds[0].url,description:reaction.message.embeds[0].description,thumbnail:{url:reaction.message.embeds[0].thumbnail.url},footer:{text: reaction.message.embeds[0].footer.text, icon_url: reaction.message.embeds[0].footer.iconURL}}})
+                                            }
+                                        }                                    
+                                        catch(err){
+                                            console.log(err)
+                                        }
+
+
+                                        liveTotal = cartNum - redeemedTotal.length;
+                                        console.log(`live: ${liveTotal}`);
+                                        mainWindow.webContents.send('liveTotal', liveTotal);
+                                        mainWindow.webContents.send('redeemedTotal', redeemedTotal.length);
+                                        mainWindow.webContents.send('redeemedOutput',redeemed);
+                                        console.log(`redeemed: ${redeemedTotal.length}`)
+                                    }
+                                    else if((Date.now() - cartsStore[i]['time'] )>600000){
+                                        redeemedTotal.push(reaction.message.id);
+                                        try{
+                                            if(deleteAfterReact ==false){
+                                                reaction.message.edit({embed:{color:0x000000,title:'EXPIRED',timestamp:new Date(),url:reaction.message.embeds[0].url,description:reaction.message.embeds[0].description,thumbnail:{url:reaction.message.embeds[0].thumbnail.url},footer:{text: reaction.message.embeds[0].footer.text, icon_url: reaction.message.embeds[0].footer.iconURL}}})
+                                            }
+                                        }                                    
+                                        catch(err){
+                                            console.log(err)
                                         }
                                     }
-
-                                    /* FOR N CART(s) */
-
-                                    const embed = new Discord.RichEmbed()
-                                        .setColor(0x00FF00)
-                                        .setTimestamp()
-                                        .setTitle(`Size: ${cartsStore[i]['size']}`)
-                                        .setURL(cartsStore[i]['login'])
-                                        .setDescription(`Email: ${cartsStore[i]['email']} \nPassword: ${cartsStore[i]['pass']}`)
-                                        .setFooter(`Cart: # ${cartNum} • Made by Jalfrazi`, 'https://pbs.twimg.com/profile_images/1088110085912649729/usJQewZx_400x400.jpg')
-                                    if (cartsStore[i]['image'] != '') {
-                                        embed.setThumbnail(cartsStore[i]['image'])
-                                    }
-                                    if (cartsStore[i]['sku'] != '') {
-                                        embed.setDescription(`Email: ${cartsStore[i]['email']} \nPassword: ${cartsStore[i]['pass']} \nSKU: ${cartsStore[i]['sku']}`)
-                                    }else if (cartsStore[i]['email'] != ''){
-                                        embed.setDescription(`Email: ${cartsStore[i]['email']} \nPassword: ${cartsStore[i]['pass']}`)
-                                    }
-
-                                    guild.members.get(element['id']).send({
-                                        embed
-                                    });
-
-                                    redeemedTotal.push(reaction.message.id);
-
-                                    try{
-                                        if(deleteAfterReact ==false){
-                                            reaction.message.edit({embed:{color:0xFF0000,title:'REDEEMED',timestamp:new Date(),url:reaction.message.embeds[0].url,description:reaction.message.embeds[0].description,thumbnail:{url:reaction.message.embeds[0].thumbnail.url},footer:{text: reaction.message.embeds[0].footer.text, icon_url: reaction.message.embeds[0].footer.iconURL}}})
-                                        }
-                                    }                                    
-                                    catch(err){
-                                        console.log(err)
-                                    }
-
-
-                                    liveTotal = cartNum - redeemedTotal.length;
-                                    console.log(`live: ${liveTotal}`);
-                                    mainWindow.webContents.send('liveTotal', liveTotal);
-                                    mainWindow.webContents.send('redeemedTotal', redeemedTotal.length);
-                                    mainWindow.webContents.send('redeemedOutput',redeemed);
-                                    console.log(`redeemed: ${redeemedTotal.length}`)
                                 }
                             }
                         }
@@ -460,7 +475,8 @@ ipcMain.on('start', function (start) {
             'login': loginURL,
             'image': img,
             'size': size,
-            'sku': sku
+            'sku': sku,
+            'time': Date.now()
         })
     }
 })
