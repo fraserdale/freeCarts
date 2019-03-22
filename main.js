@@ -380,7 +380,7 @@ ipcMain.on('start', function (start) {
                         for (i = 0; i < cartsStore.length; i++) {
                             if (cartsStore[i]['id'] == cartID){
                                 if (element['bot'] != true) {
-                                    if((Date.now() - cartsStore[i]['time'] )<600000){
+                                    if(after10 && (Date.now() - cartsStore[i]['time'] )<600000){
                                         /* FOR 1 CART ONLY */
                                         console.log(redeemed)
                                         if (quantityCart > 0) {

@@ -1,7 +1,7 @@
 {
   "name": "cart-distribution",
-  "version": "2.0.2",
-  "update":"added phantom and some error handling.",
+  "version": "2.0.3",
+  "update":"nogui updated, after10 option implemented",
   "description": "Free cart management for discords where 'free carts' are available. Stops multiple people accessing a cart.",
   "main": "main.js",
   "scripts": {
