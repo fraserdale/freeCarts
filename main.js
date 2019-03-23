@@ -359,6 +359,7 @@ ipcMain.on('start', function (start) {
             if (redeemedTotal.includes(reaction.message.id)){
                 return
             }
+            //ttt
             
             /* FOR 1 CART ONLY */
             let redeemingUser;
