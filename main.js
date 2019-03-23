@@ -26,9 +26,9 @@ app.on('ready', function () {
     //create new window
     mainWindow = new BrowserWindow({
         width: 800,
-        height: 660,
+        height: 710,
         minWidth: 800,
-        minHeight: 660,
+        minHeight: 710,
     });
     //mainWindow.setMenu(null)
     mainWindow.setTitle('Cart Distribution - Jalfrazi#0001')
@@ -103,6 +103,8 @@ ipcMain.on('start', function (start) {
     let deleteAfterReact = config.deleteAfterReact;
     //checks if user wants 10 minute expiration
     let after10 = config.after10
+    //cool down
+    let cooldown = config.cooldown
 
     bot.login(botToken).catch(err => mainWindow.webContents.send('loginError', 'loginError'));
 
@@ -132,7 +134,6 @@ ipcMain.on('start', function (start) {
                             size = ((e.title).slice(20));
                             email = (e.description).split(' ')[1].split('\n')[0];
                             pass = (e.description).split(': ')[2];
-                            console.log('TESTING: ' + pass);
                             loginURL = e.url;
                             img = e.thumbnail.url;
                             /* Look into getting sku from link /shrug */
@@ -348,8 +349,13 @@ ipcMain.on('start', function (start) {
     /* FOR 1 CART ONLY */
 
 
+    //cart cooldown
+    let seconds = 20
+    let cooldown = seconds*1000
+
 
     bot.on('messageReactionAdd', (reaction, user) => {
+        console.log(redeemed)
         if (reaction.message.author.bot) {
             if (redeemedTotal.includes(reaction.message.id)){
                 return
@@ -357,9 +363,14 @@ ipcMain.on('start', function (start) {
             
             /* FOR 1 CART ONLY */
             let redeemingUser;
-            if ((redeemingUser = redeemed.find(element => element.userid == user.id))) {
+            if ((redeemingUser = redeemed.find(element => element.userid == user.id))) {                
+                if (redeemingUser.redeemedLast + cooldown > Date.now() ){
+                    console.log(`${redeemingUser.name} still on cooldown`)
+                    reaction.remove(user)
+                    return
+                } 
                 if (redeemingUser.quantityCart == quantityCart) {
-                    console.log('user at max carts')
+                    console.log(`${redeemingUser.name} at max carts`)
                     reaction.remove(user)
                     return
                 }
@@ -382,17 +393,18 @@ ipcMain.on('start', function (start) {
                                 if (element['bot'] != true) {
                                     if(after10 && (Date.now() - cartsStore[i]['time'] )<600000){
                                         /* FOR 1 CART ONLY */
-                                        console.log(redeemed)
                                         if (quantityCart > 0) {
                                             if ((redeemingUser = redeemed.find(element => element.userid == user.id))) {
                                                 if (redeemingUser.quantityCart < quantityCart) {
                                                     redeemingUser.quantityCart++
+                                                    redeemingUser.redeemedLast = Date.now()
                                                 }
                                             } else {
                                                 redeemed.push({
                                                     userid: user.id,
                                                     name: user.username + '#' + user.discriminator,
-                                                    quantityCart: 1
+                                                    quantityCart: 1,
+                                                    redeemedLast: Date.now()
                                                 })
                                             }
                                         }

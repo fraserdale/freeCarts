@@ -5,6 +5,7 @@
   document.getElementById('public').value = config.publicChannel
   document.getElementById('bot').value = config.botToken
   document.getElementById('quantityCart').value = config.quantityCart
+  document.getElementById('cooldown').value = config.cooldown
   if (config.deleteAfterReact) {
     document.getElementById('deleteAfterReact').checked = true
   }
@@ -24,6 +25,7 @@ function stop() {
   document.getElementById('public').disabled = false;
   document.getElementById('bot').disabled = false;
   document.getElementById('quantityCart').disabled = false;
+  document.getElementById('cooldown').disabled = true;
   document.getElementById('deleteAfterReact').disabled = false;
   document.getElementById('after10').disabled = false
   document.getElementById('botsname').innerHTML = '';
@@ -81,7 +83,8 @@ function save() {
   const quantityCart = document.getElementById('quantityCart').value;
   const deleteAfterReact = document.getElementById('deleteAfterReact').checked
   const after10 = document.getElementById('after10').checked
-  config = `{"server":"${server}","privateChannel":"${private}","publicChannel":"${public}","botToken":"${bot}","quantityCart":${quantityCart},"deleteAfterReact":${deleteAfterReact},"after10":${after10}}`
+  const cooldown = document.getElementById('cooldown').value
+  config = `{"server":"${server}","privateChannel":"${private}","publicChannel":"${public}","botToken":"${bot}","quantityCart":${quantityCart},"deleteAfterReact":${deleteAfterReact},"after10":${after10},"cooldown":${cooldown}}`
   console.log(config)
   ipcRenderer.send('configSave', config);
 }
@@ -95,6 +98,7 @@ function start() {
   document.getElementById('quantityCart').disabled = true
   document.getElementById('deleteAfterReact').disabled = true
   document.getElementById('after10').disabled = true
+  document.getElementById('cooldown').disabled = true
   ipcRenderer.send('start');
 }
 
