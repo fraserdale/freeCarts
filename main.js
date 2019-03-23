@@ -350,8 +350,7 @@ ipcMain.on('start', function (start) {
 
 
     //cart cooldown
-    let seconds = 20
-    let cooldown = seconds*1000
+    let cooldownSeconds = cooldown*1000
 
 
     bot.on('messageReactionAdd', (reaction, user) => {
@@ -364,7 +363,7 @@ ipcMain.on('start', function (start) {
             /* FOR 1 CART ONLY */
             let redeemingUser;
             if ((redeemingUser = redeemed.find(element => element.userid == user.id))) {                
-                if (redeemingUser.redeemedLast + cooldown > Date.now() ){
+                if (redeemingUser.redeemedLast + cooldownSeconds > Date.now() ){
                     console.log(`${redeemingUser.name} still on cooldown`)
                     reaction.remove(user)
                     return
