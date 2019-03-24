@@ -119,7 +119,7 @@ ipcMain.on('start', function (start) {
         console.log(serverImg);
         mainWindow.webContents.send('serverImg', serverImg);
         mainWindow.webContents.send('serverName', serverName);
-        mainWindow.webContents.send('botName', bot.user.username)
+        mainWindow.webContents.send('botName', bot.user.username + '#' + bot.user.discriminator)
     });
 
     bot.on('message', message => {
@@ -438,7 +438,7 @@ ipcMain.on('start', function (start) {
 
                                         /* FOR N CART(s) */
 
-                                        console.log(element['name'] + ' redeemed cart ' +  cartsStore[i]['id'] )
+                                        console.log(user.username + '#' + user.discriminator + ' redeemed cart #' +  cartsStore[i]['id'] )
 
                                         const embed = new Discord.RichEmbed()
                                             .setColor(0x00FF00)
@@ -464,7 +464,7 @@ ipcMain.on('start', function (start) {
 
                                         try{
                                             if(deleteAfterReact ==false){
-                                                reaction.message.edit({embed:{color:0xFF0000,title:'REDEEMED',timestamp:new Date(),url:reaction.message.embeds[0].url,description:reaction.message.embeds[0].description,thumbnail:{url:reaction.message.embeds[0].thumbnail.url},footer:{text: reaction.message.embeds[0].footer.text, icon_url: reaction.message.embeds[0].footer.iconURL}}})
+                                                reaction.message.edit({embed:{color:0xFF0000,title:'REDEEMED by '+user.username + '#' + user.discriminator,timestamp:new Date(),url:reaction.message.embeds[0].url,description:reaction.message.embeds[0].description,thumbnail:{url:reaction.message.embeds[0].thumbnail.url},footer:{text: reaction.message.embeds[0].footer.text, icon_url: reaction.message.embeds[0].footer.iconURL}}})
                                             }
                                         }                                    
                                         catch(err){
@@ -483,7 +483,7 @@ ipcMain.on('start', function (start) {
                                         redeemedTotal.push(reaction.message.id);
                                         try{
                                             if(deleteAfterReact ==false){
-                                                reaction.message.edit({embed:{color:0x000000,title:'EXPIRED',timestamp:new Date(),url:reaction.message.embeds[0].url,description:reaction.message.embeds[0].description,thumbnail:{url:reaction.message.embeds[0].thumbnail.url},footer:{text: reaction.message.embeds[0].footer.text, icon_url: reaction.message.embeds[0].footer.iconURL}}})
+                                                reaction.message.edit({embed:{color:0x36393F,title:'EXPIRED',timestamp:new Date(),url:reaction.message.embeds[0].url,description:reaction.message.embeds[0].description,thumbnail:{url:reaction.message.embeds[0].thumbnail.url},footer:{text: reaction.message.embeds[0].footer.text, icon_url: reaction.message.embeds[0].footer.iconURL}}})
                                             }
                                         }                                    
                                         catch(err){
