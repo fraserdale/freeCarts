@@ -138,10 +138,10 @@ ipcMain.on('start', function (start) {
                             img = e.thumbnail.url;
                             /* Look into getting sku from link /shrug */
                             sku = '';
-                            console.log('Size: ' + size);
-                            console.log('Email:Pass : ' + email + ':' + pass);
-                            console.log('Login link: ' + loginURL);
-                            console.log('Image: ' + img);
+                            //console.log('Size: ' + size);
+                            //console.log('Email:Pass : ' + email + ':' + pass);
+                            //console.log('Login link: ' + loginURL);
+                            //console.log('Image: ' + img);
                             const embed = new Discord.RichEmbed()
                                 .setColor(0x00FF00)
                                 .setTimestamp()
@@ -165,10 +165,10 @@ ipcMain.on('start', function (start) {
                             loginURL = e.url;
                             sku = ((e.title).split(',')[0]);
                             img = `http://demandware.edgesuite.net/sits_pod20-adidas/dw/image/v2/aaqx_prd/on/demandware.static/-/;Sites-adidas-products/en_US/dw8b928257/zoom/${sku}_01_standard.jpg`;
-                            console.log('Size: ' + size);
-                            console.log('Email:Pass : ' + email + ':' + pass);
-                            console.log('Login link: ' + loginURL);
-                            console.log('Image: ' + img);
+                            //console.log('Size: ' + size);
+                            //console.log('Email:Pass : ' + email + ':' + pass);
+                            //console.log('Login link: ' + loginURL);
+                            //console.log('Image: ' + img);
                             const embed = new Discord.RichEmbed()
                                 .setColor(0x00FF00)
                                 .setTimestamp()
@@ -193,10 +193,37 @@ ipcMain.on('start', function (start) {
                             loginURL = e.url;
                             img = e.thumbnail.url;
                             sku = (e.fields)[1]['value'];
-                            console.log('Size: ' + size);
-                            console.log('Email:Pass : ' + email + ':' + pass);
-                            console.log('Login link: ' + loginURL);
-                            console.log('Image: ' + img);
+                            //console.log('Size: ' + size);
+                            //console.log('Email:Pass : ' + email + ':' + pass);
+                            //console.log('Login link: ' + loginURL);
+                            //console.log('Image: ' + img);
+                            const embed = new Discord.RichEmbed()
+                                .setColor(0x00FF00)
+                                .setTimestamp()
+                                .setDescription(`Size: ${size} \nSKU: ${sku}`)
+                                .setFooter(`Cart: # ${cartNum} • Made by Jalfrazi`, 'https://pbs.twimg.com/profile_images/1088110085912649729/usJQewZx_400x400.jpg')
+                                .setThumbnail(img);
+                            carts.push({
+                                embed
+                            });
+                            liveTotal = cartNum - redeemedTotal.length;
+                            mainWindow.webContents.send('liveTotal', liveTotal);;
+                            mainWindow.webContents.send('redeemedTotal', redeemedTotal.length);
+                            mainWindow.webContents.send('cartsTotal', cartNum);
+                            writeCart(cartNum, email, pass, loginURL, img, size, sku)
+
+                        } else if (e.footer.text === 'Sole AIO Adidas Mode') {
+                            size = (e.fields)[1]['value'];
+                            email = (e.fields)[2]['value'];
+                            pass = (e.fields)[3]['value'];
+    
+                            loginURL = e.url;
+                            img = e.thumbnail.url;
+                            sku = (e.title).slice(0,6);
+                            //console.log('Size: ' + size);
+                            //console.log('Email:Pass : ' + email + ':' + pass);
+                            //console.log('Login link: ' + loginURL);
+                            //console.log('Image: ' + img);
                             const embed = new Discord.RichEmbed()
                                 .setColor(0x00FF00)
                                 .setTimestamp()
@@ -221,10 +248,10 @@ ipcMain.on('start', function (start) {
                             loginURL = e.url
                             sku = (e.fields)[0]['value']
                             img = 'https://transform.dis.commercecloud.salesforce.com/transform/aagl_prd/on/demandware.static/-/Sites-adidas-products/default/zoom/'+sku+'_00_plp_standard.jpg?sw=276&sh=276&sm=fit&strip=false'
-                            console.log('Size: ' + size)
-                            console.log('Email:Pass : ' + email + ':' + pass)
-                            console.log('Login link: ' + loginURL)
-                            console.log('Image: ' + img)
+                            //console.log('Size: ' + size)
+                            //console.log('Email:Pass : ' + email + ':' + pass)
+                            //console.log('Login link: ' + loginURL)
+                            //console.log('Image: ' + img)
 
                             const embed = new Discord.RichEmbed()
                                 .setColor(0x00FF00)
@@ -250,11 +277,11 @@ ipcMain.on('start', function (start) {
         
                                 loginURL = 'https://www.adidas.com/'
                                 img = ''
-                                sku = (e.fields)[0]['value']
-                                console.log('Size: ' + size)
-                                console.log('Email:Pass : ' + email + ':' + pass)
-                                console.log('Login link: ' + loginURL)
-                                console.log('Image: ' + img)
+                                //sku = (e.fields)[0]['value']
+                                //console.log('Size: ' + size)
+                                //console.log('Email:Pass : ' + email + ':' + pass)
+                                //console.log('Login link: ' + loginURL)
+                                //console.log('Image: ' + img)
         
                                 const embed = new Discord.RichEmbed()
                                     .setColor(0x00FF00)
@@ -280,10 +307,10 @@ ipcMain.on('start', function (start) {
                             loginURL = e.url;
                             img = e.thumbnail.url;
                             sku = (e.fields)[0]['value'];
-                            console.log('Size: ' + size);
-                            console.log('Email:Pass : ' + email + ':' + pass);
-                            console.log('Login link: ' + loginURL);
-                            console.log('Image: ' + img);
+                            //console.log('Size: ' + size);
+                            //console.log('Email:Pass : ' + email + ':' + pass);
+                            //console.log('Login link: ' + loginURL);
+                            //console.log('Image: ' + img);
                             const embed = new Discord.RichEmbed()
                                 .setColor(0x00FF00)
                                 .setTimestamp()
@@ -301,10 +328,10 @@ ipcMain.on('start', function (start) {
                             loginURL = e.url;
                             img = e.thumbnail.url;
                             sku = (e.fields)[0]['value'];
-                            console.log('Size: ' + size);
-                            console.log('Email:Pass : ' + email + ':' + pass);
-                            console.log('Login link: ' + loginURL);
-                            console.log('Image: ' + img);
+                            //console.log('Size: ' + size);
+                            //console.log('Email:Pass : ' + email + ':' + pass);
+                            //console.log('Login link: ' + loginURL);
+                            //console.log('Image: ' + img);
                             const embed = new Discord.RichEmbed()
                                 .setColor(0x00FF00)
                                 .setTimestamp()
@@ -335,7 +362,7 @@ ipcMain.on('start', function (start) {
 
     function sendCarts() {
         if (carts.length > 0) {
-            console.log('sending cart...')
+            console.log('Posting cart to public channel...')
             guild.channels.get(publicChannel).send(
                 carts.shift()
             );
@@ -354,7 +381,7 @@ ipcMain.on('start', function (start) {
 
 
     bot.on('messageReactionAdd', (reaction, user) => {
-        console.log(redeemed)
+        //console.log(redeemed)
         if (reaction.message.author.bot) {
             if (redeemedTotal.includes(reaction.message.id)){
                 return
@@ -381,11 +408,11 @@ ipcMain.on('start', function (start) {
 
             /* console.log(reaction.message.id); */
             if (reaction.message.channel.id == publicChannel) {
-                console.log('Reaction added; current count:', reaction.count);
+                //console.log('Reaction added; current count:', reaction.count);
                 if (reaction.count == 2) {
                     (reaction.users).forEach(element => {
-                        console.log(element['username'])
-                        console.log('user ID: ' + element['id'])
+                        //console.log(element['username'])
+                        //console.log('user ID: ' + element['id'])
                         cartID = (reaction.message.embeds[0].footer.text).split('# ')[1].split(' • M')[0]
 
                         for (i = 0; i < cartsStore.length; i++) {
@@ -410,6 +437,8 @@ ipcMain.on('start', function (start) {
                                         }
 
                                         /* FOR N CART(s) */
+
+                                        console.log(element['name'] + ' redeemed cart ' +  cartsStore[i]['id'] )
 
                                         const embed = new Discord.RichEmbed()
                                             .setColor(0x00FF00)
