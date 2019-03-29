@@ -418,7 +418,7 @@ ipcMain.on('start', function (start) {
                         for (i = 0; i < cartsStore.length; i++) {
                             if (cartsStore[i]['id'] == cartID){
                                 if (element['bot'] != true) {
-                                    if(after10 && (Date.now() - cartsStore[i]['time'] )<600000){
+                                    if((after10 && (Date.now() - cartsStore[i]['time'] )<600000) || after10 == false){
                                         /* FOR 1 CART ONLY */
                                         if (quantityCart > 0) {
                                             if ((redeemingUser = redeemed.find(element => element.userid == user.id))) {
