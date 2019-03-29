@@ -390,12 +390,14 @@ ipcMain.on('start', function (start) {
             
             /* FOR 1 CART ONLY */
             let redeemingUser;
-            if ((redeemingUser = redeemed.find(element => element.userid == user.id))) {                
-                if (redeemingUser.redeemedLast + cooldownSeconds > Date.now() ){
-                    console.log(`${redeemingUser.name} still on cooldown`)
-                    reaction.remove(user)
-                    return
-                } 
+            if ((redeemingUser = redeemed.find(element => element.userid == user.id))) {   
+              if(after10){
+                  if (redeemingUser.redeemedLast + cooldownSeconds > Date.now() ){
+                      console.log(`${redeemingUser.name} still on cooldown`)
+                      reaction.remove(user)
+                      return
+                  } 
+              }
                 if (redeemingUser.quantityCart == quantityCart) {
                     console.log(`${redeemingUser.name} at max carts`)
                     reaction.remove(user)
