@@ -277,7 +277,7 @@ ipcMain.on('start', function (start) {
         
                                 loginURL = 'https://www.adidas.com/'
                                 img = ''
-                                //sku = (e.fields)[0]['value']
+                                sku = (e.fields)[0]['value']
                                 //console.log('Size: ' + size)
                                 //console.log('Email:Pass : ' + email + ':' + pass)
                                 //console.log('Login link: ' + loginURL)
