@@ -43,36 +43,43 @@ ipcRenderer.on('message', function (start, i) {
 ipcRenderer.on('cartsTotal', function (cartsTotal, cartNum) {
   document.getElementById('total').innerHTML = cartNum
 });
+
 ipcRenderer.on('liveTotal', function (liveTotal, liveNum) {
   document.getElementById('live').innerHTML = liveNum
 });
+
 ipcRenderer.on('redeemedTotal', function (redeemedTotal, redeemedNum) {
   document.getElementById('redeemed').innerHTML = redeemedNum
 });
+
 ipcRenderer.on('serverImg', function (serverImg, img) {
-  document.getElementById("icon").src = img
+  document.getElementById("icon").src = img;
 });
+
 ipcRenderer.on('serverName', function (serverName, name) {
-  document.getElementById('name').innerHTML = name
+  document.getElementById('name').innerHTML = name;
 });
+
 ipcRenderer.on('botName', function (botName, bname) {
-  document.getElementById('botsname').innerHTML = bname
+  document.getElementById('botsname').innerHTML = bname;
 });
+
 ipcRenderer.on('redeemedOutput', function (redeemedOutput, redeemedOut) {
   outString = '';
   redeemedOut.forEach(element => {
     outString += element.name + ': ' + element.quantityCart +'\n'
   });
-  document.getElementById('textOut').innerHTML = outString
+  document.getElementById('textOut').innerHTML = outString;
 });
+
 ipcRenderer.on('loginError', function (loginError, x) {
   alert('Login details incorrect');
-  stop()
+  stop();
 });
 
 ipcRenderer.on('wrongVersion',function (wrongVersion,updates) {
     alert('You are not on the latest version. Please download the latest from https://github.com/fraserdale/freeCarts \nUpdates: '+updates);
-    console.log('You are not on the latest update. Please go to https://github.com/fraserdale/freeCarts')
+    console.log('You are not on the latest update. Please go to https://github.com/fraserdale/freeCarts');
 });
 
 function save() {
@@ -81,24 +88,22 @@ function save() {
   const public = document.querySelector('#public').value;
   const bot = document.querySelector('#bot').value;
   const quantityCart = document.getElementById('quantityCart').value;
-  const deleteAfterReact = document.getElementById('deleteAfterReact').checked
-  const after10 = document.getElementById('after10').checked
-  const cooldown = document.getElementById('cooldown').value
-  config = `{"server":"${server}","privateChannel":"${private}","publicChannel":"${public}","botToken":"${bot}","quantityCart":${quantityCart},"deleteAfterReact":${deleteAfterReact},"after10":${after10},"cooldown":${cooldown}}`
-  console.log(config)
+  const deleteAfterReact = document.getElementById('deleteAfterReact').checked;
+  const after10 = document.getElementById('after10').checked;
+  const cooldown = document.getElementById('cooldown').value;
+  config = `{"server":"${server}","privateChannel":"${private}","publicChannel":"${public}","botToken":"${bot}","quantityCart":${quantityCart},"deleteAfterReact":${deleteAfterReact},"after10":${after10},"cooldown":${cooldown}}`;
   ipcRenderer.send('configSave', config);
 }
 
 function start() {
-  //save()
-  document.getElementById('server').disabled = true
-  document.getElementById('private').disabled = true
-  document.getElementById('public').disabled = true
-  document.getElementById('bot').disabled = true
-  document.getElementById('quantityCart').disabled = true
-  document.getElementById('deleteAfterReact').disabled = true
-  document.getElementById('after10').disabled = true
-  document.getElementById('cooldown').disabled = true
+  document.getElementById('server').disabled = true;
+  document.getElementById('private').disabled = true;
+  document.getElementById('public').disabled = true;
+  document.getElementById('bot').disabled = true;
+  document.getElementById('quantityCart').disabled = true;
+  document.getElementById('deleteAfterReact').disabled = true;
+  document.getElementById('after10').disabled = true;
+  document.getElementById('cooldown').disabled = true;
   ipcRenderer.send('start');
 }
 

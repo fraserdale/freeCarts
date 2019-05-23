@@ -1,7 +1,7 @@
 {
   "name": "cart-distribution",
   "version": "2.0.8",
-  "update":"cart rememption if not after10 bug",
+  "update": "cart rememption if not after10 bug",
   "description": "Free cart management for discords where 'free carts' are available. Stops multiple people accessing a cart.",
   "main": "main.js",
   "scripts": {
