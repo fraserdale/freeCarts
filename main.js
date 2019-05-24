@@ -188,7 +188,8 @@ ipcMain.on('start', () => {
             if (reaction.message.channel.id == publicChannel) {
                 if (reaction.count == 2) { //if a user has reacted
                     (reaction.users).forEach(element => {
-                        cartID = (reaction.message.embeds[0].footer.text).split('# ')[1].split(' • M')[0]; //todo replace with regex
+                        const cartIDRegex = /Cart: # ([0-9]+)/ //this regex captures the cart ID from the footer
+                        cartID = cartIDRegex.exec(reaction.message.embeds[0].footer.text)[1] //1 contains the first capture group
 
                         for (i = 0; i < cartsStore.length; i++) {
                             if (cartsStore[i]['id'] == cartID){
