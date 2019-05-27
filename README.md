@@ -19,6 +19,7 @@ Make the channel that the carts are output in a channel where users cannot type 
 - [x] adisplash
 - [x] NoMercy (need testing)
 - [x] Gen5 (need testing)
+- [x] Balko (need testing)
 
 ![demo](https://i.imgur.com/YSlcJAG.png)
 
