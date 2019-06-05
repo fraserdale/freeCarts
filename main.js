@@ -222,9 +222,9 @@ ipcMain.on('start', () => {
                                             .setTitle(`Size: ${cartsStore[i]['size']}`)
                                             .setURL(cartsStore[i]['login'])
                                             .setDescription(`Email: ${cartsStore[i]['email']} \nPassword: ${cartsStore[i]['pass']}`)
-                                            .setFooter(`Cart: # ${cartsStore[i]['id']} • Made by Jalfrazi`, 'https://pbs.twimg.com/profile_images/1088110085912649729/usJQewZx_400x400.jpg')
-                                        if (cartsStore[i]['image'] != '') {
-                                            embed.setThumbnail(cartsStore[i]['image'])
+                                            .setFooter(`Cart: # ${cartsStore[i]['id']} • Made by Jalfrazi`)
+                                        if (cartsStore[i]['img'] != '') {
+                                            embed.setThumbnail(cartsStore[i]['img'])
                                         }
                                         if (cartsStore[i]['sku'] != '') {
                                             embed.setDescription(`Email: ${cartsStore[i]['email']} \nPassword: ${cartsStore[i]['pass']} \nSKU: ${cartsStore[i]['sku']}`)
