@@ -1,13 +1,3 @@
-const THUMBNAIL_URL = 'https://pbs.twimg.com/profile_images/1088110085912649729/usJQewZx_400x400.jpg'
-
-module.exports.createFooter = cartNum => {
-	return `Cart: # ${cartNum} • Made by Jalfrazi`;
-}
-
-module.exports.getThumbnail = () => {
-	return THUMBNAIL_URL;
-}
-
 module.exports.getBotByFooter = footer => {
 	switch (footer.text.toLowerCase()) {
 		case 'splashforce':
@@ -19,7 +9,7 @@ module.exports.getBotByFooter = footer => {
 		case 'latchkeyio adidas bot':
 			return 'latchkey';
 			break;
-		case 'sole aio adidas mode':
+		case 'fusion - adidas':
 			return 'soleaio';
 			break;
 		case 'adisplash by backdoor, all rights reserved.':
@@ -37,7 +27,19 @@ module.exports.getBotByFooter = footer => {
 		default:
 		    if (footerText.startsWith('nomercy')) {
 		    	return 'nomercy';
-		    }
+		    }else if(footerText.toLowerCase().startsWith('adisplash')){
+				return 'adisplash'
+			}
 	}
 	return undefined;
+}
+
+const THUMBNAIL_URL = 'https://i.imgur.com/Gy1AX6A.jpg'
+
+module.exports.createFooter = cartNum => {
+	return `Cart: # ${cartNum} • Made by Jalfrazi`;
+}
+
+module.exports.getThumbnail = () => {
+	return THUMBNAIL_URL;
 }
