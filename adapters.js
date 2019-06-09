@@ -1,13 +1,14 @@
 const CartProperties = require('./cartproperties');
 
 module.exports.splashforceCartProperties = (e, cartNum) => {
-	const email = e.description.split(' ')[1].split('\n')[0];
-	const pass = e.description.split(': ')[2];
-	const loginURL = e.url;
-	const img = e.thumbnail.url;
-	const size = e.title.slice(20);
+    const email = e.fields[0]['value'];
+    const pass = e.fields[1]['value'];
+    const loginURL = e.url;
+    const img = e.thumbnail.url;
+    const size = e.fields[3]['value'];
+    const sku = e.fields[2]['value'];
 
-	return new CartProperties(cartNum, email, pass, loginURL, img, size);
+	return new CartProperties(cartNum, email, pass, loginURL, img, size, sku);
 }
 
 module.exports.ycoppCartProperties = (e, cartNum) => {
