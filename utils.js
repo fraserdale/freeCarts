@@ -9,7 +9,7 @@ module.exports.getBotByFooter = footer => {
 		case 'latchkeyio adidas bot':
 			return 'latchkey';
 			break;
-		case 'fusion - adidas':
+		case 'sole aio adidas mode':
 			return 'soleaio';
 			break;
 		case 'adisplash by backdoor, all rights reserved.':
