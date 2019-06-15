@@ -50,7 +50,7 @@ module.exports.soleaioCartProperties = (e, cartNum) => {
     const loginURL = e.description;
     const img = e.thumbnail.url;
     const size = e.fields[1]['value'];
-    const sku = e.fields[0];
+    const sku = e.fields[0]['value'];
 
 	return new CartProperties(cartNum, email, pass, loginURL, img, size, sku);
 }
