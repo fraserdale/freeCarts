@@ -107,7 +107,7 @@ module.exports.nomercyCartProperties = (e, cartNum) => {
 module.exports.kodaiCartProperties = (e, cartNum) => {
     const email = e.fields[5]['value'];
     const pass = e.fields[6]['value'];
-    const loginURL = e.fields[4]['value'];
+    const loginURL = e.fields[4]['value'].split('(')[1].split(')')[0];
     const img = e.thumbnail.url;
     const size = e.fields[0]['value'];
     const sku = e.fields[1]['value'];
