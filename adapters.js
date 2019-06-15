@@ -103,3 +103,14 @@ module.exports.nomercyCartProperties = (e, cartNum) => {
     
 	return new CartProperties(cartNum, email, pass, loginURL, img, size, sku);
 }
+
+module.exports.kodaiCartProperties = (e, cartNum) => {
+    const email = e.fields[5]['value'];
+    const pass = e.fields[6]['value'];
+    const loginURL = e.fields[4]['value'];
+    const img = e.thumbnail.url;
+    const size = e.fields[0]['value'];
+    const sku = e.fields[1]['value'];
+    
+	return new CartProperties(cartNum, email, pass, loginURL, img, size, sku);
+}
