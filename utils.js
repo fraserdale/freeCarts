@@ -25,13 +25,13 @@ module.exports.getBotByFooter = footer => {
 			return 'gen5';
 			break;
 		default:
-		    if (footerText.startsWith('nomercy')) {
+		    if (footer.text.startsWith('nomercy')) {
 				return 'nomercy';
 				break
-			}else if(footerText.toLowerCase().startsWith('kodaiaio')){
+			}else if(footer.text.toLowerCase().startsWith('kodaiaio')){
 				return 'kodai'
 			}
-		    else if(footerText.toLowerCase().startsWith('adisplash')){
+		    else if(footer.text.toLowerCase().startsWith('adisplash')){
 				return 'adisplash'
 				break
 			}
