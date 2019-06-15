@@ -124,3 +124,14 @@ module.exports.kodaiCartProperties = (e, cartNum) => {
 
     return new CartProperties(cartNum, email, pass, loginURL, img, size, sku);
 }
+
+module.exports.projectdestroyerCartProperties = (e, cartNum) => {
+    const email = e.fields[3]['value'];
+    const pass = e.fields[4]['value'];
+    const loginURL = e.fields[6]['value'];
+    const img = e.thumbnail.url;
+    const size = '?';
+    const sku = e.fields[1]['value'];
+    
+    return new CartProperties(cartNum, email, pass, loginURL, img, size, sku);
+}
