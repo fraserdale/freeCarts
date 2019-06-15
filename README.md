@@ -12,7 +12,7 @@ Free cart management for discords where 'free carts' are available. Stops multip
 Make the channel that the carts are output in a channel where users cannot type (no error handling)
 
 ### Compatibility
-- [x] Splashforce
+- [x] Splashforce 3.0
 - [x] yCopp account links
 - [ ] yCopp cookies
 - [x] LatchKey
@@ -20,6 +20,9 @@ Make the channel that the carts are output in a channel where users cannot type 
 - [x] NoMercy (need testing)
 - [x] Gen5 (need testing)
 - [x] Balko (need testing)
+- [x] SoleAIO (need testing)
+- [x] Phantom (need testing)
+- [x] KodaiAIO (need testing)
 
 ![demo](https://i.imgur.com/YSlcJAG.png)
 
