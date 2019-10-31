@@ -122,12 +122,15 @@ ipcMain.on('start', () => {
             /* if (message.author.bot) return; */
             if (message.channel.type === 'dm') return; //don't respond to DMs
 
-            if (message.channel.id === privateChannel) {
-                cartNum++; //todo check we have a cart before incrementing
+            if (message.channel.id === privateChannel) {     
                 message.embeds.forEach(e => {
                     if (e.footer) {
                         const botName = utils.getBotByFooter(e.footer);
-                        console.log(cartNum);
+                        if (!botName) {
+                            return;
+                        }
+                        cartNum++;
+                        console.log(`Processing cart ${cartNum}`);
                         const cartProps = adapters[`${botName}CartProperties`](e, cartNum); //call the CartProperties method for the bot name
 
                         writeCart(cartProps);
