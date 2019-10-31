@@ -33,8 +33,8 @@ click video (image) link below
 alt="IMAGE ALT TEXT HERE" width="240" height="180" border="10" /></a>
 
 ### Bot permissions
-Bot status
-Manage reactions
+* Bot status
+* Manage reactions
 
 ## Creating Discord Applications 
 ### Step 1: Navigate to /developers/applications
