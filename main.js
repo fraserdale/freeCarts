@@ -32,6 +32,9 @@ app.on('ready', function () {
         height: 710,
         minWidth: 800,
         minHeight: 710,
+        webPreferences: {
+            nodeIntegration: true,
+        },
     });
 
     if (process.platform === "win32") {
